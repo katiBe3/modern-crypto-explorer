@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link } from "@chakra-ui/react";
-import { FaMoon, FaSun, FaGasPump, FaTwitter, FaFacebook, FaInstagram, FaStar } from "react-icons/fa";
+import { FaMoon, FaSun, FaGasPump, FaStar } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
 
 const Index = () => {
@@ -35,9 +35,9 @@ const Index = () => {
   });
 
   return (
-    <Box>
+    <Box align="center">
       {}
-      <Flex px={4} py={2} alignItems="center" justifyContent="space-between">
+      <Flex px={4} py={2} alignItems="center" justifyContent="space-between" maxWidth="1200">
         <Flex>
           <Text fontWeight="bold" mr={8}>
             Markets
@@ -69,22 +69,22 @@ const Index = () => {
 
       {}
       <Box textAlign="center" my={16} mx={8}>
-        <Heading mb={4}>Crypto Markets Surge as Institutional Adoption Grows</Heading>
+        <Heading mb={4}>The Latest Crypto Market Data</Heading>
         <Text fontSize="xl" color="gray.600">
-          Embrace the future of finance with cryptocurrencies. Join the revolution today!
+        The global cryptocurrency market cap today is $2.79 Trillion, a 7.2% change in the last 24 hours.📈
         </Text>
-        <Box width="33%" mx="auto" mt={8}>
+        <Box width="320" mx="auto" mt={8} borderColor="gray.200" boxShadow="md" borderRadius="md"  padding="md">
           <Box borderWidth={1} borderColor="gray.200" borderRadius="50%" height={200} position="relative">
             <Text fontSize="6xl" fontWeight="bold" color="green.500" position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)">
               87
             </Text>
           </Box>
-          <Text mt={4}>Extreme greed</Text>
+          <Text mt={4} fontWeight="bold" color="grey">Extreme greed</Text>
         </Box>
       </Box>
 
       {/* Market data */}
-      <Box overflowX="auto">
+      <Box overflowX="auto" maxWidth="1200">
         <Table variant="simple">
           <Thead>
             <Tr>
@@ -167,7 +167,7 @@ const Index = () => {
       </Box>
 
       {}
-      <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx={8}>
+      <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx={8} maxWidth="1200">
         <GridItem>
           <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%">
             <Heading size="md" mb={4}>
@@ -188,17 +188,17 @@ const Index = () => {
               <Flex>
                 <Text fontWeight="bold">1. Ethereum</Text>
                 <Spacer />
-                <Text color="green.500">+5.2%</Text>
+                <Text color="green.500" fontWeight="bold">+5.2%</Text>
               </Flex>
               <Flex>
                 <Text fontWeight="bold">2. Cardano</Text>
                 <Spacer />
-                <Text color="red.500">-2.1%</Text>
+                <Text color="red.500" fontWeight="bold">-2.1%</Text>
               </Flex>
               <Flex>
                 <Text fontWeight="bold">3. Polkadot</Text>
                 <Spacer />
-                <Text color="green.500">+8.7%</Text>
+                <Text color="green.500" fontWeight="bold">+8.7%</Text>
               </Flex>
             </Stack>
           </Box>
@@ -218,62 +218,56 @@ const Index = () => {
 
       {/* Footer */}
       <Box bg="gray.100" width="full">
-        <Grid templateColumns="repeat(4, 1fr)" gap={8} color="gray.600" py={8} maxWidth="1200px" mx="auto" bg="gray.200">
+        <Grid templateColumns="repeat(4, 1fr)" gap={8} color="gray.600" py={8} maxWidth="1200px" mx="auto" fontWeight="bold">
           <GridItem>
             <Text fontWeight="bold" mb={2}>
               Explore
             </Text>
-            <Stack>
-              <Link fontWeight="bold">Cryptocurrencies</Link>
-              <Link fontWeight="bold">Exchanges</Link>
-              <Link fontWeight="bold">Wallets</Link>
-              <Link fontWeight="bold">NFTs</Link>
+            <Stack color="black">
+              <Link>Cryptocurrencies</Link>
+              <Link>Exchanges</Link>
+              <Link>Wallets</Link>
+              <Link>NFTs</Link>
             </Stack>
           </GridItem>
           <GridItem>
-            <Text fontWeight="bold" mb={2}>
+            <Text mb={2}>
               Tools
             </Text>
-            <Stack>
-              <Link fontWeight="bold">Portfolio Tracker</Link>
-              <Link fontWeight="bold">Price Alerts</Link>
-              <Link fontWeight="bold">Tax Calculator</Link>
-              <Link fontWeight="bold">Trading Simulator</Link>
+            <Stack color="black">
+              <Link>Portfolio Tracker</Link>
+              <Link>Price Alerts</Link>
+              <Link>Tax Calculator</Link>
+              <Link>Trading Simulator</Link>
             </Stack>
           </GridItem>
           <GridItem>
-            <Text fontWeight="bold" mb={2}>
+            <Text mb={2}>
               Support
             </Text>
-            <Stack>
-              <Link fontWeight="bold">Help Center</Link>
-              <Link fontWeight="bold">Contact Us</Link>
-              <Link fontWeight="bold">FAQ</Link>
-              <Link fontWeight="bold">Security</Link>
+            <Stack color="black">
+              <Link>Help Center</Link>
+              <Link>Contact Us</Link>
+              <Link>FAQ</Link>
+              <Link>Security</Link>
             </Stack>
           </GridItem>
           <GridItem>
-            <Text fontWeight="bold" mb={2}>
+            <Text mb={2}>
               Company
             </Text>
-            <Stack>
-              <Link fontWeight="bold">About Us</Link>
-              <Link fontWeight="bold">Careers</Link>
-              <Link fontWeight="bold">Blog</Link>
-              <Link fontWeight="bold">Press</Link>
+            <Stack color="black">
+              <Link>About Us</Link>
+              <Link>Careers</Link>
+              <Link>Blog</Link>
+              <Link>Press</Link>
             </Stack>
           </GridItem>
         </Grid>
+        <Flex justifyContent="space-between" color="gray.600" maxWidth="1200" mx="auto">
+          <Text m="4">© 2023 CryptoMarket. All rights reserved.</Text>
+        </Flex>
       </Box>
-
-      <Flex px={4} py={4} justifyContent="space-between" color="gray.600" maxWidth="1200px" mx="auto" bg="gray.200">
-        <Text>© 2023 CryptoMarket. All rights reserved.</Text>
-        <Box>
-          <Icon as={FaTwitter} boxSize={6} mr={4} />
-          <Icon as={FaFacebook} boxSize={6} mr={4} />
-          <Icon as={FaInstagram} boxSize={6} />
-        </Box>
-      </Flex>
     </Box>
   );
 };

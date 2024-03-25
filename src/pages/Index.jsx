@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link } from "@chakra-ui/react";
+import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link } from "@chakra-ui/react";
 import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
 
@@ -246,13 +246,13 @@ const Index = () => {
       </Grid>
 
       {/* Footer */}
-      <Box bg="gray.100" width="full">
-        <Grid templateColumns="repeat(4, 1fr)" gap={8} color="gray.600" py={8} maxWidth="1200px" mx="auto" fontWeight="bold">
+      <Box bg={useColorModeValue("gray.100", "gray.900")} width="full">
+        <Grid templateColumns="repeat(4, 1fr)" gap={8} color={useColorModeValue("gray.600", "gray.400")} py={8} maxWidth="1200px" mx="auto" fontWeight="bold">
           <GridItem>
             <Text fontWeight="bold" mb={2}>
               Explore
             </Text>
-            <Stack color="black">
+            <Stack color={useColorModeValue("black", "white")}>
               <Link>Cryptocurrencies</Link>
               <Link>Exchanges</Link>
               <Link>Wallets</Link>
@@ -261,7 +261,7 @@ const Index = () => {
           </GridItem>
           <GridItem>
             <Text mb={2}>Tools</Text>
-            <Stack color="black">
+            <Stack color={useColorModeValue("black", "white")}>
               <Link>Portfolio Tracker</Link>
               <Link>Price Alerts</Link>
               <Link>Tax Calculator</Link>
@@ -270,7 +270,7 @@ const Index = () => {
           </GridItem>
           <GridItem>
             <Text mb={2}>Support</Text>
-            <Stack color="black">
+            <Stack color={useColorModeValue("black", "white")}>
               <Link>Help Center</Link>
               <Link>Contact Us</Link>
               <Link>FAQ</Link>
@@ -279,7 +279,7 @@ const Index = () => {
           </GridItem>
           <GridItem>
             <Text mb={2}>Company</Text>
-            <Stack color="black">
+            <Stack color={useColorModeValue("black", "white")}>
               <Link>About Us</Link>
               <Link>Careers</Link>
               <Link>Blog</Link>
@@ -287,7 +287,7 @@ const Index = () => {
             </Stack>
           </GridItem>
         </Grid>
-        <Flex justifyContent="center" color="gray.600" maxWidth="1200" mx="auto">
+        <Flex justifyContent="center" color={useColorModeValue("gray.600", "gray.400")} maxWidth="1200" mx="auto">
           <Text m="4">© 2023 CryptoMarket. All rights reserved.</Text>
         </Flex>
       </Box>

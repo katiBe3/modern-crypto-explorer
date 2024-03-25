@@ -37,18 +37,18 @@ const Index = () => {
   return (
     <Box align="center">
       {}
-      <Flex px={4} py={2} alignItems="center" justifyContent="space-between" maxWidth="1200" borderBottom="1px" borderColor="gray.200">
-        <Flex>
-          <Text fontWeight="bold" mr={8}>
-            Markets
+      <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="bd">
+        <Flex maxWidth="1200" fontWeight="bold" mr={8}>
+          <Text mr={8}>
+          📈 Markets
           </Text>
-          <Text fontWeight="bold" mr={8}>
-            Blog
+          <Text mr={8}>
+          📰 Blog
           </Text>
-          <Text fontWeight="bold" mr={8}>
-            Explore
+          <Text mr={8}>
+          🧭 Explore
           </Text>
-          <Text fontWeight="bold">Learn</Text>
+          <Text mr={8}>🎓 Learn</Text>
         </Flex>
         <Flex alignItems="center">
           <Flex alignItems="center" mr={4}>
@@ -56,7 +56,7 @@ const Index = () => {
             <Text>
               ETH Gas{" "}
               <Text as="span" fontWeight="bold" color="#8a2be2">
-                [50 Gwei]
+                50 Gwei
               </Text>
             </Text>
           </Flex>
@@ -84,7 +84,7 @@ const Index = () => {
           <Text as="span" fontWeight="bold" color="green.400">
             {sortedCryptoData.some((data) => data.percentChange24h > 0) ? "+" : ""}7.2%
           </Text>{" "}
-          change in the last 24 hours.📈
+          change in the last 24 hours.🚀
         </Text>
         <Box width="200px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6}>
           <Text fontSize="xl" fontWeight="bold" mb={4}>

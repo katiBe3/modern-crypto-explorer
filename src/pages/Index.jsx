@@ -257,9 +257,12 @@ const Index = () => {
         </Text>
         <Flex justifyContent="center">
           <Input placeholder="Enter your email" bg="purple.100" color="purple.900" mr={4} maxWidth="300px" />
-          <Button bg="white" color="#5A4FCF" fontWeight="black">
-            Subscribe
-          </Button>
+          <Box position="relative">
+            <Button bg="white" color="#5A4FCF" fontWeight="black" boxShadow="0 0 10px rgba(90, 79, 207, 0.5)" zIndex={1}>
+              Subscribe
+            </Button>
+            <Box position="absolute" top="-4px" left="-4px" right="-4px" bottom="-4px" bg="transparent" borderRadius="md" boxShadow="0 0 20px rgba(90, 79, 207, 0.8)" zIndex={0} />
+          </Box>
         </Flex>
       </Box>
 

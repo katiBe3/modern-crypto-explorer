@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link } from "@chakra-ui/react";
 import { FaMoon, FaSun, FaGasPump, FaTwitter, FaFacebook, FaInstagram } from "react-icons/fa";
+import { cryptoData } from "../data/MockData";
 
 const Index = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -69,7 +70,20 @@ const Index = () => {
               <Th>Circulating Supply</Th>
             </Tr>
           </Thead>
-          <Tbody>{/* Add market data rows */}</Tbody>
+          <Tbody>
+            {cryptoData.map((crypto) => (
+              <Tr key={crypto.name}>
+                <Td>{crypto.name}</Td>
+                <Td>${crypto.price.toLocaleString()}</Td>
+                <Td>{crypto.percentChange1h}%</Td>
+                <Td>{crypto.percentChange24h}%</Td>
+                <Td>{crypto.percentChange7d}%</Td>
+                <Td>${crypto.marketCap.toLocaleString()}</Td>
+                <Td>${crypto.volume24h.toLocaleString()}</Td>
+                <Td>{crypto.circulatingSupply.toLocaleString()}</Td>
+              </Tr>
+            ))}
+          </Tbody>
         </Table>
       </Box>
 

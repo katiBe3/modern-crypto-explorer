@@ -247,7 +247,23 @@ const Index = () => {
         </GridItem>
       </Grid>
 
-      {/* Footer */}
+      {}
+      <Box bg="#5A4FCF" width="full" py={12}>
+        <Heading textAlign="center" color="white" fontWeight="bold" mb={2}>
+          Stay ahead of the market!
+        </Heading>
+        <Text textAlign="center" color="white" mb={4}>
+          Subscribe to our newsletter for the latest news and insights.
+        </Text>
+        <Flex justifyContent="center">
+          <Input placeholder="Enter your email" bg="purple.100" color="purple.900" mr={4} maxWidth="300px" />
+          <Button bg="white" color="#5A4FCF">
+            Subscribe
+          </Button>
+        </Flex>
+      </Box>
+
+      {}
       <Box bg={useColorModeValue("gray.50", "gray.800")} width="full">
         <Grid templateColumns="repeat(4, 1fr)" gap={8} color={useColorModeValue("gray.600", "gray.300")} py={8} maxWidth="1200px" mx="auto" fontWeight="bold">
           <GridItem>

@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link } from "@chakra-ui/react";
 import { FaMoon, FaSun, FaGasPump, FaTwitter, FaFacebook, FaInstagram } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
 
 const Index = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const [sortConfig, setSortConfig] = useState({ key: "marketCap", direction: "descending" });
+
+  const requestSort = (key) => {
+    let direction = "ascending";
+    if (sortConfig.key === key && sortConfig.direction === "ascending") {
+      direction = "descending";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedCryptoData = [...cryptoData].sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+      return sortConfig.direction === "ascending" ? -1 : 1;
+    }
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+      return sortConfig.direction === "ascending" ? 1 : -1;
+    }
+    return 0;
+  });
 
   return (
     <Box>
@@ -60,18 +79,50 @@ const Index = () => {
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th>Name</Th>
-              <Th>Price</Th>
-              <Th>1h%</Th>
-              <Th>24h%</Th>
-              <Th>7d%</Th>
-              <Th>Market Cap</Th>
-              <Th>Volume (24h)</Th>
-              <Th>Circulating Supply</Th>
+              <Th>
+                <Button onClick={() => requestSort("name")} variant="link">
+                  Name
+                </Button>
+              </Th>
+              <Th>
+                <Button onClick={() => requestSort("price")} variant="link">
+                  Price
+                </Button>
+              </Th>
+              <Th>
+                <Button onClick={() => requestSort("percentChange1h")} variant="link">
+                  1h%
+                </Button>
+              </Th>
+              <Th>
+                <Button onClick={() => requestSort("percentChange24h")} variant="link">
+                  24h%
+                </Button>
+              </Th>
+              <Th>
+                <Button onClick={() => requestSort("percentChange7d")} variant="link">
+                  7d%
+                </Button>
+              </Th>
+              <Th>
+                <Button onClick={() => requestSort("marketCap")} variant="link">
+                  Market Cap
+                </Button>
+              </Th>
+              <Th>
+                <Button onClick={() => requestSort("volume24h")} variant="link">
+                  Volume (24h)
+                </Button>
+              </Th>
+              <Th>
+                <Button onClick={() => requestSort("circulatingSupply")} variant="link">
+                  Circulating Supply
+                </Button>
+              </Th>
             </Tr>
           </Thead>
           <Tbody>
-            {cryptoData.map((crypto) => (
+            {sortedCryptoData.map((crypto) => (
               <Tr key={crypto.name}>
                 <Td>
                   <Text fontWeight="bold">{crypto.name}</Text>

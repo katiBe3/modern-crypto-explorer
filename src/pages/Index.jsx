@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link } from "@chakra-ui/react";
-import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin } from "react-icons/fa";
+import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin, FaSearch } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
 
 const Index = () => {
@@ -52,6 +52,12 @@ const Index = () => {
           <Text mr={8}>🎓 Learn</Text>
         </Flex>
         <Flex alignItems="center">
+          <InputGroup mr={4}>
+            <InputLeftElement pointerEvents="none">
+              <Icon as={FaSearch} color="gray.400" />
+            </InputLeftElement>
+            <Input type="search" placeholder="Search..." bg="gray.100" />
+          </InputGroup>
           <Flex alignItems="center" mr={4}>
             <Icon as={FaGasPump} mr={2} />
             <Text>

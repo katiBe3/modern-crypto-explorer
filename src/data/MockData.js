@@ -9,6 +9,7 @@ export const cryptoData = [
     marketCap: 1094887665289,
     volume24h: 58927661944,
     circulatingSupply: 18713700,
+    isFavorite: false,
   },
   {
     name: "Ethereum",

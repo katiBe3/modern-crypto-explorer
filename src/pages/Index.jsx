@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link } from "@chakra-ui/react";
-import { FaMoon, FaSun, FaGasPump, FaTwitter, FaFacebook, FaInstagram } from "react-icons/fa";
+import { FaMoon, FaSun, FaGasPump, FaTwitter, FaFacebook, FaInstagram, FaStar } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
 
 const Index = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [sortConfig, setSortConfig] = useState({ key: "marketCap", direction: "descending" });
+
+  const toggleFavorite = (name) => {
+    const updatedCryptoData = cryptoData.map((crypto) => {
+      if (crypto.name === name) {
+        return { ...crypto, isFavorite: !crypto.isFavorite };
+      }
+      return crypto;
+    });
+  };
 
   const requestSort = (key) => {
     let direction = "ascending";
@@ -79,6 +88,7 @@ const Index = () => {
         <Table variant="simple">
           <Thead>
             <Tr>
+              <Th></Th>
               <Th>
                 <Button onClick={() => requestSort("name")} variant="link">
                   Name
@@ -124,6 +134,9 @@ const Index = () => {
           <Tbody>
             {sortedCryptoData.map((crypto) => (
               <Tr key={crypto.name}>
+                <Td>
+                  <Icon as={FaStar} color={crypto.isFavorite ? "yellow.400" : "gray.300"} onClick={() => toggleFavorite(crypto.name)} _hover={{ cursor: "pointer" }} />
+                </Td>
                 <Td>
                   <Text fontWeight="bold">{crypto.name}</Text>
                   <Text color="gray.500">{crypto.shortName}</Text>

@@ -73,9 +73,9 @@ const Index = () => {
         <Text fontSize="xl" color="gray.600">
           The global cryptocurrency market cap today is $2.79 Trillion, a 7.2% change in the last 24 hours.📈
         </Text>
-        <Box width="200px" mx="auto" mt={8}>
+        <Box width="200px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={4}>
           <Box width="200px" height="100px" borderTopLeftRadius="100px" borderTopRightRadius="100px" borderWidth="10px" borderColor="gray.300" borderBottom="0" position="relative" boxSizing="border-box">
-            <Text fontSize="6xl" fontWeight="bold" color="green.500" position="absolute" top="50%" left="50%" transform="translate(-50%, -70%)">
+            <Text fontSize="6xl" fontWeight="bold" color="green.500" position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)">
               87
             </Text>
           </Box>

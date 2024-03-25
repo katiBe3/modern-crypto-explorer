@@ -207,7 +207,7 @@ const Index = () => {
         <GridItem>
           <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%">
             <Heading size="md" mb={4}>
-              🔥 Hot right now
+              🔥 Most Wanted
             </Heading>
             <Stack spacing={2}>
               <Flex>

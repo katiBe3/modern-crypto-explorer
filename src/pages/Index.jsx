@@ -93,7 +93,7 @@ const Index = () => {
           </Text>{" "}
           change in the last 24 hours.🚀
         </Text>
-        <Box width="420px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6} align="center">
+        <Box width="420px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6} align="center" backgroundColor="gray.50">
           <Text fontSize="xl" fontWeight="bold" mb={4}>
             <Icon as={FaBitcoin} color="orange.400" mr={2} />
             Fear & Greed Index
@@ -194,7 +194,7 @@ const Index = () => {
       {}
       <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx={8} maxWidth="1200">
         <GridItem>
-          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%">
+          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor="gray.50">
             <Heading size="md" mb={4}>
               ✨Top News
             </Heading>
@@ -205,7 +205,7 @@ const Index = () => {
           </Box>
         </GridItem>
         <GridItem>
-          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%">
+          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor="gray.50">
             <Heading size="md" mb={4}>
               🔥 Most Wanted
             </Heading>
@@ -235,7 +235,7 @@ const Index = () => {
           </Box>
         </GridItem>
         <GridItem>
-          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%">
+          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor="gray.50">
             <Heading size="md" mb={4}>
               🎙️ Market Whispers
             </Heading>
@@ -248,7 +248,7 @@ const Index = () => {
       </Grid>
 
       {/* Footer */}
-      <Box bg={useColorModeValue("gray.100", "gray.800")} width="full">
+      <Box bg={useColorModeValue("gray.50", "gray.800")} width="full">
         <Grid templateColumns="repeat(4, 1fr)" gap={8} color={useColorModeValue("gray.600", "gray.300")} py={8} maxWidth="1200px" mx="auto" fontWeight="bold">
           <GridItem>
             <Text fontWeight="bold" mb={2}>

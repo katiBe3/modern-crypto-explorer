@@ -100,6 +100,9 @@ const Index = () => {
           <Text mt={6} fontWeight="bold" color="gray.600" textAlign="center">
             Extreme greed
           </Text>
+          <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center">
+            Last updated: March 25, 2024
+          </Text>
         </Box>
       </Box>
 

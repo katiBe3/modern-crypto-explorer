@@ -57,7 +57,7 @@ const Index = () => {
           <Button onClick={toggleColorMode} mr={4}>
             {colorMode === "light" ? <FaMoon /> : <FaSun />}
           </Button>
-          <Button variant="ghost" mr={4}>
+          <Button variant="outline" borderColor="gray.200" mr={4}>
             Login
           </Button>
           <Button bg="#8A2BE2" color="white">

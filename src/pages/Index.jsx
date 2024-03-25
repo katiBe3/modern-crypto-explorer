@@ -37,7 +37,7 @@ const Index = () => {
   return (
     <Box align="center">
       {}
-      <Flex px={4} py={2} alignItems="center" justifyContent="space-between" maxWidth="1200">
+      <Flex px={4} py={2} alignItems="center" justifyContent="space-between" maxWidth="1200" borderBottom="1px" borderColor="gray.200">
         <Flex>
           <Text fontWeight="bold" mr={8}>
             Markets
@@ -53,7 +53,12 @@ const Index = () => {
         <Flex alignItems="center">
           <Flex alignItems="center" mr={4}>
             <Icon as={FaGasPump} mr={2} />
-            <Text>ETH Gas [x Gwei]</Text>
+            <Text>
+              ETH Gas{" "}
+              <Text as="span" fontWeight="bold" color="#8a2be2">
+                [50 Gwei]
+              </Text>
+            </Text>
           </Flex>
           <Button onClick={toggleColorMode} mr={4}>
             {colorMode === "light" ? <FaMoon /> : <FaSun />}
@@ -71,7 +76,15 @@ const Index = () => {
       <Box textAlign="center" my={16} mx={8}>
         <Heading mb={4}>The Latest Crypto Market Data</Heading>
         <Text fontSize="xl" color="gray.600">
-          The global cryptocurrency market cap today is $2.79 Trillion, a 7.2% change in the last 24 hours.📈
+          The global cryptocurrency market cap today is{" "}
+          <Text as="span" fontWeight="bold" color="#8a2be2">
+            $2.79 Trillion
+          </Text>
+          , a{" "}
+          <Text as="span" fontWeight="bold" color="green.400">
+            {sortedCryptoData.some((data) => data.percentChange24h > 0) ? "+" : ""}7.2%
+          </Text>{" "}
+          change in the last 24 hours.📈
         </Text>
         <Box width="200px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6}>
           <Text fontSize="xl" fontWeight="bold" mb={4}>

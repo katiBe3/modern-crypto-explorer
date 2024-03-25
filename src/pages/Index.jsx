@@ -84,7 +84,7 @@ const Index = () => {
         <Heading mb={4}>The Latest Crypto Market Data</Heading>
         <Text fontSize="xl" color="gray.600">
           The global cryptocurrency market cap today is{" "}
-          <Text as="span" fontWeight="bold" color="#8a2be2">
+          <Text as="span" fontWeight="bold">
             $2.79 Trillion
           </Text>
           , a{" "}

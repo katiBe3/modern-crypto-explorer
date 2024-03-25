@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link } from "@chakra-ui/react";
-import { FaMoon, FaSun, FaGasPump, FaStar } from "react-icons/fa";
+import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
 
 const Index = () => {
@@ -80,8 +80,9 @@ const Index = () => {
           </Text>{" "}
           change in the last 24 hours.🚀
         </Text>
-        <Box width="200px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6}>
+        <Box width="560px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6}>
           <Text fontSize="xl" fontWeight="bold" mb={4}>
+            <Icon as={FaBitcoin} color="orange.400" mr={2} />
             Fear & Greed Index
           </Text>
           <Box width="200px" height="100px" borderTopLeftRadius="100px" borderTopRightRadius="100px" borderWidth="10px" borderColor="gray.300" borderBottom="0" position="relative" boxSizing="border-box">
@@ -89,7 +90,7 @@ const Index = () => {
               87
             </Text>
           </Box>
-          <Text mt={6} fontWeight="bold" color="grey" textAlign="center">
+          <Text mt={6} fontWeight="bold" color="gray.600" textAlign="center">
             Extreme greed
           </Text>
         </Box>

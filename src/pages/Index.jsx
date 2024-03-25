@@ -62,7 +62,7 @@ const Index = () => {
             <Icon as={FaGasPump} mr={2} />
             <Text>
               ETH Gas{" "}
-              <Text as="span" fontWeight="bold" color="#8a2be2">
+              <Text as="span" fontWeight="bold" color="brightBlue">
                 50 Gwei
               </Text>
             </Text>
@@ -73,7 +73,7 @@ const Index = () => {
           <Button variant="outline" borderColor="gray.200" mr={4}>
             Login
           </Button>
-          <Button bg="#8A2BE2" color="white">
+          <Button bg="brightBlue" colorScheme="blue">
             Sign up
           </Button>
         </Flex>
@@ -84,7 +84,7 @@ const Index = () => {
         <Heading mb={4}>The Latest Crypto Market Data</Heading>
         <Text fontSize="xl" color="gray.600">
           The global cryptocurrency market cap today is{" "}
-          <Text as="span" fontWeight="bold" color="#8a2be2">
+          <Text as="span" fontWeight="bold" color="brightBlue">
             $2.79 Trillion
           </Text>
           , a{" "}

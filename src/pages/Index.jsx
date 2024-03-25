@@ -247,49 +247,43 @@ const Index = () => {
 
       {/* Footer */}
       <Box bg={useColorModeValue("gray.100", "gray.900")} width="full">
-        <Grid templateColumns="repeat(4, 1fr)" gap={8} color={useColorModeValue("gray.600", "gray.400")} py={12} maxWidth="1200px" mx="auto">
+        <Grid templateColumns="repeat(4, 1fr)" gap={8} color={useColorModeValue("gray.600", "gray.400")} py={8} maxWidth="1200px" mx="auto" fontWeight="bold">
           <GridItem>
-            <Text fontWeight="bold" fontSize="lg" mb={4}>
+            <Text fontWeight="bold" mb={2}>
               Explore
             </Text>
             <Stack color={useColorModeValue("black", "white")}>
-              <Link fontSize="md">Cryptocurrencies</Link>
-              <Link fontSize="md">Exchanges</Link>
-              <Link fontSize="md">Wallets</Link>
-              <Link fontSize="md">NFTs</Link>
+              <Link>Cryptocurrencies</Link>
+              <Link>Exchanges</Link>
+              <Link>Wallets</Link>
+              <Link>NFTs</Link>
             </Stack>
           </GridItem>
           <GridItem>
-            <Text fontWeight="bold" fontSize="lg" mb={4}>
-              Tools
-            </Text>
+            <Text mb={2}>Tools</Text>
             <Stack color={useColorModeValue("black", "white")}>
-              <Link fontSize="md">Portfolio Tracker</Link>
-              <Link fontSize="md">Price Alerts</Link>
-              <Link fontSize="md">Tax Calculator</Link>
-              <Link fontSize="md">Trading Simulator</Link>
+              <Link>Portfolio Tracker</Link>
+              <Link>Price Alerts</Link>
+              <Link>Tax Calculator</Link>
+              <Link>Trading Simulator</Link>
             </Stack>
           </GridItem>
           <GridItem>
-            <Text fontWeight="bold" fontSize="lg" mb={4}>
-              Support
-            </Text>
+            <Text mb={2}>Support</Text>
             <Stack color={useColorModeValue("black", "white")}>
-              <Link fontSize="md">Help Center</Link>
-              <Link fontSize="md">Contact Us</Link>
-              <Link fontSize="md">FAQ</Link>
-              <Link fontSize="md">Security</Link>
+              <Link>Help Center</Link>
+              <Link>Contact Us</Link>
+              <Link>FAQ</Link>
+              <Link>Security</Link>
             </Stack>
           </GridItem>
           <GridItem>
-            <Text fontWeight="bold" fontSize="lg" mb={4}>
-              Company
-            </Text>
+            <Text mb={2}>Company</Text>
             <Stack color={useColorModeValue("black", "white")}>
-              <Link fontSize="md">About Us</Link>
-              <Link fontSize="md">Careers</Link>
-              <Link fontSize="md">Blog</Link>
-              <Link fontSize="md">Press</Link>
+              <Link>About Us</Link>
+              <Link>Careers</Link>
+              <Link>Blog</Link>
+              <Link>Press</Link>
             </Stack>
           </GridItem>
         </Grid>

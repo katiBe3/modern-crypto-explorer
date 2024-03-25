@@ -98,7 +98,7 @@ const Index = () => {
             <Icon as={FaBitcoin} color="orange.400" mr={2} />
             Fear & Greed Index
           </Text>
-          <Box width="200px" height="100px" borderTopLeftRadius="100px" borderTopRightRadius="100px" borderWidth="10px" borderColor="gray.300" borderBottom="0" position="relative" boxSizing="border-box">
+          <Box width="200px" height="100px" borderTopLeftRadius="100px" borderTopRightRadius="100px" borderWidth="10px" borderColor="gray.200" borderBottom="0" position="relative" boxSizing="border-box">
             <Text fontSize="6xl" fontWeight="bold" color="green.500" position="absolute" top="60%" left="50%" transform="translate(-50%, -50%)">
               87
             </Text>
@@ -248,7 +248,7 @@ const Index = () => {
       </Grid>
 
       {/* Footer */}
-      <Box bg={useColorModeValue("gray.100", "gray.900")} width="full">
+      <Box bg="gray.100" width="full">
         <Grid templateColumns="repeat(4, 1fr)" gap={8} color={useColorModeValue("gray.600", "gray.400")} py={8} maxWidth="1200px" mx="auto" fontWeight="bold">
           <GridItem>
             <Text fontWeight="bold" mb={2}>

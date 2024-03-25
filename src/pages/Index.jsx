@@ -158,7 +158,7 @@ const Index = () => {
             {sortedCryptoData.map((crypto) => (
               <Tr key={crypto.name}>
                 <Td>
-                  <Icon as={FaStar} color={crypto.isFavorite ? "yellow.400" : "gray.300"} onClick={() => toggleFavorite(crypto.name)} _hover={{ cursor: "pointer" }} />
+                  <Icon as={FaStar} color={crypto.isFavorite ? "yellow.500" : "gray.300"} onClick={() => toggleFavorite(crypto.name)} _hover={{ cursor: "pointer" }} />
                 </Td>
                 <Td>
                   <Text fontWeight="bold">{crypto.name}</Text>

@@ -9,7 +9,6 @@ const colors = {
     800: "#153e75",
     700: "#2a69ac",
   },
-  brightBlue: "#00A8E8",
 };
 
 const theme = extendTheme({ colors });

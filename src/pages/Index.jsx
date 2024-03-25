@@ -76,44 +76,50 @@ const Index = () => {
       {}
       <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx={8}>
         <GridItem>
-          <Heading size="md" mb={4}>
-            ✨Top News
-          </Heading>
-          <Flex>
-            <Image src="https://images.unsplash.com/photo-1621504450181-5d356f61d307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxfHxjcnlwdG98ZW58MHx8fHwxNzExMzkwNjc3fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="News" borderRadius="md" boxSize={100} objectFit="cover" mr={4} />
-            <Text>Bitcoin reaches new all-time high as institutional investors flock to crypto</Text>
-          </Flex>
+          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md">
+            <Heading size="md" mb={4}>
+              ✨Top News
+            </Heading>
+            <Flex>
+              <Image src="https://images.unsplash.com/photo-1621504450181-5d356f61d307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxfHxjcnlwdG98ZW58MHx8fHwxNzExMzkwNjc3fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="News" borderRadius="md" boxSize={100} objectFit="cover" mr={4} />
+              <Text>Bitcoin reaches new all-time high as institutional investors flock to crypto</Text>
+            </Flex>
+          </Box>
         </GridItem>
         <GridItem>
-          <Heading size="md" mb={4}>
-            🔥 Hot right now
-          </Heading>
-          <Stack spacing={2}>
-            <Flex>
-              <Text fontWeight="bold">1. Ethereum</Text>
-              <Spacer />
-              <Text color="green.500">+5.2%</Text>
-            </Flex>
-            <Flex>
-              <Text fontWeight="bold">2. Cardano</Text>
-              <Spacer />
-              <Text color="red.500">-2.1%</Text>
-            </Flex>
-            <Flex>
-              <Text fontWeight="bold">3. Polkadot</Text>
-              <Spacer />
-              <Text color="green.500">+8.7%</Text>
-            </Flex>
-          </Stack>
+          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md">
+            <Heading size="md" mb={4}>
+              🔥 Hot right now
+            </Heading>
+            <Stack spacing={2}>
+              <Flex>
+                <Text fontWeight="bold">1. Ethereum</Text>
+                <Spacer />
+                <Text color="green.500">+5.2%</Text>
+              </Flex>
+              <Flex>
+                <Text fontWeight="bold">2. Cardano</Text>
+                <Spacer />
+                <Text color="red.500">-2.1%</Text>
+              </Flex>
+              <Flex>
+                <Text fontWeight="bold">3. Polkadot</Text>
+                <Spacer />
+                <Text color="green.500">+8.7%</Text>
+              </Flex>
+            </Stack>
+          </Box>
         </GridItem>
         <GridItem>
-          <Heading size="md" mb={4}>
-            🎙️ Market Whispers
-          </Heading>
-          <Flex>
-            <Image src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwyfHxjcnlwdG98ZW58MHx8fHwxNzExMzkwNjc3fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Podcast" borderRadius="md" boxSize={100} objectFit="cover" mr={4} />
-            <Text>Tune in to our latest podcast episode discussing the future of DeFi</Text>
-          </Flex>
+          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md">
+            <Heading size="md" mb={4}>
+              🎙️ Market Whispers
+            </Heading>
+            <Flex>
+              <Image src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwyfHxjcnlwdG98ZW58MHx8fHwxNzExMzkwNjc3fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Podcast" borderRadius="md" boxSize={100} objectFit="cover" mr={4} />
+              <Text>Tune in to our latest podcast episode discussing the future of DeFi</Text>
+            </Flex>
+          </Box>
         </GridItem>
       </Grid>
 

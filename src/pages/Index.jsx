@@ -170,25 +170,19 @@ const Index = () => {
                   <Text fontWeight="bold">{crypto.name}</Text>
                   <Text color="gray.500">{crypto.shortName}</Text>
                 </Td>
-                <Td>${crypto.price.toLocaleString()}</Td>
-                <Td>
-                  <Text fontWeight="bold" color={crypto.percentChange1h >= 0 ? "green.400" : "red.400"}>
-                    {crypto.percentChange1h}%
-                  </Text>
+                <Td fontWeight="bold">${crypto.price.toLocaleString()}</Td>
+                <Td fontWeight="bold">
+                  <Text color={crypto.percentChange1h >= 0 ? "green.400" : "red.400"}>{crypto.percentChange1h}%</Text>
                 </Td>
-                <Td>
-                  <Text fontWeight="bold" color={crypto.percentChange24h >= 0 ? "green.400" : "red.400"}>
-                    {crypto.percentChange24h}%
-                  </Text>
+                <Td fontWeight="bold">
+                  <Text color={crypto.percentChange24h >= 0 ? "green.400" : "red.400"}>{crypto.percentChange24h}%</Text>
                 </Td>
-                <Td>
-                  <Text fontWeight="bold" color={crypto.percentChange7d >= 0 ? "green.400" : "red.400"}>
-                    {crypto.percentChange7d}%
-                  </Text>
+                <Td fontWeight="bold">
+                  <Text color={crypto.percentChange7d >= 0 ? "green.400" : "red.400"}>{crypto.percentChange7d}%</Text>
                 </Td>
-                <Td>${crypto.marketCap.toLocaleString()}</Td>
-                <Td>${crypto.volume24h.toLocaleString()}</Td>
-                <Td>{crypto.circulatingSupply.toLocaleString()}</Td>
+                <Td fontWeight="bold">${crypto.marketCap.toLocaleString()}</Td>
+                <Td fontWeight="bold">${crypto.volume24h.toLocaleString()}</Td>
+                <Td fontWeight="bold">{crypto.circulatingSupply.toLocaleString()}</Td>
               </Tr>
             ))}
           </Tbody>

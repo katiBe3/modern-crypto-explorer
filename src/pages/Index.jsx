@@ -7,9 +7,9 @@ const Index = () => {
 
   return (
     <Box>
-      {/* Header */}
-      <Flex px={4} py={2} alignItems="center">
-        <Box>
+      {}
+      <Flex px={4} py={2} alignItems="center" justifyContent="space-between">
+        <Flex>
           <Text fontWeight="bold" mr={8}>
             Markets
           </Text>
@@ -20,9 +20,8 @@ const Index = () => {
             Explore
           </Text>
           <Text fontWeight="bold">Learn</Text>
-        </Box>
-        <Spacer />
-        <Box>
+        </Flex>
+        <Flex alignItems="center">
           <Flex alignItems="center" mr={4}>
             <Icon as={FaGasPump} mr={2} />
             <Text>ETH Gas [x Gwei]</Text>
@@ -36,11 +35,11 @@ const Index = () => {
           <Button bg="#8A2BE2" color="white">
             Sign up
           </Button>
-        </Box>
+        </Flex>
       </Flex>
 
-      {/* Teaser area */}
-      <Box textAlign="center" my={16}>
+      {}
+      <Box textAlign="center" my={16} mx={8}>
         <Heading mb={4}>Crypto Markets Surge as Institutional Adoption Grows</Heading>
         <Text fontSize="xl" color="gray.600">
           Embrace the future of finance with cryptocurrencies. Join the revolution today!
@@ -74,8 +73,8 @@ const Index = () => {
         </Table>
       </Box>
 
-      {/* Content cards */}
-      <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16}>
+      {}
+      <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx={8}>
         <GridItem>
           <Heading size="md" mb={4}>
             ✨Top News

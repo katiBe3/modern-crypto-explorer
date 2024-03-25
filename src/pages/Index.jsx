@@ -62,7 +62,7 @@ const Index = () => {
             <Icon as={FaGasPump} mr={2} />
             <Text>
               ETH Gas{" "}
-              <Text as="span" fontWeight="bold" color="#8a2be2">
+              <Text as="span" fontWeight="bold" color="#5A4FCF">
                 50 Gwei
               </Text>
             </Text>
@@ -73,7 +73,7 @@ const Index = () => {
           <Button variant="outline" borderColor="gray.200" mr={4}>
             Login
           </Button>
-          <Button bg="#8A2BE2" color="white">
+          <Button bg="#5A4FCF" color="white">
             Sign up
           </Button>
         </Flex>

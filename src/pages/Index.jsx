@@ -80,7 +80,7 @@ const Index = () => {
           </Text>{" "}
           change in the last 24 hours.🚀
         </Text>
-        <Box width="560px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6}>
+        <Box width="420px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6} align="center">
           <Text fontSize="xl" fontWeight="bold" mb={4}>
             <Icon as={FaBitcoin} color="orange.400" mr={2} />
             Fear & Greed Index

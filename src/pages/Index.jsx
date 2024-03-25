@@ -52,11 +52,11 @@ const Index = () => {
           <Text mr={8}>🎓 Learn</Text>
         </Flex>
         <Flex alignItems="center">
-          <InputGroup mr={4}>
+          <InputGroup mr={4} width="200px">
             <InputLeftElement pointerEvents="none">
               <Icon as={FaSearch} color="gray.400" />
             </InputLeftElement>
-            <Input type="search" placeholder="Search..." bg="gray.100" />
+            <Input type="search" placeholder="Search..." bg="gray.100" size="sm" />
           </InputGroup>
           <Flex alignItems="center" mr={4}>
             <Icon as={FaGasPump} mr={2} />

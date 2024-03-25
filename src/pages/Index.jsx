@@ -168,7 +168,9 @@ const Index = () => {
                 </Td>
                 <Td>
                   <Text fontWeight="bold">{crypto.name}</Text>
-                  <Text color="gray.500">{crypto.shortName}</Text>
+                  <Text fontWeight="bold" color="gray.500">
+                    {crypto.shortName}
+                  </Text>
                 </Td>
                 <Td fontWeight="bold">${crypto.price.toLocaleString()}</Td>
                 <Td fontWeight="bold">

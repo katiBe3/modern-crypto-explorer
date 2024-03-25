@@ -97,7 +97,7 @@ const Index = () => {
               87
             </Text>
           </Box>
-          <Text mt={6} fontWeight="bold" color="gray.600" textAlign="center">
+          <Text mt={4} fontWeight="bold" color="gray.600" textAlign="center">
             Extreme greed
           </Text>
           <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center">

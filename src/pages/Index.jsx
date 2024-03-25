@@ -71,15 +71,17 @@ const Index = () => {
       <Box textAlign="center" my={16} mx={8}>
         <Heading mb={4}>The Latest Crypto Market Data</Heading>
         <Text fontSize="xl" color="gray.600">
-        The global cryptocurrency market cap today is $2.79 Trillion, a 7.2% change in the last 24 hours.📈
+          The global cryptocurrency market cap today is $2.79 Trillion, a 7.2% change in the last 24 hours.📈
         </Text>
-        <Box width="320" mx="auto" mt={8} borderColor="gray.200" boxShadow="md" borderRadius="md"  padding="md">
+        <Box width="320" mx="auto" mt={8} borderColor="gray.200" boxShadow="md" borderRadius="md" padding="md">
           <Box borderWidth={1} borderColor="gray.200" borderRadius="50%" height={200} position="relative">
             <Text fontSize="6xl" fontWeight="bold" color="green.500" position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)">
               87
             </Text>
           </Box>
-          <Text mt={4} fontWeight="bold" color="grey">Extreme greed</Text>
+          <Text mt={4} fontWeight="bold" color="grey">
+            Extreme greed
+          </Text>
         </Box>
       </Box>
 
@@ -188,17 +190,23 @@ const Index = () => {
               <Flex>
                 <Text fontWeight="bold">1. Ethereum</Text>
                 <Spacer />
-                <Text color="green.500" fontWeight="bold">+5.2%</Text>
+                <Text color="green.500" fontWeight="bold">
+                  +5.2%
+                </Text>
               </Flex>
               <Flex>
                 <Text fontWeight="bold">2. Cardano</Text>
                 <Spacer />
-                <Text color="red.500" fontWeight="bold">-2.1%</Text>
+                <Text color="red.500" fontWeight="bold">
+                  -2.1%
+                </Text>
               </Flex>
               <Flex>
                 <Text fontWeight="bold">3. Polkadot</Text>
                 <Spacer />
-                <Text color="green.500" fontWeight="bold">+8.7%</Text>
+                <Text color="green.500" fontWeight="bold">
+                  +8.7%
+                </Text>
               </Flex>
             </Stack>
           </Box>
@@ -231,9 +239,7 @@ const Index = () => {
             </Stack>
           </GridItem>
           <GridItem>
-            <Text mb={2}>
-              Tools
-            </Text>
+            <Text mb={2}>Tools</Text>
             <Stack color="black">
               <Link>Portfolio Tracker</Link>
               <Link>Price Alerts</Link>
@@ -242,9 +248,7 @@ const Index = () => {
             </Stack>
           </GridItem>
           <GridItem>
-            <Text mb={2}>
-              Support
-            </Text>
+            <Text mb={2}>Support</Text>
             <Stack color="black">
               <Link>Help Center</Link>
               <Link>Contact Us</Link>
@@ -253,9 +257,7 @@ const Index = () => {
             </Stack>
           </GridItem>
           <GridItem>
-            <Text mb={2}>
-              Company
-            </Text>
+            <Text mb={2}>Company</Text>
             <Stack color="black">
               <Link>About Us</Link>
               <Link>Careers</Link>
@@ -264,7 +266,7 @@ const Index = () => {
             </Stack>
           </GridItem>
         </Grid>
-        <Flex justifyContent="space-between" color="gray.600" maxWidth="1200" mx="auto">
+        <Flex justifyContent="center" color="gray.600" maxWidth="1200" mx="auto">
           <Text m="4">© 2023 CryptoMarket. All rights reserved.</Text>
         </Flex>
       </Box>

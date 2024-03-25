@@ -194,7 +194,7 @@ const Index = () => {
       {}
       <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx={8} maxWidth="1200">
         <GridItem>
-          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor="gray.50">
+          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
             <Heading size="md" mb={4}>
               ✨Top News
             </Heading>
@@ -205,7 +205,7 @@ const Index = () => {
           </Box>
         </GridItem>
         <GridItem>
-          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor="gray.50">
+          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
             <Heading size="md" mb={4}>
               🔥 Most Wanted
             </Heading>
@@ -235,7 +235,7 @@ const Index = () => {
           </Box>
         </GridItem>
         <GridItem>
-          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor="gray.50">
+          <Box borderWidth={1} borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
             <Heading size="md" mb={4}>
               🎙️ Market Whispers
             </Heading>

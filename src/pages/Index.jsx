@@ -248,16 +248,16 @@ const Index = () => {
       </Grid>
 
       {}
-      <Box bg="#5A4FCF" width="full" py={12}>
+      <Box bg="#5A4FCF" width="full" py={20}>
         <Heading textAlign="center" color="white" fontWeight="bold" mb={2}>
-          Stay ahead of the market!
+          Stay Ahead!💰
         </Heading>
         <Text textAlign="center" color="white" mb={4}>
           Subscribe to our newsletter for the latest news and insights.
         </Text>
         <Flex justifyContent="center">
           <Input placeholder="Enter your email" bg="purple.100" color="purple.900" mr={4} maxWidth="300px" />
-          <Button bg="white" color="#5A4FCF">
+          <Button bg="white" color="#5A4FCF" fontWeight="black">
             Subscribe
           </Button>
         </Flex>

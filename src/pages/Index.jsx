@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link } from "@chakra-ui/react";
 import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
@@ -34,8 +34,15 @@ const Index = () => {
     return 0;
   });
 
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.href = "https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+  }, []);
+
   return (
-    <Box align="center">
+    <Box align="center" fontFamily="Nunito">
       {}
       <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
         <Flex maxWidth="1200" fontWeight="bold" mr={8}>

@@ -37,17 +37,11 @@ const Index = () => {
   return (
     <Box align="center">
       {}
-      <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="bd">
+      <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
         <Flex maxWidth="1200" fontWeight="bold" mr={8}>
-          <Text mr={8}>
-          📈 Markets
-          </Text>
-          <Text mr={8}>
-          📰 Blog
-          </Text>
-          <Text mr={8}>
-          🧭 Explore
-          </Text>
+          <Text mr={8}>📈 Markets</Text>
+          <Text mr={8}>📰 Blog</Text>
+          <Text mr={8}>🧭 Explore</Text>
           <Text mr={8}>🎓 Learn</Text>
         </Flex>
         <Flex alignItems="center">

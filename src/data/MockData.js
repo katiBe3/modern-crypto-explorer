@@ -1,6 +1,7 @@
 export const cryptoData = [
   {
     name: "Bitcoin",
+    shortName: "BTC",
     price: 57832.02,
     percentChange1h: 0.24,
     percentChange24h: 1.32,
@@ -11,6 +12,7 @@ export const cryptoData = [
   },
   {
     name: "Ethereum",
+    shortName: "ETH",
     price: 2053.03,
     percentChange1h: 0.87,
     percentChange24h: 2.54,
@@ -21,6 +23,7 @@ export const cryptoData = [
   },
   {
     name: "BNB",
+    shortName: "BNB",
     price: 568.33,
     percentChange1h: -0.12,
     percentChange24h: -1.74,
@@ -31,6 +34,7 @@ export const cryptoData = [
   },
   {
     name: "Solana",
+    shortName: "SOL",
     price: 40.05,
     percentChange1h: 1.23,
     percentChange24h: 4.18,
@@ -41,6 +45,7 @@ export const cryptoData = [
   },
   {
     name: "XRP",
+    shortName: "XRP",
     price: 0.7566,
     percentChange1h: 0.55,
     percentChange24h: 3.12,
@@ -51,6 +56,7 @@ export const cryptoData = [
   },
   {
     name: "Dogecoin",
+    shortName: "DOGE",
     price: 0.07417,
     percentChange1h: 0.42,
     percentChange24h: 2.85,
@@ -61,6 +67,7 @@ export const cryptoData = [
   },
   {
     name: "Cardano",
+    shortName: "ADA",
     price: 0.3842,
     percentChange1h: 0.18,
     percentChange24h: 1.64,
@@ -71,6 +78,7 @@ export const cryptoData = [
   },
   {
     name: "Avalanche",
+    shortName: "AVAX",
     price: 17.93,
     percentChange1h: 0.74,
     percentChange24h: 3.28,
@@ -81,6 +89,7 @@ export const cryptoData = [
   },
   {
     name: "Shiba Inu",
+    shortName: "SHIB",
     price: 0.00001108,
     percentChange1h: 0.36,
     percentChange24h: 2.17,
@@ -91,6 +100,7 @@ export const cryptoData = [
   },
   {
     name: "Polkadot",
+    shortName: "DOT",
     price: 6.22,
     percentChange1h: 0.65,
     percentChange24h: 2.74,
@@ -101,6 +111,7 @@ export const cryptoData = [
   },
   {
     name: "Chainlink",
+    shortName: "LINK",
     price: 6.59,
     percentChange1h: 0.92,
     percentChange24h: 3.41,
@@ -111,6 +122,7 @@ export const cryptoData = [
   },
   {
     name: "Tron",
+    shortName: "TRX",
     price: 0.06531,
     percentChange1h: 0.28,
     percentChange24h: 1.95,
@@ -121,6 +133,7 @@ export const cryptoData = [
   },
   {
     name: "Uniswap",
+    shortName: "UNI",
     price: 5.85,
     percentChange1h: 1.05,
     percentChange24h: 3.62,
@@ -131,6 +144,7 @@ export const cryptoData = [
   },
   {
     name: "Internet Computer",
+    shortName: "ICP",
     price: 5.29,
     percentChange1h: 0.57,
     percentChange24h: 2.39,
@@ -141,6 +155,7 @@ export const cryptoData = [
   },
   {
     name: "Litecoin",
+    shortName: "LTC",
     price: 87.39,
     percentChange1h: 0.46,
     percentChange24h: 2.68,
@@ -151,6 +166,7 @@ export const cryptoData = [
   },
   {
     name: "Stacks",
+    shortName: "STX",
     price: 0.6954,
     percentChange1h: 1.12,
     percentChange24h: 3.84,
@@ -161,6 +177,7 @@ export const cryptoData = [
   },
   {
     name: "Filecoin",
+    shortName: "FIL",
     price: 5.67,
     percentChange1h: 0.39,
     percentChange24h: 2.26,

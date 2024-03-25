@@ -99,7 +99,7 @@ const Index = () => {
             Fear & Greed Index
           </Text>
           <Box width="200px" height="100px" borderTopLeftRadius="100px" borderTopRightRadius="100px" borderWidth="10px" borderColor="gray.200" borderBottom="0" position="relative" boxSizing="border-box">
-            <Text fontSize="6xl" fontWeight="bold" color="green.500" position="absolute" top="60%" left="50%" transform="translate(-50%, -50%)">
+            <Text fontSize="6xl" fontWeight="black" color="green.500" position="absolute" top="60%" left="50%" transform="translate(-50%, -50%)">
               87
             </Text>
           </Box>

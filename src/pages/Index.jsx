@@ -124,54 +124,56 @@ const Index = () => {
       </Grid>
 
       {/* Footer */}
-      <Grid templateColumns="repeat(4, 1fr)" gap={8} color="gray.600" py={8}>
-        <GridItem>
-          <Text fontWeight="bold" mb={2}>
-            Explore
-          </Text>
-          <Stack>
-            <Link>Cryptocurrencies</Link>
-            <Link>Exchanges</Link>
-            <Link>Wallets</Link>
-            <Link>NFTs</Link>
-          </Stack>
-        </GridItem>
-        <GridItem>
-          <Text fontWeight="bold" mb={2}>
-            Tools
-          </Text>
-          <Stack>
-            <Link>Portfolio Tracker</Link>
-            <Link>Price Alerts</Link>
-            <Link>Tax Calculator</Link>
-            <Link>Trading Simulator</Link>
-          </Stack>
-        </GridItem>
-        <GridItem>
-          <Text fontWeight="bold" mb={2}>
-            Support
-          </Text>
-          <Stack>
-            <Link>Help Center</Link>
-            <Link>Contact Us</Link>
-            <Link>FAQ</Link>
-            <Link>Security</Link>
-          </Stack>
-        </GridItem>
-        <GridItem>
-          <Text fontWeight="bold" mb={2}>
-            Company
-          </Text>
-          <Stack>
-            <Link>About Us</Link>
-            <Link>Careers</Link>
-            <Link>Blog</Link>
-            <Link>Press</Link>
-          </Stack>
-        </GridItem>
-      </Grid>
+      <Box bg="gray.100" width="full">
+        <Grid templateColumns="repeat(4, 1fr)" gap={8} color="gray.600" py={8} maxWidth="1200px" mx="auto" bg="gray.200">
+          <GridItem>
+            <Text fontWeight="bold" mb={2}>
+              Explore
+            </Text>
+            <Stack>
+              <Link fontWeight="bold">Cryptocurrencies</Link>
+              <Link fontWeight="bold">Exchanges</Link>
+              <Link fontWeight="bold">Wallets</Link>
+              <Link fontWeight="bold">NFTs</Link>
+            </Stack>
+          </GridItem>
+          <GridItem>
+            <Text fontWeight="bold" mb={2}>
+              Tools
+            </Text>
+            <Stack>
+              <Link fontWeight="bold">Portfolio Tracker</Link>
+              <Link fontWeight="bold">Price Alerts</Link>
+              <Link fontWeight="bold">Tax Calculator</Link>
+              <Link fontWeight="bold">Trading Simulator</Link>
+            </Stack>
+          </GridItem>
+          <GridItem>
+            <Text fontWeight="bold" mb={2}>
+              Support
+            </Text>
+            <Stack>
+              <Link fontWeight="bold">Help Center</Link>
+              <Link fontWeight="bold">Contact Us</Link>
+              <Link fontWeight="bold">FAQ</Link>
+              <Link fontWeight="bold">Security</Link>
+            </Stack>
+          </GridItem>
+          <GridItem>
+            <Text fontWeight="bold" mb={2}>
+              Company
+            </Text>
+            <Stack>
+              <Link fontWeight="bold">About Us</Link>
+              <Link fontWeight="bold">Careers</Link>
+              <Link fontWeight="bold">Blog</Link>
+              <Link fontWeight="bold">Press</Link>
+            </Stack>
+          </GridItem>
+        </Grid>
+      </Box>
 
-      <Flex px={4} py={4} justifyContent="space-between" color="gray.500">
+      <Flex px={4} py={4} justifyContent="space-between" color="gray.600" maxWidth="1200px" mx="auto" bg="gray.200">
         <Text>© 2023 CryptoMarket. All rights reserved.</Text>
         <Box>
           <Icon as={FaTwitter} boxSize={6} mr={4} />

@@ -12,29 +12,12 @@ const Index = () => {
   const [assetsData, setAssetsData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const response = await fetch("https://api.coincap.io/v2/assets");
-        const data = await response.json();
-        setAssetsData(data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   return (
     <Box align="center">
       <Header />
       <MarketTeaser />
       <FearGreedIndex />
-      <CryptoTable assetsData={assetsData} loading={loading} />
+      <CryptoTable />
       <InformationPanels />
       <NewsletterSubscription />
       <Footer />

@@ -1,10 +1,12 @@
 import React from "react";
-import { Flex, Text, Icon, Button, useColorMode } from "@chakra-ui/react";
+import { Flex, Text, Icon, Button, useColorMode, useDisclosure } from "@chakra-ui/react";
 import { FaGasPump, FaMoon, FaSun } from "react-icons/fa";
 import SearchInput from "./SearchInput";
+import AuthModal from "./AuthModal";
 
 const NavBar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
@@ -28,12 +30,13 @@ const NavBar = () => {
         <Button onClick={toggleColorMode} mr={4}>
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>
-        <Button variant="outline" borderColor="gray.200" mr={4}>
+        <Button variant="outline" borderColor="gray.200" mr={4} onClick={onOpen}>
           Login
         </Button>
-        <Button bg="#5A4FCF" color="white">
+        <Button bg="#5A4FCF" color="white" onClick={onOpen}>
           Sign up
         </Button>
+        <AuthModal isOpen={isOpen} onClose={onClose} />
       </Flex>
     </Flex>
   );

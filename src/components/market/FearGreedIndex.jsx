@@ -5,17 +5,39 @@ import { FaBitcoin } from "react-icons/fa";
 const FearGreedIndex = ({ assets }) => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
   const [indexSentiment, setIndexSentiment] = useState("");
-  const [lastUpdated, setLastUpdated] = useState(null);
+  const [lastUpdated, setLastUpdated] = useState(0);
+
+  const formatTimeDifference = (timestamp) => {
+    const currentTime = Date.now();
+    const difference = currentTime - timestamp;
+
+    const minute = 60 * 1000;
+    const hour = 60 * minute;
+    const day = 24 * hour;
+
+    if (difference < minute) {
+      return "Just now";
+    } else if (difference < hour) {
+      const minutes = Math.floor(difference / minute);
+      return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+    } else if (difference < day) {
+      const hours = Math.floor(difference / hour);
+      return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+    } else {
+      const days = Math.floor(difference / day);
+      return `${days} day${days > 1 ? "s" : ""} ago`;
+    }
+  };
   const indexColor = indexSentiment.includes("Greed") ? "green.500" : indexSentiment.includes("Fear") ? "red.500" : useColorModeValue("green.500", "red.500");
 
   useEffect(() => {
     const calculateFearGreedIndex = async () => {
-      if (!Array.isArray(assets)) return;  
+      if (!Array.isArray(assets)) return;
 
-      setLastUpdated(new Date());
+      setLastUpdated(Date.now());
 
       const avgPercentChange24h = assets.reduce((sum, data) => sum + parseFloat(data.changePercent24Hr), 0) / assets.length;
-      const percentIncreased = (assets.filter(data => parseFloat(data.changePercent24Hr) > 0).length / assets.length) * 100;
+      const percentIncreased = (assets.filter((data) => parseFloat(data.changePercent24Hr) > 0).length / assets.length) * 100;
 
       let index = Math.floor(percentIncreased);
       if (avgPercentChange24h > 5) {
@@ -67,7 +89,7 @@ const FearGreedIndex = ({ assets }) => {
         {indexSentiment}
       </Text>
       <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center" mt={2}>
-        Last updated: {lastUpdated ? lastUpdated.toString() : "N/A"}
+        Last updated: {lastUpdated ? formatTimeDifference(lastUpdated) : "N/A"}
       </Text>
     </Box>
   );

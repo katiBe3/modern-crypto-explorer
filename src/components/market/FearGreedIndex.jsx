@@ -4,37 +4,8 @@ import { FaBitcoin } from "react-icons/fa";
 import { cryptoData } from "../../data/cryptoData";
 
 const formatTimestamp = (date) => {
-  const seconds = Math.floor((new Date() - date) / 1000);
-
-  let interval = Math.floor(seconds / 31536000);
-  if (interval >= 1) {
-    return `${interval} year${interval === 1 ? "" : "s"} ago`;
-  }
-
-  interval = Math.floor(seconds / 2592000);
-  if (interval >= 1) {
-    return `${interval} month${interval === 1 ? "" : "s"} ago`;
-  }
-
-  interval = Math.floor(seconds / 86400);
-  if (interval >= 1) {
-    return `${interval} day${interval === 1 ? "" : "s"} ago`;
-  }
-
-  interval = Math.floor(seconds / 3600);
-  if (interval >= 1) {
-    return `${interval} hour${interval === 1 ? "" : "s"} ago`;
-  }
-
-  interval = Math.floor(seconds / 60);
-  if (interval >= 1) {
-    return `${interval} minute${interval === 1 ? "" : "s"} ago`;
-  }
-
-  if (seconds === 0) {
-    return "just now";
-  }
-  return `${Math.floor(seconds)} second${seconds === 1 ? "" : "s"} ago`;
+  const options = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" };
+  return date.toLocaleString(undefined, options);
 };
 
 const FearGreedIndex = () => {

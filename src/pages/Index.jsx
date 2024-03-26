@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
-import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin, FaSearch } from "react-icons/fa";
+import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin, FaSearch, FaArrowUp } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
 
 const Index = () => {
@@ -78,6 +78,24 @@ const Index = () => {
 
   return (
     <Box align="center" fontFamily="Nunito">
+      {}
+      <Box>
+        <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
+          <Flex maxWidth="1200" fontWeight="bold" mr={8}>
+            <Text mr={8}>📈 Markets</Text>
+            <Text mr={8}>📰 Blog</Text>
+            <Text mr={8}>🧭 Explore</Text>
+            <Text mr={8}>🎓 Learn</Text>
+          </Flex>
+          <Flex alignItems="center">{}</Flex>
+        </Flex>
+        <Flex bg="gray.50" px={4} py={2} alignItems="center" justifyContent="space-between" maxWidth="1200" mx="auto">
+          <Text fontWeight="bold" color="#5A4FCF">
+            Cryptos: 4,000M <Spacer mx={2} /> Exchanges: 300 <Spacer mx={2} /> Market Cap: $2.79T <Icon as={FaArrowUp} color="#5A4FCF" mx={1} /> <Spacer mx={2} /> 24h Vol: $200B
+          </Text>
+          <Spacer />
+        </Flex>
+      </Box>
       {}
       <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
         <Flex maxWidth="1200" fontWeight="bold" mr={8}>

@@ -39,7 +39,7 @@ const Index = () => {
   return (
     <Box align="center">
       <Header />
-      <MarketTeaser bitcoinData={bitcoinData} mt={16} />
+      <MarketTeaser bitcoinData={bitcoinData} mt={8} />
       <FearGreedIndex assets={assets} />
       <CryptoTable assets={assets} my={8} />
       <InformationPanels assets={assets} />

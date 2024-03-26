@@ -3,7 +3,6 @@ import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, useColorModeVal
 import { FaStar, FaBitcoin } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
 import NavBar from "../components/NavBar";
-import AuthModal from "../components/AuthModal";
 
 const formatTimestamp = (date) => {
   const seconds = Math.floor((new Date() - date) / 1000);

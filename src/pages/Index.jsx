@@ -142,7 +142,7 @@ const Index = () => {
             Extreme greed 🤑
           </Text>
           <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center">
-            Last updated: March 25, 2024
+            Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
           </Text>
         </Box>
       </Box>

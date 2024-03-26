@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Icon, useColorModeValue } from "@chakra-ui/react";
 import { FaBitcoin } from "react-icons/fa";
-import { cryptoData } from "../../data/cryptoData";
 
 const FearGreedIndex = () => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
@@ -15,8 +14,6 @@ const FearGreedIndex = () => {
     const response = await fetch("https://api.coincap.io/v2/assets?limit=100");
     const data = await response.json();
     const assets = data.data;
-
-    const totalMarketCap = assets.reduce((sum, asset) => sum + parseFloat(asset.marketCapUsd), 0);
 
     const avgPercentChange24h = assets.reduce((sum, asset) => sum + parseFloat(asset.changePercent24Hr), 0) / assets.length;
 

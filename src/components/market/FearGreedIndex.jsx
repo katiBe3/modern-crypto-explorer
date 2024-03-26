@@ -28,7 +28,7 @@ const FearGreedIndex = ({ assets }) => {
       return `${days} day${days > 1 ? "s" : ""} ago`;
     }
   };
-  const indexColor = indexSentiment.includes("Greed") ? "green.500" : indexSentiment.includes("Fear") ? "red.500" : useColorModeValue("green.500", "red.500");
+  const indexColor = useColorModeValue(indexSentiment.includes("Greed") ? "green.500" : "red.500", indexSentiment.includes("Greed") ? "green.200" : "red.200");
 
   useEffect(() => {
     const calculateFearGreedIndex = async () => {

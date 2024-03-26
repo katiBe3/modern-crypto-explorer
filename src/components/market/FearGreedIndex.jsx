@@ -9,13 +9,18 @@ const FearGreedIndex = () => {
   const [lastUpdated, setLastUpdated] = useState(null);
   const indexColor = useColorModeValue("green.500", "green.300");
 
-  const calculateFearGreedIndex = (data) => {
+  const calculateFearGreedIndex = async () => {
     setLastUpdated(new Date());
-    const totalMarketCap = data.reduce((sum, crypto) => sum + crypto.marketCap, 0);
 
-    const avgPercentChange24h = data.reduce((sum, crypto) => sum + crypto.percentChange24h, 0) / data.length;
+    const response = await fetch("https://api.coincap.io/v2/assets?limit=100");
+    const data = await response.json();
+    const assets = data.data;
 
-    const percentIncreased = (data.filter((crypto) => crypto.percentChange24h > 0).length / data.length) * 100;
+    const totalMarketCap = assets.reduce((sum, asset) => sum + parseFloat(asset.marketCapUsd), 0);
+
+    const avgPercentChange24h = assets.reduce((sum, asset) => sum + parseFloat(asset.changePercent24Hr), 0) / assets.length;
+
+    const percentIncreased = (assets.filter((asset) => parseFloat(asset.changePercent24Hr) > 0).length / assets.length) * 100;
 
     let index = Math.floor(percentIncreased);
     if (avgPercentChange24h > 5) {
@@ -41,12 +46,10 @@ const FearGreedIndex = () => {
   };
 
   useEffect(() => {
-    const updateIndex = () => {
-      const { index, sentiment } = calculateFearGreedIndex(cryptoData);
-      const now = new Date();
+    const updateIndex = async () => {
+      const { index, sentiment } = await calculateFearGreedIndex();
       setFearGreedIndex(index);
       setIndexSentiment(sentiment);
-      setLastUpdated(now);
     };
 
     updateIndex();

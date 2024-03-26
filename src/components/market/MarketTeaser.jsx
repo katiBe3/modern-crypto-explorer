@@ -29,7 +29,7 @@ const MarketTeaser = () => {
 
   return (
     <Box textAlign="center" my={4} mx={8}>
-      <Heading mb={4}>The Latest BTC Market Data</Heading>
+      <Heading mb={4}>The Latest Crypto Market News</Heading>
       <Text fontSize="xl" color="gray.600">
         The BTC market cap today is{" "}
         <Text as="span" fontWeight="bold">

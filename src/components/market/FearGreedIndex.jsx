@@ -55,6 +55,19 @@ const FearGreedIndex = React.memo(() => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const updateIndex = async () => {
+      const { index, sentiment } = await calculateFearGreedIndex();
+      setFearGreedIndex(index);
+      setIndexSentiment(sentiment);
+    };
+
+    updateIndex();
+    const interval = setInterval(updateIndex, 60 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Box maxWidth="420px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6} align="center" backgroundColor="gray.50">
       <Text fontSize="xl" fontWeight="bold" mb={4}>

@@ -17,7 +17,7 @@ const MarketTeaser = ({ bitcoinData }) => {
   const changeSign = percentChange > 0 ? "+" : "";
 
   return (
-    <Box textAlign="center" mx={8}>
+    <Box textAlign="center" m={8}>
       <Heading mb={4}>The Latest Crypto Market News</Heading>
       <Text fontSize="xl" color="gray.600">
         The BTC market cap today is{" "}

@@ -4,7 +4,7 @@ import { FaGasPump, FaMoon, FaSun } from "react-icons/fa";
 import AuthModal from "../common/AuthModal";
 import SearchInput from "../common/SearchInput";
 
-const Header = () => {
+const Header = ({ searchQuery, setSearchQuery }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -17,7 +17,7 @@ const Header = () => {
         <Text mr={8}>🎓 Learn</Text>
       </Flex>
       <Flex alignItems="center">
-        <SearchInput />
+        <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
         <Flex alignItems="center" mr={4}>
           <Icon as={FaGasPump} mr={2} />
           <Text>

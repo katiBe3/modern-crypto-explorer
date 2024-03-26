@@ -1,26 +1,18 @@
-import React from "react";
-import { Box } from "@chakra-ui/react";
-import Header from "../components/layout/Header";
-import MarketTeaser from "../components/market/MarketTeaser";
-import FearGreedIndex from "../components/market/FearGreedIndex";
-import CryptoTable from "../components/market/CryptoTable";
-import InformationPanels from "../components/market/InformationPanels";
-import NewsletterSubscription from "../components/common/NewsletterSubscription";
-import Footer from "../components/layout/Footer";
+import { useState } from "react";
 import { cryptoData } from "../data/cryptoData";
+import Header from "../components/layout/Header";
+import React from "react";
 
 const Index = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredCryptoData = cryptoData.filter((crypto) => crypto.name.toLowerCase().includes(searchQuery.toLowerCase()) || crypto.shortName.toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
-    <Box align="center">
-      <Header />
-      <MarketTeaser />
-      <FearGreedIndex />
-      <CryptoTable cryptoData={cryptoData} />
-      <InformationPanels />
-      <NewsletterSubscription />
-      <Footer />
-    </Box>
+    <>
+      <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      {}
+    </>
   );
 };
 

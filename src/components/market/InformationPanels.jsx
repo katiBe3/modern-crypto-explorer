@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, GridItem, Heading, Flex, Image, Text, Stack, Spacer, useColorModeValue } from "@chakra-ui/react";
 
-const InformationPanels = ({ assets })  => {
+const InformationPanels = ({ assets }) => {
   // Sample data, replace or fetch from API
   const topNews = [
     {
@@ -14,25 +14,22 @@ const InformationPanels = ({ assets })  => {
   const [mostWanted, setMostWanted] = useState([]);
 
   useEffect(() => {
-    const fetchMostWantedData = async () => {
-      try {
+    const fetchMostWantedData = () => {
+      if (!Array.isArray(assets)) return;
 
-        const sortedAssets = [...assets].sort((a, b) => parseFloat(b.changePercent24Hr) - parseFloat(a.changePercent24Hr));
-        const topThree = sortedAssets.slice(0, 3);
+      const sortedAssets = [...assets].sort((a, b) => parseFloat(b.changePercent24Hr) - parseFloat(a.changePercent24Hr));
+      const topThree = sortedAssets.slice(0, 3);
 
-        const mostWantedData = topThree.map((asset) => ({
-          name: asset.name,
-          change: `${parseFloat(asset.changePercent24Hr) > 0 ? "+" : ""}${parseFloat(asset.changePercent24Hr).toFixed(2)}%`,
-        }));
+      const mostWantedData = topThree.map((asset) => ({
+        name: asset.name,
+        change: `${parseFloat(asset.changePercent24Hr) > 0 ? "+" : ""}${parseFloat(asset.changePercent24Hr).toFixed(2)}%`,
+      }));
 
-        setMostWanted(mostWantedData);
-      } catch (error) {
-        console.error("Error fetching most wanted data:", error);
-      }
+      setMostWanted(mostWantedData);
     };
 
     fetchMostWantedData();
-  }, []);
+  }, [assets]);
 
   const marketWhispers = [
     {

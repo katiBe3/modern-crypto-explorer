@@ -1,10 +1,10 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, FormControl, FormLabel, Input, Button, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 
-const AuthModal = ({ isOpen, onClose }) => {
+const AuthModal = ({ isOpen, onClose, initialMode = "login" }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggingIn, setIsLoggingIn] = useState(true);
+  const [mode, setMode] = useState(initialMode);
   const toast = useToast();
 
   const handleSubmit = (e) => {
@@ -13,7 +13,7 @@ const AuthModal = ({ isOpen, onClose }) => {
     setTimeout(() => {
       onClose();
       toast({
-        title: isLoggingIn ? "Logged in successfully" : "Account created",
+        title: mode === "login" ? "Logged in successfully" : "Account created",
         status: "success",
         duration: 3000,
         isClosable: true,
@@ -25,7 +25,7 @@ const AuthModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{isLoggingIn ? "Login" : "Sign Up"}</ModalHeader>
+        <ModalHeader>{mode === "login" ? "Login" : "Sign Up"}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <form onSubmit={handleSubmit}>
@@ -38,10 +38,10 @@ const AuthModal = ({ isOpen, onClose }) => {
               <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </FormControl>
             <Button type="submit" colorScheme="purple" mr={4}>
-              {isLoggingIn ? "Login" : "Sign Up"}
+              {mode === "login" ? "Login" : "Sign Up"}
             </Button>
-            <Button variant="link" onClick={() => setIsLoggingIn(!isLoggingIn)}>
-              {isLoggingIn ? "Don't have an account? Sign Up" : "Already have an account? Login"}
+            <Button variant="link" onClick={() => setMode(mode === "login" ? "signup" : "login")}>
+              {mode === "login" ? "Don't have an account? Sign Up" : "Already have an account? Login"}
             </Button>
           </form>
         </ModalBody>

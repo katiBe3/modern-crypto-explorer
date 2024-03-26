@@ -30,10 +30,10 @@ const NavBar = () => {
         <Button onClick={toggleColorMode} mr={4}>
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>
-        <Button variant="outline" borderColor="gray.200" mr={4} onClick={onOpen}>
+        <Button variant="outline" borderColor="gray.200" mr={4} onClick={() => onOpen("login")}>
           Login
         </Button>
-        <Button bg="#5A4FCF" color="white" onClick={onOpen}>
+        <Button bg="#5A4FCF" color="white" onClick={() => onOpen("signup")}>
           Sign up
         </Button>
         <AuthModal isOpen={isOpen} onClose={onClose} />

@@ -11,10 +11,13 @@ import { cryptoData } from "../data/cryptoData";
 
 const Index = () => {
 
+  const marketCap = '2.79';
+  const percentageChange = 7.2;
+
   return (
     <Box align="center">
       <Header />
-      <MarketTeaser />
+      <MarketTeaser marketCap={marketCap} percentageChange={percentageChange} />
       <FearGreedIndex />
       <CryptoTable cryptoData={cryptoData} />
       <InformationPanels />

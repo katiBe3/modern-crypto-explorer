@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Icon, useColorModeValue } from "@chakra-ui/react";
 import { FaBitcoin } from "react-icons/fa";
-import { cryptoData } from "../data/MockData";
+import { cryptoData } from "../../data/cryptoData";
 
 const formatTimestamp = (date) => {
   const seconds = Math.floor((new Date() - date) / 1000);
@@ -90,7 +90,7 @@ const FearGreedIndex = () => {
   }, []);
 
   return (
-    <Box width="420px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6} align="center" backgroundColor="gray.50">
+    <Box maxWidth="420px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6} align="center" backgroundColor="gray.50">
       <Text fontSize="xl" fontWeight="bold" mb={4}>
         <Icon as={FaBitcoin} color="orange.400" mr={2} />
         Fear & Greed Index

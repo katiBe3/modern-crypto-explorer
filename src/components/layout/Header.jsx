@@ -1,10 +1,10 @@
 import React from "react";
 import { Flex, Text, Icon, Button, useColorMode, useDisclosure } from "@chakra-ui/react";
 import { FaGasPump, FaMoon, FaSun } from "react-icons/fa";
-import SearchInput from "./SearchInput";
-import AuthModal from "./AuthModal";
+import AuthModal from "../common/AuthModal";
+import SearchInput from "../common/SearchInput";
 
-const NavBar = () => {
+const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -42,4 +42,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Header;

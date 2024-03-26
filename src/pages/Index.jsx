@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { FaStar, FaBitcoin } from "react-icons/fa";
+import { cryptoData } from "../data/MockData";
+import NavBar from "../components/NavBar";
 
 const formatTimestamp = (date) => {
   const seconds = Math.floor((new Date() - date) / 1000);
@@ -37,10 +40,7 @@ const formatTimestamp = (date) => {
   }
   return `${Math.floor(seconds)} second${seconds === 1 ? "" : "s"} ago`;
 };
-import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin, FaSearch } from "react-icons/fa";
-import { cryptoData } from "../data/MockData";
-import Header from "../components/Header";
-import AuthModal from "../components/AuthModal";
+
 
 const Index = () => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
@@ -167,7 +167,7 @@ const Index = () => {
 
   return (
     <Box align="center" fontFamily="Nunito">
-      <Header />
+      <NavBar />
       <Box textAlign="center" my={16} mx={8}>
         <Heading mb={4}>The Latest Crypto Market Data</Heading>
         <Text fontSize="xl" color="gray.600">

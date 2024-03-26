@@ -91,7 +91,7 @@ const Index = () => {
         </Flex>
         <Flex bg="gray.50" px={4} py={2} alignItems="center" justifyContent="space-between" maxWidth="1200" mx="auto">
           <Text fontWeight="bold" color="#5A4FCF">
-            Cryptos: 4,000M <Spacer mx={2} /> Exchanges: 300 <Spacer mx={2} /> Market Cap: $2.79T <Icon as={FaArrowUp} color="#5A4FCF" mx={1} /> <Spacer mx={2} /> 24h Vol: $200B
+            Cryptos: 4,000M <Spacer mx={2} /> Exchanges: 300 <Spacer mx={2} /> Market Cap: $2.79T <Icon as={FaArrowUp} color="green.500" mx={1} /> <Spacer mx={2} /> 24h Vol: $200B
           </Text>
           <Spacer />
         </Flex>

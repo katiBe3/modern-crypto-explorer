@@ -7,7 +7,7 @@ const FearGreedIndex = () => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
   const [indexSentiment, setIndexSentiment] = useState("");
   const [lastUpdated, setLastUpdated] = useState(null);
-  const indexColor = useColorModeValue("green.500", "green.300");
+  const indexColor = indexSentiment.includes("Greed") ? "green.500" : indexSentiment.includes("Fear") ? "red.500" : useColorModeValue("green.500", "red.500");
 
   const calculateFearGreedIndex = async () => {
     setLastUpdated(new Date());

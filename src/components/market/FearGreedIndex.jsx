@@ -82,7 +82,7 @@ const FearGreedIndex = ({ assets }) => {
       </Text>
       <Box width="200px" height="100px" borderTopLeftRadius="100px" borderTopRightRadius="100px" borderWidth="10px" borderColor="gray.200" borderBottom="0" position="relative" boxSizing="border-box">
         <Text fontSize="6xl" fontWeight="black" color={indexColor} position="absolute" top="60%" left="50%" transform="translate(-50%, -50%)">
-          {fearGreedIndex}
+          {isNaN(fearGreedIndex) ? "Loading..." : fearGreedIndex}
         </Text>
       </Box>
       <Text mt={4} fontWeight="bold" color="gray.600" textAlign="center">

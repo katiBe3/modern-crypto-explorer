@@ -16,14 +16,11 @@ const InformationPanels = React.memo(() => {
   useEffect(() => {
     const fetchMostWantedData = async () => {
       try {
-        const response = await fetch("https://api.coincap.io/v2/assets");
+        const response = await fetch("https://api.coincap.io/v2/assets?limit=3");
         const data = await response.json();
         const assets = data.data;
 
-        const sortedAssets = assets.sort((a, b) => parseFloat(b.changePercent24Hr) - parseFloat(a.changePercent24Hr));
-        const topThree = sortedAssets.slice(0, 3);
-
-        const mostWantedData = topThree.map((asset) => ({
+        const mostWantedData = assets.map((asset) => ({
           name: asset.name,
           change: `${parseFloat(asset.changePercent24Hr) > 0 ? "+" : ""}${parseFloat(asset.changePercent24Hr).toFixed(2)}%`,
         }));

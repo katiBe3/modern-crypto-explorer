@@ -29,14 +29,10 @@ const Index = () => {
     fetchData();
   }, []);
 
-  
-  const marketCap = '2.79';
-  const percentageChange = 7.2;
-
   return (
     <Box align="center">
       <Header />
-      <MarketTeaser marketCap={marketCap} percentageChange={percentageChange} />
+      <MarketTeaser />
       <FearGreedIndex />
       <CryptoTable assetsData={assetsData} loading={loading} />
       <InformationPanels />

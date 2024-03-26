@@ -1,4 +1,4 @@
-import React, { Suspense, useState, useEffect } from "react";
+import React, { Suspense } from "react";
 import { Box, Spinner } from "@chakra-ui/react";
 import Header from "../components/layout/Header";
 import MarketTeaser from "../components/market/MarketTeaser";
@@ -9,21 +9,7 @@ const NewsletterSubscription = React.lazy(() => import("../components/common/New
 const Footer = React.lazy(() => import("../components/layout/Footer"));
 
 const Index = () => {
-  const [assetsData, setAssetsData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://api.coincap.io/v2/assets?limit=25");
-        const data = await response.json();
-        setAssetsData(data.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  // const [assetsData, setAssetsData] = useState([]);
 
   return (
     <Box align="center">
@@ -31,7 +17,7 @@ const Index = () => {
       <MarketTeaser />
       <FearGreedIndex />
       <Suspense fallback={<Spinner />}>
-        <CryptoTable assetsData={assetsData} />
+        <CryptoTable />
       </Suspense>
       <InformationPanels />
       <NewsletterSubscription />

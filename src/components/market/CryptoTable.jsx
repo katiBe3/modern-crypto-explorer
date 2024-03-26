@@ -7,8 +7,18 @@ const CryptoTable = ({ assetsData, loading }) => {
   const [sortConfig, setSortConfig] = useState({ key: "name", direction: "ascending" });
 
   useEffect(() => {
-    setTableData(assetsData);
-  }, [assetsData]);
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://api.coincap.io/v2/assets?limit=25");
+        const data = await response.json();
+        setTableData(data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
   const toggleFavorite = (name) => {
     const updatedData = tableData.map((crypto) => {
       if (crypto.name === name) {

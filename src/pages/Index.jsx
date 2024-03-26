@@ -93,9 +93,6 @@ const Index = () => {
 
     return () => clearInterval(interval);
   }, []);
-  const { colorMode, toggleColorMode } = useColorMode();
-  const [sortConfig, setSortConfig] = useState({ key: "marketCap", direction: "descending" });
-  const [searchQuery, setSearchQuery] = useState("");
 
   const toggleFavorite = (name) => {
     const updatedCryptoData = cryptoData.map((crypto) => {

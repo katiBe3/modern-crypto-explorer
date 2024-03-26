@@ -29,6 +29,12 @@ const formatTimestamp = (date) => {
     return `${interval} minute${interval === 1 ? "" : "s"} ago`;
   }
 
+  if (seconds === 0) {
+    return "just now";
+  }
+  if (seconds === 0) {
+    return "just now";
+  }
   return `${Math.floor(seconds)} second${seconds === 1 ? "" : "s"} ago`;
 };
 import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin, FaSearch } from "react-icons/fa";
@@ -74,16 +80,16 @@ const Index = () => {
   useEffect(() => {
     const updateIndex = () => {
       const { index, sentiment } = calculateFearGreedIndex(cryptoData);
+      const now = new Date();
       setFearGreedIndex(index);
       setIndexSentiment(sentiment);
+      setLastUpdated(now);
     };
 
     updateIndex();
     const interval = setInterval(updateIndex, 60 * 60 * 1000);
 
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
   const { colorMode, toggleColorMode } = useColorMode();
   const [sortConfig, setSortConfig] = useState({ key: "marketCap", direction: "descending" });

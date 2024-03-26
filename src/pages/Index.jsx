@@ -1,5 +1,42 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+
+const formatTimestamp = (date) => {
+  const seconds = Math.floor((new Date() - date) / 1000);
+
+  let interval = Math.floor(seconds / 31536000);
+  if (interval >= 1) {
+    return `${interval} year${interval === 1 ? "" : "s"} ago`;
+  }
+
+  interval = Math.floor(seconds / 2592000);
+  if (interval >= 1) {
+    return `${interval} month${interval === 1 ? "" : "s"} ago`;
+  }
+
+  interval = Math.floor(seconds / 86400);
+  if (interval >= 1) {
+    return `${interval} day${interval === 1 ? "" : "s"} ago`;
+  }
+
+  interval = Math.floor(seconds / 3600);
+  if (interval >= 1) {
+    return `${interval} hour${interval === 1 ? "" : "s"} ago`;
+  }
+
+  interval = Math.floor(seconds / 60);
+  if (interval >= 1) {
+    return `${interval} minute${interval === 1 ? "" : "s"} ago`;
+  }
+
+  if (seconds === 0) {
+    return "just now";
+  }
+  if (seconds === 0) {
+    return "just now";
+  }
+  return `${Math.floor(seconds)} second${seconds === 1 ? "" : "s"} ago`;
+};
 import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin, FaSearch } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
 import Header from "../components/Header";
@@ -8,9 +45,11 @@ import AuthModal from "../components/AuthModal";
 const Index = () => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
   const [indexSentiment, setIndexSentiment] = useState("");
+  const [lastUpdated, setLastUpdated] = useState(null);
   const indexColor = useColorModeValue("green.500", "green.300");
 
   const calculateFearGreedIndex = (data) => {
+    setLastUpdated(new Date());
     const totalMarketCap = data.reduce((sum, crypto) => sum + crypto.marketCap, 0);
 
     const avgPercentChange24h = data.reduce((sum, crypto) => sum + crypto.percentChange24h, 0) / data.length;
@@ -41,9 +80,18 @@ const Index = () => {
   };
 
   useEffect(() => {
-    const { index, sentiment } = calculateFearGreedIndex(cryptoData);
-    setFearGreedIndex(index);
-    setIndexSentiment(sentiment);
+    const updateIndex = () => {
+      const { index, sentiment } = calculateFearGreedIndex(cryptoData);
+      const now = new Date();
+      setFearGreedIndex(index);
+      setIndexSentiment(sentiment);
+      setLastUpdated(now);
+    };
+
+    updateIndex();
+    const interval = setInterval(updateIndex, 60 * 60 * 1000);
+
+    return () => clearInterval(interval);
   }, []);
   const { colorMode, toggleColorMode } = useColorMode();
   const [sortConfig, setSortConfig] = useState({ key: "marketCap", direction: "descending" });
@@ -147,7 +195,7 @@ const Index = () => {
             {indexSentiment}
           </Text>
           <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center">
-            Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+            Last updated: {lastUpdated ? formatTimestamp(lastUpdated) : "N/A"}
           </Text>
         </Box>
       </Box>

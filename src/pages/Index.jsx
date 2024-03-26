@@ -4,6 +4,45 @@ import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin, FaSearch } from "react-ico
 import { cryptoData } from "../data/MockData";
 
 const Index = () => {
+  const [fearGreedIndex, setFearGreedIndex] = useState(0);
+  const [indexSentiment, setIndexSentiment] = useState("");
+  const indexColor = useColorModeValue("green.500", "green.300");
+
+  const calculateFearGreedIndex = (data) => {
+    const totalMarketCap = data.reduce((sum, crypto) => sum + crypto.marketCap, 0);
+
+    const avgPercentChange24h = data.reduce((sum, crypto) => sum + crypto.percentChange24h, 0) / data.length;
+
+    const percentIncreased = (data.filter((crypto) => crypto.percentChange24h > 0).length / data.length) * 100;
+
+    let index = Math.floor(percentIncreased);
+    if (avgPercentChange24h > 5) {
+      index += 10;
+    } else if (avgPercentChange24h < -5) {
+      index -= 10;
+    }
+
+    index = Math.min(100, Math.max(0, index));
+
+    let sentiment = "";
+    if (index >= 75) {
+      sentiment = "Extreme Greed 🤑";
+    } else if (index >= 50) {
+      sentiment = "Greed 😀";
+    } else if (index >= 25) {
+      sentiment = "Fear 😰";
+    } else {
+      sentiment = "Extreme Fear 😱";
+    }
+
+    return { index, sentiment };
+  };
+
+  useEffect(() => {
+    const { index, sentiment } = calculateFearGreedIndex(cryptoData);
+    setFearGreedIndex(index);
+    setIndexSentiment(sentiment);
+  }, []);
   const { colorMode, toggleColorMode } = useColorMode();
   const [sortConfig, setSortConfig] = useState({ key: "marketCap", direction: "descending" });
   const [searchQuery, setSearchQuery] = useState("");
@@ -134,12 +173,12 @@ const Index = () => {
             Fear & Greed Index
           </Text>
           <Box width="200px" height="100px" borderTopLeftRadius="100px" borderTopRightRadius="100px" borderWidth="10px" borderColor="gray.200" borderBottom="0" position="relative" boxSizing="border-box">
-            <Text fontSize="6xl" fontWeight="black" color="green.500" position="absolute" top="60%" left="50%" transform="translate(-50%, -50%)">
-              87
+            <Text fontSize="6xl" fontWeight="black" color={indexColor} position="absolute" top="60%" left="50%" transform="translate(-50%, -50%)">
+              {fearGreedIndex}
             </Text>
           </Box>
           <Text mt={4} fontWeight="bold" color="gray.600" textAlign="center">
-            Extreme greed 🤑
+            {indexSentiment}
           </Text>
           <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center">
             Last updated: {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}

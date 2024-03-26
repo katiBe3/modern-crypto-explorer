@@ -42,7 +42,7 @@ const Index = () => {
 
     fetchData();
 
-    intervalRef.current = setInterval(fetchData, 10000);
+    intervalRef.current = setInterval(fetchData, 5000);
 
     return () => {
       clearInterval(intervalRef.current);

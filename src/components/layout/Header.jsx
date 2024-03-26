@@ -18,15 +18,6 @@ const Header = () => {
       </Flex>
       <Flex alignItems="center">
         <SearchInput />
-        <Flex alignItems="center" mr={4}>
-          <Icon as={FaGasPump} mr={2} />
-          <Text>
-            ETH Gas{" "}
-            <Text as="span" fontWeight="bold" color="#5A4FCF">
-              50 Gwei
-            </Text>
-          </Text>
-        </Flex>
         <Button onClick={toggleColorMode} mr={4}>
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>

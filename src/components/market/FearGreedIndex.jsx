@@ -3,11 +3,6 @@ import { Box, Text, Icon, useColorModeValue } from "@chakra-ui/react";
 import { FaBitcoin } from "react-icons/fa";
 import { cryptoData } from "../../data/cryptoData";
 
-const formatTimestamp = (date) => {
-  const options = { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", second: "2-digit" };
-  return date.toLocaleString(undefined, options);
-};
-
 const FearGreedIndex = () => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
   const [indexSentiment, setIndexSentiment] = useState("");
@@ -74,8 +69,8 @@ const FearGreedIndex = () => {
       <Text mt={4} fontWeight="bold" color="gray.600" textAlign="center">
         {indexSentiment}
       </Text>
-      <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center">
-        Last updated: {lastUpdated ? formatTimestamp(lastUpdated) : "N/A"}
+      <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center" mt={2}>
+        Last updated: {lastUpdated ? "just now" : "N/A"}
       </Text>
     </Box>
   );

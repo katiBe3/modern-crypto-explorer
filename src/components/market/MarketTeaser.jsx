@@ -4,7 +4,11 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 const MarketTeaser = ({ bitcoinData }) => {
   // Add a check to ensure bitcoinData is defined
   if (!bitcoinData) {
-    return <Box textAlign="center" my={4} mx={8}>Loading Bitcoin data...</Box>;
+    return (
+      <Box textAlign="center" my={4} mx={8}>
+        Loading Bitcoin data...
+      </Box>
+    );
   }
 
   const { marketCapUsd, changePercent24Hr } = bitcoinData;
@@ -13,7 +17,7 @@ const MarketTeaser = ({ bitcoinData }) => {
   const changeSign = percentChange > 0 ? "+" : "";
 
   return (
-    <Box textAlign="center" my={4} mx={8}>
+    <Box textAlign="center" mx={8}>
       <Heading mb={4}>The Latest Crypto Market News</Heading>
       <Text fontSize="xl" color="gray.600">
         The BTC market cap today is{" "}

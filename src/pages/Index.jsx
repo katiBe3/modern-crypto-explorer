@@ -5,7 +5,7 @@ import MarketTeaser from "../components/market/MarketTeaser";
 import FearGreedIndex from "../components/market/FearGreedIndex";
 import CryptoTable from "../components/market/CryptoTable";
 import InformationPanels from "../components/market/InformationPanels";
-import NewsletterSubscription  from "../components/common/NewsletterSubscription";
+import NewsletterSubscription from "../components/common/NewsletterSubscription";
 import Footer from "../components/layout/Footer";
 
 const Index = () => {
@@ -28,7 +28,7 @@ const Index = () => {
         const data = await response.json();
         setBitcoinData(data.data);
       } catch (error) {
-        console.error('Error fetching Bitcoin data:', error);
+        console.error("Error fetching Bitcoin data:", error);
       }
     };
 
@@ -39,10 +39,10 @@ const Index = () => {
   return (
     <Box align="center">
       <Header />
-      <MarketTeaser bitcoinData={bitcoinData}/>
-      <FearGreedIndex assets={assets}/>
-      <CryptoTable assets={assets}/>
-      <InformationPanels assets={assets}/>
+      <MarketTeaser bitcoinData={bitcoinData} my={8} />
+      <FearGreedIndex assets={assets} />
+      <CryptoTable assets={assets} my={8} />
+      <InformationPanels assets={assets} />
       <NewsletterSubscription />
       <Footer />
     </Box>

@@ -4,7 +4,34 @@ import { FaStar } from "react-icons/fa";
 
 const CryptoTable = ({ assets }) => {
   const [tableData, setTableData] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "descending" });
+  const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
+
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  useEffect(() => {
+    if (assets) {
+      let sortedAssets = [...assets];
+      if (sortConfig.key) {
+        sortedAssets.sort((a, b) => {
+          if (a[sortConfig.key] < b[sortConfig.key]) {
+            return sortConfig.direction === "asc" ? -1 : 1;
+          }
+          if (a[sortConfig.key] > b[sortConfig.key]) {
+            return sortConfig.direction === "asc" ? 1 : -1;
+          }
+          return 0;
+        });
+      }
+      let first25Assets = sortedAssets.slice(0, 25);
+      setTableData(first25Assets);
+    }
+  }, [assets, sortConfig]);
 
   useEffect(() => {
     if (assets) {
@@ -24,7 +51,7 @@ const CryptoTable = ({ assets }) => {
   };
 
   return (
-    <Box overflowX="auto" maxWidth="1200px">
+    <Box overflowX="auto" maxWidth="1200px" mt={8}>
       <Table variant="simple">
         <Thead>
           <Tr>

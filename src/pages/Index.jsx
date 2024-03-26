@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin, FaSearch } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
@@ -6,6 +6,7 @@ import { cryptoData } from "../data/MockData";
 const Index = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [sortConfig, setSortConfig] = useState({ key: "marketCap", direction: "descending" });
+  const [searchQuery, setSearchQuery] = useState("");
 
   const toggleFavorite = (name) => {
     const updatedCryptoData = cryptoData.map((crypto) => {
@@ -41,6 +42,40 @@ const Index = () => {
     document.head.appendChild(link);
   }, []);
 
+  const filteredCryptoData = useMemo(() => {
+    const lowercaseQuery = searchQuery.toLowerCase();
+    return sortedCryptoData.filter((crypto) => crypto.name.toLowerCase().includes(lowercaseQuery) || crypto.shortName.toLowerCase().includes(lowercaseQuery));
+  }, [searchQuery, sortedCryptoData]);
+
+  const filteredNews = useMemo(() => {
+    const lowercaseQuery = searchQuery.toLowerCase();
+    return [
+      {
+        image: "https://images.unsplash.com/photo-1621504450181-5d356f61d307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxfHxjcnlwdG98ZW58MHx8fHwxNzExMzkwNjc3fDA&ixlib=rb-4.0.3&q=80&w=1080",
+        text: "Bitcoin reaches new all-time high as institutional investors flock to crypto",
+      },
+    ].filter((item) => item.text.toLowerCase().includes(lowercaseQuery));
+  }, [searchQuery]);
+
+  const filteredMostWanted = useMemo(() => {
+    const lowercaseQuery = searchQuery.toLowerCase();
+    return [
+      { name: "Ethereum", change: "+5.2%" },
+      { name: "Cardano", change: "-2.1%" },
+      { name: "Polkadot", change: "+8.7%" },
+    ].filter((item) => item.name.toLowerCase().includes(lowercaseQuery));
+  }, [searchQuery]);
+
+  const filteredMarketWhispers = useMemo(() => {
+    const lowercaseQuery = searchQuery.toLowerCase();
+    return [
+      {
+        image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwyfHxjcnlwdG98ZW58MHx8fHwxNzExMzkwNjc3fDA&ixlib=rb-4.0.3&q=80&w=1080",
+        text: "Tune in to our latest podcast episode discussing the future of DeFi",
+      },
+    ].filter((item) => item.text.toLowerCase().includes(lowercaseQuery));
+  }, [searchQuery]);
+
   return (
     <Box align="center" fontFamily="Nunito">
       {}
@@ -56,7 +91,7 @@ const Index = () => {
             <InputLeftElement pointerEvents="none">
               <Icon as={FaSearch} color="gray.400" />
             </InputLeftElement>
-            <Input type="search" placeholder="Search..." bg="gray.100" size="sm" />
+            <Input type="search" placeholder="Search..." bg="gray.100" size="sm" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
           </InputGroup>
           <Flex alignItems="center" mr={4}>
             <Icon as={FaGasPump} mr={2} />
@@ -161,7 +196,7 @@ const Index = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {sortedCryptoData.map((crypto) => (
+            {filteredCryptoData.map((crypto) => (
               <Tr key={crypto.name}>
                 <Td>
                   <Icon as={FaStar} color={crypto.isFavorite ? "yellow.500" : "gray.300"} onClick={() => toggleFavorite(crypto.name)} _hover={{ cursor: "pointer" }} />
@@ -198,10 +233,12 @@ const Index = () => {
             <Heading size="md" mb={4}>
               ✨Top News
             </Heading>
-            <Flex>
-              <Image src="https://images.unsplash.com/photo-1621504450181-5d356f61d307?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwxfHxjcnlwdG98ZW58MHx8fHwxNzExMzkwNjc3fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="News" borderRadius="md" boxSize={100} objectFit="cover" mr={4} />
-              <Text>Bitcoin reaches new all-time high as institutional investors flock to crypto</Text>
-            </Flex>
+            {filteredNews.map((item, index) => (
+              <Flex key={index}>
+                <Image src={item.image} alt="News" borderRadius="md" boxSize={100} objectFit="cover" mr={4} />
+                <Text>{item.text}</Text>
+              </Flex>
+            ))}
           </Box>
         </GridItem>
         <GridItem>
@@ -210,27 +247,17 @@ const Index = () => {
               🔥 Most Wanted
             </Heading>
             <Stack spacing={2}>
-              <Flex>
-                <Text fontWeight="bold">1. Ethereum</Text>
-                <Spacer />
-                <Text color="green.500" fontWeight="bold">
-                  +5.2%
-                </Text>
-              </Flex>
-              <Flex>
-                <Text fontWeight="bold">2. Cardano</Text>
-                <Spacer />
-                <Text color="red.500" fontWeight="bold">
-                  -2.1%
-                </Text>
-              </Flex>
-              <Flex>
-                <Text fontWeight="bold">3. Polkadot</Text>
-                <Spacer />
-                <Text color="green.500" fontWeight="bold">
-                  +8.7%
-                </Text>
-              </Flex>
+              {filteredMostWanted.map((item, index) => (
+                <Flex key={index}>
+                  <Text fontWeight="bold">
+                    {index + 1}. {item.name}
+                  </Text>
+                  <Spacer />
+                  <Text color={item.change.includes("+") ? "green.500" : "red.500"} fontWeight="bold">
+                    {item.change}
+                  </Text>
+                </Flex>
+              ))}
             </Stack>
           </Box>
         </GridItem>
@@ -239,10 +266,12 @@ const Index = () => {
             <Heading size="md" mb={4}>
               🎙️ Market Whispers
             </Heading>
-            <Flex>
-              <Image src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1MDcxMzJ8MHwxfHNlYXJjaHwyfHxjcnlwdG98ZW58MHx8fHwxNzExMzkwNjc3fDA&ixlib=rb-4.0.3&q=80&w=1080" alt="Podcast" borderRadius="md" boxSize={100} objectFit="cover" mr={4} />
-              <Text>Tune in to our latest podcast episode discussing the future of DeFi</Text>
-            </Flex>
+            {filteredMarketWhispers.map((item, index) => (
+              <Flex key={index}>
+                <Image src={item.image} alt="Podcast" borderRadius="md" boxSize={100} objectFit="cover" mr={4} />
+                <Text>{item.text}</Text>
+              </Flex>
+            ))}
           </Box>
         </GridItem>
       </Grid>

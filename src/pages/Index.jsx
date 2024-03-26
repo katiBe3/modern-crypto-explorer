@@ -1,30 +1,29 @@
-import React from "react";
-import { Box } from "@chakra-ui/react";
-import Header from "../components/layout/Header";
-import MarketTeaser from "../components/market/MarketTeaser";
-import FearGreedIndex from "../components/market/FearGreedIndex";
+import React, { useState, useEffect } from "react";
+
 import CryptoTable from "../components/market/CryptoTable";
-import InformationPanels from "../components/market/InformationPanels";
-import NewsletterSubscription from "../components/common/NewsletterSubscription";
-import Footer from "../components/layout/Footer";
-import { cryptoData } from "../data/cryptoData";
 
 const Index = () => {
+  const [assetsData, setAssetsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const marketCap = '2.79';
-  const percentageChange = 7.2;
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch("https://api.coincap.io/v2/assets");
+        const data = await response.json();
+        setAssetsData(data.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  return (
-    <Box align="center">
-      <Header />
-      <MarketTeaser marketCap={marketCap} percentageChange={percentageChange} />
-      <FearGreedIndex />
-      <CryptoTable cryptoData={cryptoData} />
-      <InformationPanels />
-      <NewsletterSubscription />
-      <Footer />
-    </Box>
-  );
+    fetchData();
+  }, []);
+
+  return <CryptoTable assetsData={assetsData} loading={loading} />;
 };
 
 export default Index;

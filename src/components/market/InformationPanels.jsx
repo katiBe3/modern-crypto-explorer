@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, GridItem, Heading, Flex, Image, Text, Stack, Spacer, useColorModeValue } from "@chakra-ui/react";
 
-const InformationPanels = React.memo(() => {
+const InformationPanels = ({ assets })  => {
   // Sample data, replace or fetch from API
   const topNews = [
     {
@@ -16,11 +16,8 @@ const InformationPanels = React.memo(() => {
   useEffect(() => {
     const fetchMostWantedData = async () => {
       try {
-        const response = await fetch("https://api.coincap.io/v2/assets");
-        const data = await response.json();
-        const assets = data.data;
 
-        const sortedAssets = assets.sort((a, b) => parseFloat(b.changePercent24Hr) - parseFloat(a.changePercent24Hr));
+        const sortedAssets = [...assets].sort((a, b) => parseFloat(b.changePercent24Hr) - parseFloat(a.changePercent24Hr));
         const topThree = sortedAssets.slice(0, 3);
 
         const mostWantedData = topThree.map((asset) => ({
@@ -95,6 +92,6 @@ const InformationPanels = React.memo(() => {
       </GridItem>
     </Grid>
   );
-});
+};
 
 export default InformationPanels;

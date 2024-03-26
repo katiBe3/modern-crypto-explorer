@@ -1,28 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 
-const MarketTeaser = () => {
-  const [btcData, setBtcData] = useState(null);
-
-  useEffect(() => {
-    const fetchBtcData = async () => {
-      try {
-        const response = await fetch("https://api.coincap.io/v2/assets/bitcoin");
-        const data = await response.json();
-        setBtcData(data.data);
-      } catch (error) {
-        console.error("Error fetching BTC data:", error);
-      }
-    };
-
-    fetchBtcData();
-  }, []);
-
-  if (!btcData) {
-    return null;
+const MarketTeaser = ({ bitcoinData }) => {
+  // Add a check to ensure bitcoinData is defined
+  if (!bitcoinData) {
+    return <Box textAlign="center" my={4} mx={8}>Loading Bitcoin data...</Box>;
   }
 
-  const { marketCapUsd, changePercent24Hr } = btcData;
+  const { marketCapUsd, changePercent24Hr } = bitcoinData;
   const marketCap = (parseFloat(marketCapUsd) / 1e12).toFixed(2);
   const percentChange = parseFloat(changePercent24Hr).toFixed(2);
   const changeSign = percentChange > 0 ? "+" : "";

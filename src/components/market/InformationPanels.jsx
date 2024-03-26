@@ -1,5 +1,5 @@
-import React from 'react';
-import { Box, Grid, GridItem, Heading, Flex, Image, Text, Stack, Spacer, useColorModeValue } from '@chakra-ui/react';
+import React, { useState, useEffect } from "react";
+import { Box, Grid, GridItem, Heading, Flex, Image, Text, Stack, Spacer, useColorModeValue } from "@chakra-ui/react";
 
 const InformationPanels = () => {
   // Sample data, replace or fetch from API
@@ -11,12 +11,31 @@ const InformationPanels = () => {
     // Add more news items as needed
   ];
 
-  const mostWanted = [
-    { name: "Ethereum", change: "+5.2%" },
-    { name: "Cardano", change: "-2.1%" },
-    { name: "Polkadot", change: "+8.7%" },
-    // Add more items as needed
-  ];
+  const [mostWanted, setMostWanted] = useState([]);
+
+  useEffect(() => {
+    const fetchMostWantedData = async () => {
+      try {
+        const response = await fetch("https://api.coincap.io/v2/assets");
+        const data = await response.json();
+        const assets = data.data;
+
+        const sortedAssets = assets.sort((a, b) => parseFloat(b.changePercent24Hr) - parseFloat(a.changePercent24Hr));
+        const topThree = sortedAssets.slice(0, 3);
+
+        const mostWantedData = topThree.map((asset) => ({
+          name: asset.name,
+          change: `${parseFloat(asset.changePercent24Hr) > 0 ? "+" : ""}${parseFloat(asset.changePercent24Hr).toFixed(2)}%`,
+        }));
+
+        setMostWanted(mostWantedData);
+      } catch (error) {
+        console.error("Error fetching most wanted data:", error);
+      }
+    };
+
+    fetchMostWantedData();
+  }, []);
 
   const marketWhispers = [
     {
@@ -30,7 +49,9 @@ const InformationPanels = () => {
     <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx={8} maxWidth="1200px">
       <GridItem>
         <Box borderWidth="1px" borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
-          <Heading size="md" mb={4}>✨ Top News</Heading>
+          <Heading size="md" mb={4}>
+            ✨ Top News
+          </Heading>
           {topNews.map((item, index) => (
             <Flex key={index} mb={4}>
               <Image src={item.image} alt="News" borderRadius="md" boxSize="100px" objectFit="cover" mr={4} />
@@ -41,13 +62,19 @@ const InformationPanels = () => {
       </GridItem>
       <GridItem>
         <Box borderWidth="1px" borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
-          <Heading size="md" mb={4}>🔥 Most Wanted</Heading>
+          <Heading size="md" mb={4}>
+            🔥 Most Wanted
+          </Heading>
           <Stack spacing={2}>
             {mostWanted.map((item, index) => (
               <Flex key={index}>
-                <Text fontWeight="bold">{index + 1}. {item.name}</Text>
+                <Text fontWeight="bold">
+                  {index + 1}. {item.name}
+                </Text>
                 <Spacer />
-                <Text color={item.change.includes("+") ? "green.500" : "red.500"} fontWeight="bold">{item.change}</Text>
+                <Text color={item.change.includes("+") ? "green.500" : "red.500"} fontWeight="bold">
+                  {item.change}
+                </Text>
               </Flex>
             ))}
           </Stack>
@@ -55,7 +82,9 @@ const InformationPanels = () => {
       </GridItem>
       <GridItem>
         <Box borderWidth="1px" borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
-          <Heading size="md" mb={4}>🎙️ Market Whispers</Heading>
+          <Heading size="md" mb={4}>
+            🎙️ Market Whispers
+          </Heading>
           {marketWhispers.map((item, index) => (
             <Flex key={index}>
               <Image src={item.image} alt="Podcast" borderRadius="md" boxSize="100px" objectFit="cover" mr={4} />

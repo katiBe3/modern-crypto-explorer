@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "../components/layout/Header";
 import MarketTeaser from "../components/market/MarketTeaser";
@@ -12,14 +12,21 @@ const Index = () => {
   const [assets, setAssets] = useState([]);
   const [bitcoinData, setBitcoinData] = useState(null);
 
-  useEffect(() => {
-    const fetchAssets = async () => {
-      const response = await fetch("https://api.coincap.io/v2/assets?limit=100");
-      const data = await response.json();
-      setAssets(data.data);
-    };
+  const fetchAssetsRef = useRef();
+  const intervalRef = useRef();
 
-    const fetchBitcoinData = async () => {
+  const fetchAssets = useCallback(async () => {
+    const response = await fetch("https://api.coincap.io/v2/assets?limit=100");
+    const data = await response.json();
+    setAssets(data.data);
+  }, []);
+
+  useEffect(() => {
+    fetchAssetsRef.current = fetchAssets;
+  }, [fetchAssets]);
+
+  useEffect(() => {
+    const fetchData = async () => {
       try {
         const response = await fetch("https://api.coincap.io/v2/assets/bitcoin");
         if (!response.ok) {
@@ -30,10 +37,16 @@ const Index = () => {
       } catch (error) {
         console.error("Error fetching Bitcoin data:", error);
       }
+      await fetchAssetsRef.current();
     };
 
-    fetchAssets();
-    fetchBitcoinData();
+    fetchData();
+
+    intervalRef.current = setInterval(fetchData, 10000);
+
+    return () => {
+      clearInterval(intervalRef.current);
+    };
   }, []);
 
   return (

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Box, Heading, Text, Flex, Spacer, Button, useColorMode, useColorModeValue, Table, Thead, Tbody, Tr, Th, Td, Image, Grid, GridItem, Icon, Stack, Link, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { FaMoon, FaSun, FaGasPump, FaStar, FaBitcoin, FaSearch } from "react-icons/fa";
 import { cryptoData } from "../data/MockData";
+import Header from "../components/Header";
+import AuthModal from "../components/AuthModal";
 
 const Index = () => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
@@ -117,43 +119,7 @@ const Index = () => {
 
   return (
     <Box align="center" fontFamily="Nunito">
-      {}
-      <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
-        <Flex maxWidth="1200" fontWeight="bold" mr={8}>
-          <Text mr={8}>📈 Markets</Text>
-          <Text mr={8}>📰 Blog</Text>
-          <Text mr={8}>🧭 Explore</Text>
-          <Text mr={8}>🎓 Learn</Text>
-        </Flex>
-        <Flex alignItems="center">
-          <InputGroup mr={4} width="200px">
-            <InputLeftElement pointerEvents="none">
-              <Icon as={FaSearch} color="gray.400" />
-            </InputLeftElement>
-            <Input type="search" placeholder="Search..." bg="gray.100" size="sm" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
-          </InputGroup>
-          <Flex alignItems="center" mr={4}>
-            <Icon as={FaGasPump} mr={2} />
-            <Text>
-              ETH Gas{" "}
-              <Text as="span" fontWeight="bold" color="#5A4FCF">
-                50 Gwei
-              </Text>
-            </Text>
-          </Flex>
-          <Button onClick={toggleColorMode} mr={4}>
-            {colorMode === "light" ? <FaMoon /> : <FaSun />}
-          </Button>
-          <Button variant="outline" borderColor="gray.200" mr={4}>
-            Login
-          </Button>
-          <Button bg="#5A4FCF" color="white">
-            Sign up
-          </Button>
-        </Flex>
-      </Flex>
-
-      {}
+      <Header />
       <Box textAlign="center" my={16} mx={8}>
         <Heading mb={4}>The Latest Crypto Market Data</Heading>
         <Text fontSize="xl" color="gray.600">

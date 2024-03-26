@@ -8,7 +8,7 @@ const CryptoTable = ({ assetsData, loading }) => {
 
   useEffect(() => {
     setTableData(assetsData);
-  }, [assetsData]);
+  }, [assetsData, sortConfig]);
   const toggleFavorite = (name) => {
     const updatedData = tableData.map((crypto) => {
       if (crypto.name === name) {

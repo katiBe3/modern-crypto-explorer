@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Text, Icon, useColorModeValue } from "@chakra-ui/react";
 import { FaBitcoin } from "react-icons/fa";
 
-const FearGreedIndex = () => {
+const FearGreedIndex = React.memo(() => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
   const [indexSentiment, setIndexSentiment] = useState("");
   const [lastUpdated, setLastUpdated] = useState(null);
@@ -74,6 +74,6 @@ const FearGreedIndex = () => {
       </Text>
     </Box>
   );
-};
+});
 
 export default FearGreedIndex;

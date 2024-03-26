@@ -18,7 +18,7 @@ const CryptoTable = ({ assetsData, loading }) => {
     };
 
     fetchData();
-  }, [sortConfig]);
+  }, []);
   const toggleFavorite = (name) => {
     const updatedData = tableData.map((crypto) => {
       if (crypto.name === name) {

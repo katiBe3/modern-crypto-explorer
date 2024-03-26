@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, GridItem, Heading, Flex, Image, Text, Stack, Spacer, useColorModeValue } from "@chakra-ui/react";
 
-const InformationPanels = () => {
+const InformationPanels = React.memo(() => {
   // Sample data, replace or fetch from API
   const topNews = [
     {
@@ -95,6 +95,6 @@ const InformationPanels = () => {
       </GridItem>
     </Grid>
   );
-};
+});
 
 export default InformationPanels;

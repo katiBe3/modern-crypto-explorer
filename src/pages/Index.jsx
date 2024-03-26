@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { Suspense } from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "../components/layout/Header";
 import MarketTeaser from "../components/market/MarketTeaser";
 import FearGreedIndex from "../components/market/FearGreedIndex";
-import CryptoTable from "../components/market/CryptoTable";
-import InformationPanels from "../components/market/InformationPanels";
-import NewsletterSubscription from "../components/common/NewsletterSubscription";
-import Footer from "../components/layout/Footer";
+const CryptoTable = React.lazy(() => import("../components/market/CryptoTable"));
+const InformationPanels = React.lazy(() => import("../components/market/InformationPanels"));
+const NewsletterSubscription = React.lazy(() => import("../components/common/NewsletterSubscription"));
+const Footer = React.lazy(() => import("../components/layout/Footer"));
 
 const Index = () => {
-  const [assetsData, setAssetsData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // const [assetsData, setAssetsData] = useState([]);
+ 
 
   return (
     <Box align="center">

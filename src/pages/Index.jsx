@@ -24,11 +24,11 @@ const Index = () => {
 
   const fetchHistoricalData = useCallback(async () => {
     const twentyFourHoursAgo = Date.now() - 24 * 60 * 60 * 1000;
-  
+
     if (historicalDataLastFetched && historicalDataLastFetched > twentyFourHoursAgo) {
       return;
     }
-  
+
     const endDate = new Date().getTime();
     const startDate = endDate - 60 * 24 * 60 * 60 * 1000; // 60 days in milliseconds
     const response = await fetch(`https://api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=${startDate}&end=${endDate}`);
@@ -47,13 +47,12 @@ const Index = () => {
     fetchAssets();
     fetchHistoricalData();
   }, [fetchAssets, fetchHistoricalData]);
-  
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
-      <MarketTeaser assets={assets} />
-      <FearGreedIndex bitcoinData={bitcoinData} />
+      <MarketTeaser assets={assets} mb={4} />
+      <FearGreedIndex bitcoinData={bitcoinData} mt={4} />
       <CryptoTable assets={assets} my={8} favorites={favorites} setFavorites={setFavorites} />
       <NewsletterSubscription />
       <Footer />

@@ -13,12 +13,19 @@ const InformationPanels = ({ assets }) => {
 
   const [mostWanted, setMostWanted] = useState([]);
 
+  const smallCapThreshold = 1e9;
+
   useEffect(() => {
     const fetchMostWantedData = async () => {
       try {
-        const response = await fetch("https://api.coincap.io/v2/assets?limit=3&sort=changePercent24Hr&order=desc");
+        const response = await fetch("https://api.coincap.io/v2/assets?limit=100&sort=changePercent24Hr&order=desc");
         const data = await response.json();
-        const mostWantedData = data.data.map((asset) => ({
+        const assets = data.data;
+
+        const smallCaps = assets.filter((asset) => parseFloat(asset.marketCapUsd) < smallCapThreshold);
+        const top3SmallCaps = smallCaps.slice(0, 3);
+
+        const mostWantedData = top3SmallCaps.map((asset) => ({
           name: asset.name,
           symbol: asset.symbol,
           change: `+${parseFloat(asset.changePercent24Hr).toFixed(2)}%`,

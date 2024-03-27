@@ -20,7 +20,7 @@ const Header = () => {
           🎓 Learn
         </Text>
         <Text as="a" href="/favorites" mr={8}>
-          ⭐ Favorites
+          ❤️ Favorites
         </Text>
       </Flex>
       <Flex alignItems="center" display={{ base: "none", md: "flex" }}>

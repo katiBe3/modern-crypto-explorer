@@ -70,7 +70,7 @@ const CryptoTable = ({ assets }) => {
           {tableData.map((crypto) => (
             <Tr key={crypto.id}>
               <Td>
-                <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "red.300"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
+                <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.400"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>
               <Td>
                 <Text fontWeight="bold">{crypto.name}</Text>

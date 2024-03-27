@@ -2,6 +2,7 @@ import React from "react";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import { Box, Heading, Text, Avatar, AvatarGroup, Center } from "@chakra-ui/react";
+import katrinImage from '../assets/images/katrin.jpg';  // Import the image
 
 const About = () => {
   return (
@@ -16,7 +17,7 @@ const About = () => {
         </Text>
         <Center my={6}>
           <AvatarGroup size="lg" max={2}>
-            <Avatar name="Katrin" src="../assets/images/katrin.jpg" />
+            <Avatar name="Katrin" src={katrinImage} />
             <Avatar name="Robot" src="https://images.unsplash.com/photo-1589254065878-42c9da997008?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" />
           </AvatarGroup>
         </Center>

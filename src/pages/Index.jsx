@@ -51,10 +51,9 @@ const Index = () => {
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
-      <InfoBar assets={assets} />
       <MarketTeaser assets={assets} mb={4} />
       <FearGreedIndex bitcoinData={bitcoinData} mt={4} />
-      <CryptoTable assets={assets} my={8} />
+      <CryptoTable assets={assets} my={8} favorites={favorites} setFavorites={setFavorites} />
       <NewsletterSubscription />
       <Footer />
     </Box>

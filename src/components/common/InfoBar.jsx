@@ -8,10 +8,6 @@ const InfoBar = ({ assets }) => {
     return dominance.toFixed(2);
   };
 
-  if (!assets) {
-    return null;
-  }
-
   return (
     <Box bg={useColorModeValue("gray.50", "gray.700")} py={2} px={4} borderBottom="1px" borderColor="gray.200">
       <Text color={useColorModeValue("black", "white")} textAlign="left" fontSize="sm">

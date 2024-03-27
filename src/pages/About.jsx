@@ -15,7 +15,7 @@ const About = () => {
           A unique collaboration between human passion and robotic precision.
         </Text>
         <AvatarGroup size="lg" max={2} justifyContent="center" my={6}>
-          <Avatar name="Katrin" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" />
+          <Avatar name="Katrin" src="../assets/images/katrin.jpg" />
           <Avatar name="GPT Engineer" src="https://images.unsplash.com/photo-1589254065878-42c9da997008?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" />
         </AvatarGroup>
         <Text fontSize="md" maxWidth="800px" mx="auto">

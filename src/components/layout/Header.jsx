@@ -11,16 +11,16 @@ const Header = () => {
     <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
       <Flex maxWidth="1200" fontWeight="bold" mr={8}>
         <Text as="a" href="/" mr={8}>
-          Market
+          📈 Market
         </Text>
         <Text as="a" href="/blog" mr={8}>
-          Whale Watch
+          🐳 Whale Watch
         </Text>
         <Text as="a" href="/learn" mr={8}>
-          Learn
+          🎓 Learn
         </Text>
         <Text as="a" href="/favorites" mr={8}>
-          Favorites
+          ❤️ Favorites
         </Text>
       </Flex>
       <Flex alignItems="center" gap={4}>

@@ -4,7 +4,6 @@ import Header from "../components/layout/Header";
 import MarketTeaser from "../components/market/MarketTeaser";
 import FearGreedIndex from "../components/market/FearGreedIndex";
 import CryptoTable from "../components/market/CryptoTable";
-
 import NewsletterSubscription from "../components/common/NewsletterSubscription";
 import Footer from "../components/layout/Footer";
 
@@ -15,7 +14,6 @@ const Index = () => {
   const [historicalDataLastFetched, setHistoricalDataLastFetched] = useState(null);
 
   const fetchAssetsRef = useRef();
-  const intervalRef = useRef();
   const historicalDataFetchRef = useRef();
 
   const fetchAssets = useCallback(async () => {
@@ -26,16 +24,16 @@ const Index = () => {
 
   const fetchHistoricalData = useCallback(async () => {
     const twentyFourHoursAgo = Date.now() - 24 * 60 * 60 * 1000;
-
+  
     if (historicalDataLastFetched && historicalDataLastFetched > twentyFourHoursAgo) {
       return;
     }
-
-    const endDate = new Date().toISOString().split("T")[0];
-    const startDate = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+  
+    const endDate = new Date().getTime();
+    const startDate = endDate - 60 * 24 * 60 * 60 * 1000; // 60 days in milliseconds
     const response = await fetch(`https://api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=${startDate}&end=${endDate}`);
     const data = await response.json();
-
+    setBitcoinData(data.data);
     setHistoricalDataLastFetched(Date.now());
   }, [historicalDataLastFetched]);
 
@@ -44,37 +42,19 @@ const Index = () => {
     historicalDataFetchRef.current = fetchHistoricalData;
   }, [fetchAssets, fetchHistoricalData]);
 
+  // Call fetch functions on component mount
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://api.coincap.io/v2/assets/bitcoin");
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        setBitcoinData(data.data);
-      } catch (error) {
-        console.error("Error fetching Bitcoin data:", error);
-      }
-      await fetchAssetsRef.current();
-    };
-
-    fetchData();
-
-    intervalRef.current = setInterval(fetchData, 15000);
-
-    return () => {
-      clearInterval(intervalRef.current);
-    };
-  }, []);
+    fetchAssets();
+    fetchHistoricalData();
+  }, [fetchAssets, fetchHistoricalData]);
+  
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
-      <MarketTeaser bitcoinData={bitcoinData} />
-      <FearGreedIndex assets={assets} />
+      <MarketTeaser assets={assets} />
+      <FearGreedIndex bitcoinData={bitcoinData} />
       <CryptoTable assets={assets} my={8} favorites={favorites} setFavorites={setFavorites} />
-
       <NewsletterSubscription />
       <Footer />
     </Box>

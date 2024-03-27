@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Text, Icon, useColorModeValue } from "@chakra-ui/react";
 import { FaBitcoin } from "react-icons/fa";
 
-const FearGreedIndex = ({ assets }) => {
+const FearGreedIndex = ({ bitcoinData }) => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
   const [indexSentiment, setIndexSentiment] = useState("");
   const [lastUpdated, setLastUpdated] = useState(0);
@@ -33,46 +33,50 @@ const FearGreedIndex = ({ assets }) => {
   const indexColor = useColorModeValue(indexSentiment.includes("Greed") ? "green.500" : "red.500", indexSentiment.includes("Greed") ? "green.200" : "red.200");
 
   useEffect(() => {
-    const calculateFearGreedIndex = async () => {
-      if (!Array.isArray(assets)) return;
-
+    const calculateFearGreedIndex = () => {
+      if (!Array.isArray(bitcoinData) || bitcoinData.length < 2) return;
+  
       setLastUpdated(Date.now());
-
-      const avgPercentChange24h = assets.reduce((sum, data) => sum + parseFloat(data.changePercent24Hr), 0) / assets.length;
-      const percentIncreased = (assets.filter((data) => parseFloat(data.changePercent24Hr) > 0).length / assets.length) * 100;
-
-      let index = Math.floor(percentIncreased);
-      if (avgPercentChange24h > 5) {
-        index += 10;
-      } else if (avgPercentChange24h < -5) {
-        index -= 10;
+  
+      let priceChanges = [];
+      for (let i = 1; i < bitcoinData.length; i++) {
+        const previousPrice = parseFloat(bitcoinData[i - 1].priceUsd);
+        const currentPrice = parseFloat(bitcoinData[i].priceUsd);
+        const priceChangePercent = ((currentPrice - previousPrice) / previousPrice) * 100;
+        priceChanges.push(priceChangePercent);
       }
-
-      index = Math.min(100, Math.max(0, index));
-
+  
+      const avgPriceChange = priceChanges.reduce((sum, change) => sum + change, 0) / priceChanges.length;
+      const scaledIndex = (avgPriceChange + 5) * 12; // Adjust the multiplier for scaling
+      const index = Math.round(Math.min(100, Math.max(0, scaledIndex))); // Round and ensure index is between 0 and 100
+  
       let sentiment = "";
-      if (index >= 75) {
+      // Adjust thresholds for sentiment determination
+      if (index >= 80) {
         sentiment = "Extreme Greed 🤑";
-      } else if (index >= 50) {
+      } else if (index >= 60) {
         sentiment = "Greed 😀";
-      } else if (index >= 25) {
+      } else if (index >= 40) {
+        sentiment = "Neutral 😐";
+      } else if (index >= 20) {
         sentiment = "Fear 😰";
       } else {
         sentiment = "Extreme Fear 😱";
       }
-
-      setFearGreedIndex(index);
+  
+      setFearGreedIndex(index); // Index is now rounded
       setIndexSentiment(sentiment);
     };
-
+  
     calculateFearGreedIndex();
-
+  
     const interval = setInterval(calculateFearGreedIndex, 60 * 60 * 1000);
-
+  
     return () => clearInterval(interval);
-  }, [assets]); // Depend on assets to re-run the effect when it changes
+  }, [bitcoinData]);
+  
 
-  if (!assets) {
+  if (!bitcoinData) {
     return <Box>Loading...</Box>;
   }
 

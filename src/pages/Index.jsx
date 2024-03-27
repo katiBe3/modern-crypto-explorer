@@ -19,7 +19,7 @@ const Index = ({ setFavorites }) => {
   const historicalDataFetchRef = useRef();
 
   const fetchAssets = useCallback(async () => {
-    const response = await fetch("https://api.coincap.io/v2/assets?limit=100");
+    const response = await fetch("https://api.coincap.io/v2/assets");
     const data = await response.json();
     setAssets(data.data);
   }, []);

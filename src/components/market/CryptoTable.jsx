@@ -36,9 +36,7 @@ const CryptoTable = ({ assets }) => {
 
   useEffect(() => {
     if (assets) {
-      let first25Assets = assets.slice(0, 25);
-
-      const mergedData = first25Assets.map((asset) => ({
+      const mergedData = assets.map((asset) => ({
         ...asset,
         isFavorite: favorites[asset.id] || false,
       }));

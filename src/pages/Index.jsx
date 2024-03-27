@@ -8,8 +8,8 @@ import CryptoTable from "../components/market/CryptoTable";
 import NewsletterSubscription from "../components/common/NewsletterSubscription";
 import Footer from "../components/layout/Footer";
 
-
-const Index = ({ setFavorites }) => {
+const Index = () => {
+  const [favorites, setFavorites] = useState({});
   const [assets, setAssets] = useState([]);
   const [bitcoinData, setBitcoinData] = useState(null);
   const [historicalDataLastFetched, setHistoricalDataLastFetched] = useState(null);
@@ -63,8 +63,6 @@ const Index = ({ setFavorites }) => {
 
     intervalRef.current = setInterval(fetchData, 15000);
 
-    
-
     return () => {
       clearInterval(intervalRef.current);
     };
@@ -75,8 +73,8 @@ const Index = ({ setFavorites }) => {
       <Header />
       <MarketTeaser bitcoinData={bitcoinData} />
       <FearGreedIndex assets={assets} />
-      <CryptoTable assets={assets} my={8} setFavorites={setFavorites} />
-      
+      <CryptoTable assets={assets} my={8} favorites={favorites} setFavorites={setFavorites} />
+
       <NewsletterSubscription />
       <Footer />
     </Box>

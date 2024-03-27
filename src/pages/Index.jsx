@@ -7,13 +7,16 @@ import CryptoTable from "../components/market/CryptoTable";
 import InformationPanels from "../components/market/InformationPanels";
 import NewsletterSubscription from "../components/common/NewsletterSubscription";
 import Footer from "../components/layout/Footer";
+import { bitcoinHistoricalData } from "../data/bitcoinHistoricalData";
 
 const Index = ({ setFavorites }) => {
   const [assets, setAssets] = useState([]);
   const [bitcoinData, setBitcoinData] = useState(null);
+  const [historicalDataLastFetched, setHistoricalDataLastFetched] = useState(null);
 
   const fetchAssetsRef = useRef();
   const intervalRef = useRef();
+  const historicalDataFetchRef = useRef();
 
   const fetchAssets = useCallback(async () => {
     const response = await fetch("https://api.coincap.io/v2/assets?limit=100");
@@ -21,9 +24,30 @@ const Index = ({ setFavorites }) => {
     setAssets(data.data);
   }, []);
 
+  const fetchHistoricalData = useCallback(async () => {
+    const twentyFourHoursAgo = Date.now() - 24 * 60 * 60 * 1000;
+
+    if (historicalDataLastFetched && historicalDataLastFetched > twentyFourHoursAgo) {
+      return;
+    }
+
+    const response = await fetch(`https://rest.coinapi.io/v1/ohlcv/BTC/USD/history?period_id=1DAY&time_start=${new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()}`, {
+      headers: {
+        "X-CoinAPI-Key": "YOUR_API_KEY_HERE",
+      },
+    });
+    const data = await response.json();
+
+    bitcoinHistoricalData.length = 0;
+    bitcoinHistoricalData.push(...data);
+
+    setHistoricalDataLastFetched(Date.now());
+  }, [historicalDataLastFetched]);
+
   useEffect(() => {
     fetchAssetsRef.current = fetchAssets;
-  }, [fetchAssets]);
+    historicalDataFetchRef.current = fetchHistoricalData;
+  }, [fetchAssets, fetchHistoricalData]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +67,8 @@ const Index = ({ setFavorites }) => {
     fetchData();
 
     intervalRef.current = setInterval(fetchData, 5000);
+
+    historicalDataFetchRef.current();
 
     return () => {
       clearInterval(intervalRef.current);

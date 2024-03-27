@@ -20,7 +20,7 @@ const Header = () => {
         <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200" mr={4}>
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>
-        <Button bg="#5A4FCF" color="white">
+        <Button bg="#5A4FCF" color="white" _hover={{ bg: "#4A3FBF" }} _active={{ bg: "#3A2FAF" }} onClick={() => (window.location.href = "/about")}>
           Learn More
         </Button>
       </Flex>

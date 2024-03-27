@@ -91,8 +91,7 @@ const InfoCards = ({ assets }) => {
           </Heading>
           {marketWhispers.map((item, index) => (
             <Flex key={index}>
-              <Image src={item.image} alt="Podcast" borderRadius="md" boxSize="100px" objectFit="cover" mr={4} />
-              <Text>{item.text}</Text>
+              <Text width="100%">{item.text}</Text>
             </Flex>
           ))}
         </Box>

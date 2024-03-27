@@ -14,7 +14,7 @@ const Header = () => {
           📈 Market
         </Text>
         <Text as="a" href="/blog" mr={8}>
-          📰 Blog
+          🐳 Whale Tracker
         </Text>
         <Text as="a" href="/learn" mr={8}>
           🎓 Learn

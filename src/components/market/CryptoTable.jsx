@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Button, Icon } from "@chakra-ui/react";
-import { FaStar } from "react-icons/fa";
+import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon } from "@chakra-ui/react";
+import { FaHeart } from "react-icons/fa";
 
 const CryptoTable = ({ assets }) => {
   const [tableData, setTableData] = useState([]);
@@ -70,7 +70,7 @@ const CryptoTable = ({ assets }) => {
           {tableData.map((crypto) => (
             <Tr key={crypto.id}>
               <Td>
-                <Icon as={FaStar} color={crypto.isFavorite ? "yellow.500" : "gray.300"} onClick={() => toggleFavorite(crypto.id)} _hover={{ cursor: "pointer" }} />
+                <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "red.300"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>
               <Td>
                 <Text fontWeight="bold">{crypto.name}</Text>

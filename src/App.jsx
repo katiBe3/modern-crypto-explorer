@@ -5,14 +5,12 @@ import Blog from "./pages/Blog.jsx";
 import Learn from "./pages/Learn.jsx";
 import Favorites from "./pages/Favorites.jsx";
 import { useState } from "react";
-import InfoBar from "./components/common/InfoBar.jsx";
 
 function App() {
   const [favorites, setFavorites] = useState({});
 
   return (
     <Router>
-      <InfoBar />
       <Routes>
         <Route exact path="/" element={<Index setFavorites={setFavorites} />} />
         <Route path="/about" element={<About />} />

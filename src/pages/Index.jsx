@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "../components/layout/Header";
+import InfoBar from "../components/common/InfoBar.jsx";
 import MarketTeaser from "../components/market/MarketTeaser";
 import FearGreedIndex from "../components/market/FearGreedIndex";
 import CryptoTable from "../components/market/CryptoTable";
@@ -49,6 +50,7 @@ const Index = () => {
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
+      <InfoBar assets={assets} />
       <Header />
       <MarketTeaser assets={assets} mb={4} />
       <FearGreedIndex bitcoinData={bitcoinData} mt={4} />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "../components/layout/Header";
+import InfoBar from "../components/common/InfoBar";
 import MarketTeaser from "../components/market/MarketTeaser";
 import FearGreedIndex from "../components/market/FearGreedIndex";
 import CryptoTable from "../components/market/CryptoTable";

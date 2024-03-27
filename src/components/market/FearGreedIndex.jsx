@@ -7,26 +7,9 @@ const FearGreedIndex = ({ assets }) => {
   const [indexSentiment, setIndexSentiment] = useState("");
   const [lastUpdated, setLastUpdated] = useState(0);
 
-  const formatTimeDifference = (timestamp) => {
-    const currentTime = Date.now();
-    const difference = currentTime - timestamp;
-
-    const minute = 60 * 1000;
-    const hour = 60 * minute;
-    const day = 24 * hour;
-
-    if (difference < minute) {
-      return "Just now";
-    } else if (difference < hour) {
-      const minutes = Math.floor(difference / minute);
-      return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
-    } else if (difference < day) {
-      const hours = Math.floor(difference / hour);
-      return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-    } else {
-      const days = Math.floor(difference / day);
-      return `${days} day${days > 1 ? "s" : ""} ago`;
-    }
+  const formatDate = (timestamp) => {
+    const options = { month: "long", day: "numeric" };
+    return new Date(timestamp).toLocaleDateString(undefined, options);
   };
   const indexColor = useColorModeValue(indexSentiment.includes("Greed") ? "green.500" : "red.500", indexSentiment.includes("Greed") ? "green.200" : "red.200");
 
@@ -89,7 +72,7 @@ const FearGreedIndex = ({ assets }) => {
         {indexSentiment}
       </Text>
       <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center" mt={2}>
-        Last updated: {lastUpdated ? formatTimeDifference(lastUpdated) : "N/A"}
+        Last updated: {lastUpdated ? formatDate(lastUpdated) : "N/A"}
       </Text>
     </Box>
   );

@@ -10,19 +10,24 @@ const Header = () => {
   return (
     <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
       <Flex maxWidth="1200" fontWeight="bold" mr={8}>
-        <Text mr={8} onClick={() => (window.location.href = "/market")}>
+        <Text as="a" href="/market" mr={8}>
           📈 Market
         </Text>
-        <Text mr={8} onClick={() => (window.location.href = "/blog")}>
+        <Text as="a" href="/blog" mr={8}>
           📰 Blog
         </Text>
-        <Text mr={8} onClick={() => (window.location.href = "/learn")}>
+        <Text as="a" href="/learn" mr={8}>
           🎓 Learn
         </Text>
       </Flex>
-      <Flex alignItems="center">
+      <Flex alignItems="center" display={{ base: "none", md: "flex" }}>
         <SearchInput />
         <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200" mr={4}>
+          {colorMode === "light" ? <FaMoon /> : <FaSun />}
+        </Button>
+      </Flex>
+      <Flex display={{ base: "flex", md: "none" }} alignItems="center">
+        <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200">
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>
         <Button bg="#5A4FCF" color="white" _hover={{ bg: "#4A3FBF" }} _active={{ bg: "#3A2FAF" }} onClick={() => (window.location.href = "/about")}>

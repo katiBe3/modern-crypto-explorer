@@ -40,7 +40,7 @@ const InformationPanels = ({ assets }) => {
   ];
 
   return (
-    <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx={8} maxWidth="1200px">
+    <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx="auto" maxWidth="1200px" justifyItems="center">
       <GridItem>
         <Box borderWidth="1px" borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
           <Heading size="md" mb={4}>

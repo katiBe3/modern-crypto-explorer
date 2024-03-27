@@ -31,11 +31,9 @@ const Index = ({ setFavorites }) => {
       return;
     }
 
-    const response = await fetch(`https://rest.coinapi.io/v1/ohlcv/BTC/USD/history?period_id=1DAY&time_start=${new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString()}`, {
-      headers: {
-        "X-CoinAPI-Key": "YOUR_API_KEY_HERE",
-      },
-    });
+    const endDate = new Date().toISOString().split("T")[0];
+    const startDate = new Date(Date.now() - 60 * 24 * 60 * 60 * 1000).toISOString().split("T")[0];
+    const response = await fetch(`https://api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=${startDate}&end=${endDate}`);
     const data = await response.json();
 
     bitcoinHistoricalData.length = 0;

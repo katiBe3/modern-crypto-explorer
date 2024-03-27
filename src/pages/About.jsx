@@ -5,7 +5,7 @@ import { Box, Heading, Text, Avatar, AvatarGroup } from "@chakra-ui/react";
 
 const About = () => {
   return (
-    <Box align="center">
+    <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
       <Box px={8} py={4} maxWidth="1200px" mx="auto" textAlign="center">
         <Heading as="h1" size="xl" mt={10} mb={4}>

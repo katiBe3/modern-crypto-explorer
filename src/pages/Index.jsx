@@ -50,7 +50,7 @@ const Index = () => {
   }, []);
 
   return (
-    <Box align="center">
+    <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
       <MarketTeaser bitcoinData={bitcoinData} />
       <FearGreedIndex assets={assets} />

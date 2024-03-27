@@ -77,7 +77,7 @@ const CryptoTable = ({ assets }) => {
   };
 
   return (
-    <Box overflowX="auto" maxWidth="1200px" mt={8}>
+    <Box overflowX="auto" maxWidth="1200px" mt={8} mx="auto">
       <Table variant="simple">
         <Thead>
           <Tr>

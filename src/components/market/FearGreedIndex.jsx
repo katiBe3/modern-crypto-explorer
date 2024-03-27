@@ -78,14 +78,14 @@ const FearGreedIndex = ({ assets }) => {
 
   return (
     <Box maxWidth="420px" mx="auto" mt={8} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={6} align="center" backgroundColor="gray.50">
-      <Text fontSize="xl" fontWeight="bold" mb={4}>
+      <Text fontSize="xl" fontWeight="bold" mb={2}>
         <Icon as={FaBitcoin} color="orange.400" mr={2} />
         Fear & Greed Index
       </Text>
       <Text fontSize="6xl" fontWeight="black" color={isNaN(fearGreedIndex) ? "gray.400" : indexColor}>
         {isNaN(fearGreedIndex) ? "Loading..." : fearGreedIndex}
       </Text>
-      <Text mt={4} fontWeight="bold" color="gray.600" textAlign="center">
+      <Text mt={2} fontWeight="bold" color="gray.600" textAlign="center">
         {indexSentiment}
       </Text>
       <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center" mt={2}>

@@ -1,5 +1,5 @@
-import { Box, Text, Icon } from "@chakra-ui/react";
-import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { Box, Text, useColorModeValue, Icon } from "@chakra-ui/react";
+import { FaBitcoin, FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
   if (!assets || !assets.length) {
@@ -29,18 +29,25 @@ const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
   const totalVolume = calculateTotalVolume();
 
   return (
-    <Box bg="gray.800" py={2} px={4}>
+    <Box bg="gray.900" py={2} px={4}>
       <Text color="white" textAlign="left" fontSize="sm">
-        Dominance: <Text as="span" fontWeight="bold">BTC</Text> {btcDominance}%&nbsp;&nbsp;&nbsp;
-        <Text as="span" fontWeight="bold">ETH</Text> {ethDominance}%&nbsp;&nbsp;&nbsp;
-        24h Vol: <Text as="span" fontWeight="bold">${totalVolume} Billion</Text>&nbsp;&nbsp;&nbsp;
-        Total Market Cap: 
-        <Text as="span" fontWeight="bold">${totalMarketCap.toFixed(2)} Trillion </Text>
-        {marketDirection === 'up' ? (
-          <Icon as={FaArrowUp} color="green.500" />
-        ) : (
-          <Icon as={FaArrowDown} color="red.500" />
-        )}
+        <Box display="inline-block" mr={4}>
+          <Text as="span" fontWeight="bold">BTC</Text> {btcDominance}%
+        </Box>
+        <Box display="inline-block" mr={4}>
+          <Text as="span" fontWeight="bold">ETH</Text> {ethDominance}%
+        </Box>
+        <Box display="inline-block" mr={4}>
+          24h Vol: <Text as="span" fontWeight="bold">${totalVolume} Billion</Text>
+        </Box>
+        <Box display="inline-block" mr={4}>
+          Total Market Cap: <Text as="span" fontWeight="bold">${totalMarketCap.toFixed(2)} Trillion</Text>
+          {marketDirection === 'up' ? (
+            <Icon as={FaArrowUp} color="green.500" ml={2} />
+          ) : (
+            <Icon as={FaArrowDown} color="red.500" ml={2} />
+          )}
+        </Box>
       </Text>
     </Box>
   );

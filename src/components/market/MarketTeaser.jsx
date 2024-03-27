@@ -51,7 +51,7 @@ const MarketTeaser = ({ assets }) => {
         <Text as="span" fontWeight="bold" color={percentChange.startsWith('+') ? "green.400" : "red.400"}>
           {percentChange}%
         </Text>{" "}
-        change in the last 24 hours.🚀
+        change in the last 24 hours.
       </Text>
     </Box>
   );

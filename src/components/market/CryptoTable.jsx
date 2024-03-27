@@ -6,17 +6,21 @@ const CryptoTable = ({ assets }) => {
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
+  const [previousPrices, setPreviousPrices] = useState({});
 
   useEffect(() => {
     if (assets) {
       const updatedPriceColors = {};
       assets.forEach((asset) => {
-        const previousPrice = tableData.find((data) => data.id === asset.id)?.priceUsd;
-        if (previousPrice) {
-          updatedPriceColors[asset.id] = parseFloat(asset.priceUsd) > parseFloat(previousPrice) ? "green.400" : "red.400";
+        const previousPrice = previousPrices[asset.id];
+        const currentPrice = parseFloat(asset.priceUsd);
+
+        if (previousPrice !== undefined && previousPrice !== currentPrice) {
+          updatedPriceColors[asset.id] = currentPrice > previousPrice ? "green.400" : "red.400";
         }
       });
       setPriceColors(updatedPriceColors);
+      setPreviousPrices(assets.reduce((prices, asset) => ({ ...prices, [asset.id]: parseFloat(asset.priceUsd) }), {}));
 
       const colorResetTimer = setTimeout(() => {
         setPriceColors({});
@@ -26,7 +30,7 @@ const CryptoTable = ({ assets }) => {
         clearTimeout(colorResetTimer);
       };
     }
-  }, [assets, tableData]);
+  }, [assets, previousPrices]);
 
   const requestSort = (key) => {
     let direction = "asc";

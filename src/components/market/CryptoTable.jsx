@@ -5,6 +5,28 @@ import { FaStar } from "react-icons/fa";
 const CryptoTable = ({ assets }) => {
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
+  const [priceColors, setPriceColors] = useState({});
+
+  useEffect(() => {
+    if (assets) {
+      const updatedPriceColors = {};
+      assets.forEach((asset) => {
+        const previousPrice = tableData.find((data) => data.id === asset.id)?.priceUsd;
+        if (previousPrice) {
+          updatedPriceColors[asset.id] = parseFloat(asset.priceUsd) > parseFloat(previousPrice) ? "green.400" : "red.400";
+        }
+      });
+      setPriceColors(updatedPriceColors);
+
+      const colorResetTimer = setTimeout(() => {
+        setPriceColors({});
+      }, 500);
+
+      return () => {
+        clearTimeout(colorResetTimer);
+      };
+    }
+  }, [assets, tableData]);
 
   const requestSort = (key) => {
     let direction = "asc";
@@ -100,7 +122,9 @@ const CryptoTable = ({ assets }) => {
                   {crypto.symbol}
                 </Text>
               </Td>
-              <Td fontWeight="bold">${parseFloat(crypto.priceUsd).toLocaleString()}</Td>
+              <Td fontWeight="bold">
+                <Text color={priceColors[crypto.id]}>${parseFloat(crypto.priceUsd).toLocaleString()}</Text>
+              </Td>
               <Td fontWeight="bold">
                 <Text color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>{parseFloat(crypto.changePercent24Hr).toFixed(2)}%</Text>
               </Td>

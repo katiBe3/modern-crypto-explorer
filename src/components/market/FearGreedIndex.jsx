@@ -47,11 +47,11 @@ const FearGreedIndex = ({ bitcoinData }) => {
       }
   
       const avgPriceChange = priceChanges.reduce((sum, change) => sum + change, 0) / priceChanges.length;
-      const scaledIndex = (avgPriceChange + 5) * 12; // Adjust the multiplier for scaling
-      const index = Math.round(Math.min(100, Math.max(0, scaledIndex))); // Round and ensure index is between 0 and 100
+      // Adjust these values to get a more balanced index
+      const scaledIndex = ((avgPriceChange + 5.5) * 13); // Fine-tuning the scale and baseline
+      const index = Math.round(Math.min(100, Math.max(0, scaledIndex))); // Ensure index is between 0 and 100
   
       let sentiment = "";
-      // Adjust thresholds for sentiment determination
       if (index >= 80) {
         sentiment = "Extreme Greed 🤑";
       } else if (index >= 60) {
@@ -64,7 +64,7 @@ const FearGreedIndex = ({ bitcoinData }) => {
         sentiment = "Extreme Fear 😱";
       }
   
-      setFearGreedIndex(index); // Index is now rounded
+      setFearGreedIndex(index);
       setIndexSentiment(sentiment);
     };
   
@@ -73,8 +73,8 @@ const FearGreedIndex = ({ bitcoinData }) => {
     const interval = setInterval(calculateFearGreedIndex, 60 * 60 * 1000);
   
     return () => clearInterval(interval);
-  }, [bitcoinData]);
-  
+  }, [bitcoinData]);  
+
 
   if (!bitcoinData) {
     return <Box>Loading...</Box>;

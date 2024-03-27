@@ -7,46 +7,46 @@ const CryptoTable = ({ assets }) => {
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
   const [previousPrices, setPreviousPrices] = useState({});
+  const [favorites, setFavorites] = useState({});
 
   useEffect(() => {
     if (assets) {
-      const updatedPriceColors = {};
-      assets.forEach((asset) => {
+      const newPriceColors = {};
+      const newPreviousPrices = {};
+
+      assets.forEach(asset => {
         const previousPrice = previousPrices[asset.id];
         const currentPrice = parseFloat(asset.priceUsd);
+        newPreviousPrices[asset.id] = currentPrice;
 
         if (previousPrice !== undefined && previousPrice !== currentPrice) {
-          updatedPriceColors[asset.id] = currentPrice > previousPrice ? "green.400" : "red.400";
+          newPriceColors[asset.id] = currentPrice > previousPrice ? "green.400" : "red.400";
         }
       });
-      setPriceColors(updatedPriceColors);
-      setPreviousPrices(assets.reduce((prices, asset) => ({ ...prices, [asset.id]: parseFloat(asset.priceUsd) }), {}));
+
+      setPriceColors(newPriceColors);
+      setPreviousPrices(newPreviousPrices);
 
       const colorResetTimer = setTimeout(() => {
         setPriceColors({});
       }, 500);
 
-      return () => {
-        clearTimeout(colorResetTimer);
-      };
+      return () => clearTimeout(colorResetTimer);
     }
-  }, [assets, previousPrices]);
-
-  const [favorites, setFavorites] = useState({});
+  }, [assets]); // Remove previousPrices from dependencies
 
   useEffect(() => {
     if (assets) {
-      const mergedData = assets.map((asset) => ({
+      const mergedData = assets.map(asset => ({
         ...asset,
         isFavorite: favorites[asset.id] || false,
       }));
-
       setTableData(mergedData);
     }
   }, [assets, favorites]);
 
-  const toggleFavorite = (id) => {
-    setFavorites((prevFavorites) => ({
+  const toggleFavorite = id => {
+    setFavorites(prevFavorites => ({
       ...prevFavorites,
       [id]: !prevFavorites[id],
     }));
@@ -67,7 +67,7 @@ const CryptoTable = ({ assets }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {tableData.map((crypto) => (
+          {tableData.map(crypto => (
             <Tr key={crypto.id}>
               <Td>
                 <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />

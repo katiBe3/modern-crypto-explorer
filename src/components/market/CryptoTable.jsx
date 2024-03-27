@@ -32,31 +32,11 @@ const CryptoTable = ({ assets }) => {
     }
   }, [assets, previousPrices]);
 
-  const requestSort = (key) => {
-    let direction = "asc";
-    if (sortConfig.key === key && sortConfig.direction === "asc") {
-      direction = "desc";
-    }
-    setSortConfig({ key, direction });
-  };
-
   const [favorites, setFavorites] = useState({});
 
   useEffect(() => {
     if (assets) {
-      let sortedAssets = [...assets];
-      if (sortConfig.key) {
-        sortedAssets.sort((a, b) => {
-          if (a[sortConfig.key] < b[sortConfig.key]) {
-            return sortConfig.direction === "asc" ? -1 : 1;
-          }
-          if (a[sortConfig.key] > b[sortConfig.key]) {
-            return sortConfig.direction === "asc" ? 1 : -1;
-          }
-          return 0;
-        });
-      }
-      let first25Assets = sortedAssets.slice(0, 25);
+      let first25Assets = assets.slice(0, 25);
 
       const mergedData = first25Assets.map((asset) => ({
         ...asset,
@@ -65,7 +45,7 @@ const CryptoTable = ({ assets }) => {
 
       setTableData(mergedData);
     }
-  }, [assets, sortConfig, favorites]);
+  }, [assets, favorites]);
 
   const toggleFavorite = (id) => {
     setFavorites((prevFavorites) => ({
@@ -80,36 +60,12 @@ const CryptoTable = ({ assets }) => {
         <Thead>
           <Tr>
             <Th></Th>
-            <Th>
-              <Button onClick={() => requestSort("name")} variant="link">
-                Name
-              </Button>
-            </Th>
-            <Th>
-              <Button onClick={() => requestSort("priceUsd")} variant="link">
-                Price
-              </Button>
-            </Th>
-            <Th>
-              <Button onClick={() => requestSort("changePercent24Hr")} variant="link">
-                24h%
-              </Button>
-            </Th>
-            <Th>
-              <Button onClick={() => requestSort("marketCapUsd")} variant="link">
-                Market Cap
-              </Button>
-            </Th>
-            <Th>
-              <Button onClick={() => requestSort("volumeUsd24Hr")} variant="link">
-                Volume (24h)
-              </Button>
-            </Th>
-            <Th>
-              <Button onClick={() => requestSort("supply")} variant="link">
-                Circulating Supply
-              </Button>
-            </Th>
+            <Th>Name</Th>
+            <Th>Price</Th>
+            <Th>24h%</Th>
+            <Th>Market Cap</Th>
+            <Th>Volume (24h)</Th>
+            <Th>Circulating Supply</Th>
           </Tr>
         </Thead>
         <Tbody>

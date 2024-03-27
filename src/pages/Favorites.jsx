@@ -5,6 +5,7 @@ import Footer from "../components/layout/Footer";
 import FavoritesTable from "../components/market/FavoritesTable";
 
 const Favorites = ({ favorites }) => {
+  const favoritesArray = Object.values(favorites);
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
@@ -15,7 +16,7 @@ const Favorites = ({ favorites }) => {
         <Text fontSize="lg" mb={8}>
           Keep your most loved cryptocurrencies close and never miss a beat in the market!
         </Text>
-        <FavoritesTable favorites={favorites} />
+        <FavoritesTable favorites={favoritesArray} />
       </Box>
       <Footer />
     </Box>

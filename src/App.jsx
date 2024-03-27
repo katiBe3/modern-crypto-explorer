@@ -16,7 +16,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/learn" element={<Learn />} />
-        <Route path="/favorites" element={<Favorites favorites={Object.values(favorites)} />} />
+        <Route path="/favorites" element={<Favorites favorites={favorites} />} />
       </Routes>
     </Router>
   );

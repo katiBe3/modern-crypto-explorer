@@ -6,7 +6,6 @@ import FearGreedIndex from "../components/market/FearGreedIndex";
 import CryptoTable from "../components/market/CryptoTable";
 import NewsletterSubscription from "../components/common/NewsletterSubscription";
 import Footer from "../components/layout/Footer";
-import InfoBar from "../components/common/InfoBar";
 
 const Index = () => {
   const [favorites, setFavorites] = useState({});
@@ -51,7 +50,6 @@ const Index = () => {
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
-      <InfoBar />
       <MarketTeaser assets={assets} mb={4} />
       <FearGreedIndex bitcoinData={bitcoinData} mt={4} />
       <CryptoTable assets={assets} my={8} favorites={favorites} setFavorites={setFavorites} />

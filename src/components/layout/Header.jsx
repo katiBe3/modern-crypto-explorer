@@ -2,8 +2,6 @@ import React from "react";
 import { Flex, Text, Button, useColorMode } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa";
 
-import SearchInput from "../common/SearchInput";
-
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -24,7 +22,6 @@ const Header = () => {
         </Text>
       </Flex>
       <Flex alignItems="center" gap={4}>
-        <SearchInput />
         <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200">
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>

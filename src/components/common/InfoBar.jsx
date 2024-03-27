@@ -1,5 +1,5 @@
-import { Box, Text, useColorModeValue, Icon } from "@chakra-ui/react";
-import { FaBitcoin, FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { Box, Text, Icon } from "@chakra-ui/react";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
   if (!assets || !assets.length) {

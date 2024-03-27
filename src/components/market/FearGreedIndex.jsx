@@ -9,7 +9,26 @@ const FearGreedIndex = ({ assets }) => {
 
   const formatDate = (timestamp) => {
     const options = { month: "long", day: "numeric" };
-    return new Date(timestamp).toLocaleDateString(undefined, options);
+    const formattedDate = new Date(timestamp).toLocaleDateString("en-US", options);
+    const day = formattedDate.split(" ")[1];
+    const daySuffix = getDaySuffix(day);
+    return formattedDate.replace(day, day + daySuffix);
+  };
+
+  const getDaySuffix = (day) => {
+    if (day >= 11 && day <= 13) {
+      return "th";
+    }
+    switch (day % 10) {
+      case 1:
+        return "st";
+      case 2:
+        return "nd";
+      case 3:
+        return "rd";
+      default:
+        return "th";
+    }
   };
   const indexColor = useColorModeValue(indexSentiment.includes("Greed") ? "green.500" : "red.500", indexSentiment.includes("Greed") ? "green.200" : "red.200");
 

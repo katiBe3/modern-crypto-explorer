@@ -7,7 +7,7 @@ import CryptoTable from "../components/market/CryptoTable";
 import InfoCards from "../components/market/InfoCards";
 import NewsletterSubscription from "../components/common/NewsletterSubscription";
 import Footer from "../components/layout/Footer";
-import { bitcoinHistoricalData } from "../data/bitcoinHistoricalData";
+
 
 const Index = ({ setFavorites }) => {
   const [assets, setAssets] = useState([]);
@@ -36,9 +36,6 @@ const Index = ({ setFavorites }) => {
     const response = await fetch(`https://api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=${startDate}&end=${endDate}`);
     const data = await response.json();
 
-    bitcoinHistoricalData.length = 0;
-    bitcoinHistoricalData.push(...data);
-
     setHistoricalDataLastFetched(Date.now());
   }, [historicalDataLastFetched]);
 
@@ -64,11 +61,9 @@ const Index = ({ setFavorites }) => {
 
     fetchData();
 
-    intervalRef.current = setInterval(fetchData, 5000);
+    intervalRef.current = setInterval(fetchData, 15000);
 
-    if (bitcoinHistoricalData.length === 0) {
-      historicalDataFetchRef.current();
-    }
+    
 
     return () => {
       clearInterval(intervalRef.current);

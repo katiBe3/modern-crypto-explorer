@@ -40,6 +40,8 @@ const CryptoTable = ({ assets }) => {
     setSortConfig({ key, direction });
   };
 
+  const [favorites, setFavorites] = useState({});
+
   useEffect(() => {
     if (assets) {
       let sortedAssets = [...assets];
@@ -55,25 +57,21 @@ const CryptoTable = ({ assets }) => {
         });
       }
       let first25Assets = sortedAssets.slice(0, 25);
-      setTableData(first25Assets);
-    }
-  }, [assets, sortConfig]);
 
-  useEffect(() => {
-    if (assets) {
-      let first25Assets = assets.slice(0, 25);
-      setTableData(first25Assets);
-    }
-  }, [assets]);
+      const mergedData = first25Assets.map((asset) => ({
+        ...asset,
+        isFavorite: favorites[asset.id] || false,
+      }));
 
-  const toggleFavorite = (name) => {
-    const updatedData = tableData.map((crypto) => {
-      if (crypto.name === name) {
-        return { ...crypto, isFavorite: !crypto.isFavorite };
-      }
-      return crypto;
-    });
-    setTableData(updatedData);
+      setTableData(mergedData);
+    }
+  }, [assets, sortConfig, favorites]);
+
+  const toggleFavorite = (id) => {
+    setFavorites((prevFavorites) => ({
+      ...prevFavorites,
+      [id]: !prevFavorites[id],
+    }));
   };
 
   return (
@@ -118,7 +116,7 @@ const CryptoTable = ({ assets }) => {
           {tableData.map((crypto) => (
             <Tr key={crypto.id}>
               <Td>
-                <Icon as={FaStar} color={crypto.isFavorite ? "yellow.500" : "gray.300"} onClick={() => toggleFavorite(crypto.name)} _hover={{ cursor: "pointer" }} />
+                <Icon as={FaStar} color={crypto.isFavorite ? "yellow.500" : "gray.300"} onClick={() => toggleFavorite(crypto.id)} _hover={{ cursor: "pointer" }} />
               </Td>
               <Td>
                 <Text fontWeight="bold">{crypto.name}</Text>

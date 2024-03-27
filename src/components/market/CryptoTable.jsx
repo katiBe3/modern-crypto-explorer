@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Button, Icon } from "@chakra-ui/react";
 import { FaStar } from "react-icons/fa";
 
-const CryptoTable = ({ assets, totalAssets, currentPage, setCurrentPage, limit }) => {
+const CryptoTable = ({ assets }) => {
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
@@ -56,19 +56,6 @@ const CryptoTable = ({ assets, totalAssets, currentPage, setCurrentPage, limit }
 
   return (
     <Box overflowX="auto" maxWidth="1200px" mt={8} mx="auto">
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
-        <Text>
-          Showing {(currentPage - 1) * limit + 1} to {Math.min(currentPage * limit, totalAssets)} of {totalAssets} assets
-        </Text>
-        <Box>
-          <Button onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 1))} disabled={currentPage === 1} mr={2}>
-            Previous
-          </Button>
-          <Button onClick={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, Math.ceil(totalAssets / limit)))} disabled={currentPage === Math.ceil(totalAssets / limit)}>
-            Next
-          </Button>
-        </Box>
-      </Box>
       <Table variant="simple">
         <Thead>
           <Tr>

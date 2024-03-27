@@ -18,10 +18,15 @@ const Index = ({ setFavorites }) => {
   const intervalRef = useRef();
   const historicalDataFetchRef = useRef();
 
-  const fetchAssets = useCallback(async () => {
-    const response = await fetch("https://api.coincap.io/v2/assets?limit=100");
+  const [totalAssets, setTotalAssets] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 50;
+
+  const fetchAssets = useCallback(async (offset) => {
+    const response = await fetch(`https://api.coincap.io/v2/assets?limit=${limit}&offset=${offset}`);
     const data = await response.json();
     setAssets(data.data);
+    setTotalAssets(data.meta.totalCount);
   }, []);
 
   const fetchHistoricalData = useCallback(async () => {
@@ -48,6 +53,11 @@ const Index = ({ setFavorites }) => {
   }, [fetchAssets, fetchHistoricalData]);
 
   useEffect(() => {
+    const offset = (currentPage - 1) * limit;
+    fetchAssetsRef.current(offset);
+  }, [currentPage]);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("https://api.coincap.io/v2/assets/bitcoin");
@@ -59,11 +69,9 @@ const Index = ({ setFavorites }) => {
       } catch (error) {
         console.error("Error fetching Bitcoin data:", error);
       }
-      await fetchAssetsRef.current();
     };
 
     fetchData();
-
     intervalRef.current = setInterval(fetchData, 5000);
 
     if (bitcoinHistoricalData.length === 0) {

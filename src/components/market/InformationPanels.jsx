@@ -14,22 +14,23 @@ const InformationPanels = ({ assets }) => {
   const [mostWanted, setMostWanted] = useState([]);
 
   useEffect(() => {
-    const fetchMostWantedData = () => {
-      if (!Array.isArray(assets)) return;
-
-      const sortedAssets = [...assets].sort((a, b) => parseFloat(b.changePercent24Hr) - parseFloat(a.changePercent24Hr));
-      const topThree = sortedAssets.slice(0, 3);
-
-      const mostWantedData = topThree.map((asset) => ({
-        name: asset.name,
-        change: `${parseFloat(asset.changePercent24Hr) > 0 ? "+" : ""}${parseFloat(asset.changePercent24Hr).toFixed(2)}%`,
-      }));
-
-      setMostWanted(mostWantedData);
+    const fetchMostWantedData = async () => {
+      try {
+        const response = await fetch("https://api.coincap.io/v2/assets?limit=3&sort=changePercent24Hr&order=desc");
+        const data = await response.json();
+        const mostWantedData = data.data.map((asset) => ({
+          name: asset.name,
+          symbol: asset.symbol,
+          change: `+${parseFloat(asset.changePercent24Hr).toFixed(2)}%`,
+        }));
+        setMostWanted(mostWantedData);
+      } catch (error) {
+        console.error("Error fetching most wanted data:", error);
+      }
     };
 
     fetchMostWantedData();
-  }, [assets]);
+  }, []);
 
   const marketWhispers = [
     {
@@ -40,16 +41,21 @@ const InformationPanels = ({ assets }) => {
   ];
 
   return (
-    <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx="auto" maxWidth="1200px" justifyItems="center">
+    <Grid templateColumns="repeat(3, 1fr)" gap={8} my={16} mx="auto" maxWidth="1200px" justifyItems="center" alignItems="stretch">
       <GridItem>
-        <Box borderWidth="1px" borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
+        <Box borderWidth="1px" borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" height="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
           <Heading size="md" mb={4}>
-            ✨ Top News
+            ✨ Rising Stars
           </Heading>
-          {topNews.map((item, index) => (
+          {mostWanted.map((item, index) => (
             <Flex key={index} mb={4}>
-              <Image src={item.image} alt="News" borderRadius="md" boxSize="100px" objectFit="cover" mr={4} />
-              <Text>{item.text}</Text>
+              <Text fontWeight="bold">
+                {index + 1}. {item.name} ({item.symbol})
+              </Text>
+              <Spacer />
+              <Text color="green.500" fontWeight="bold">
+                {item.change}
+              </Text>
             </Flex>
           ))}
         </Box>

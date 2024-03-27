@@ -8,7 +8,7 @@ import InformationPanels from "../components/market/InformationPanels";
 import NewsletterSubscription from "../components/common/NewsletterSubscription";
 import Footer from "../components/layout/Footer";
 
-const Index = () => {
+const Index = ({ setFavorites }) => {
   const [assets, setAssets] = useState([]);
   const [bitcoinData, setBitcoinData] = useState(null);
 
@@ -54,7 +54,7 @@ const Index = () => {
       <Header />
       <MarketTeaser bitcoinData={bitcoinData} />
       <FearGreedIndex assets={assets} />
-      <CryptoTable assets={assets} my={8} />
+      <CryptoTable assets={assets} my={8} setFavorites={setFavorites} />
       <InformationPanels assets={assets} />
       <NewsletterSubscription />
       <Footer />

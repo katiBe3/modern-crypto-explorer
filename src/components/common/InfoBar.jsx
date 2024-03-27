@@ -29,7 +29,7 @@ const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
   const totalVolume = calculateTotalVolume();
 
   return (
-    <Box bg="gray.900" py={2} px={4}>
+    <Box bg="gray.800" py={2} px={4}>
       <Text color="white" textAlign="left" fontSize="sm">
         Dominance: <Text as="span" fontWeight="bold">BTC</Text> {btcDominance}%&nbsp;&nbsp;&nbsp;
         <Text as="span" fontWeight="bold">ETH</Text> {ethDominance}%&nbsp;&nbsp;&nbsp;

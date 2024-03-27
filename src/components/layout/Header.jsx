@@ -23,13 +23,8 @@ const Header = () => {
           ❤️ Favorites
         </Text>
       </Flex>
-      <Flex alignItems="center" display={{ base: "none", md: "flex" }}>
+      <Flex alignItems="center" gap={4}>
         <SearchInput />
-        <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200" mr={4}>
-          {colorMode === "light" ? <FaMoon /> : <FaSun />}
-        </Button>
-      </Flex>
-      <Flex alignItems="center">
         <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200">
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>

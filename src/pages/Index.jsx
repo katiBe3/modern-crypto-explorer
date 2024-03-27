@@ -68,7 +68,9 @@ const Index = ({ setFavorites }) => {
 
     intervalRef.current = setInterval(fetchData, 5000);
 
-    historicalDataFetchRef.current();
+    if (bitcoinHistoricalData.length === 0) {
+      historicalDataFetchRef.current();
+    }
 
     return () => {
       clearInterval(intervalRef.current);

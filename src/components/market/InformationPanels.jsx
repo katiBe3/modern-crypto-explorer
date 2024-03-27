@@ -11,25 +11,25 @@ const InformationPanels = ({ assets }) => {
     // Add more news items as needed
   ];
 
-  const [mostWanted, setMostWanted] = useState([]);
+  const [risingStars, setRisingStars] = useState([]);
 
   useEffect(() => {
-    const fetchMostWantedData = async () => {
+    const fetchRisingStarsData = async () => {
       try {
-        const response = await fetch("https://api.coincap.io/v2/assets?limit=3&sort=changePercent24Hr&order=desc");
+        const response = await fetch("https://api.coincap.io/v2/assets?limit=3&sort=changePercent24Hr&order=desc&sort=marketCapUsd&order=asc");
         const data = await response.json();
-        const mostWantedData = data.data.map((asset) => ({
+        const risingStarsData = data.data.map((asset) => ({
           name: asset.name,
           symbol: asset.symbol,
           change: `+${parseFloat(asset.changePercent24Hr).toFixed(2)}%`,
         }));
-        setMostWanted(mostWantedData);
+        setRisingStars(risingStarsData);
       } catch (error) {
-        console.error("Error fetching most wanted data:", error);
+        console.error("Error fetching rising stars data:", error);
       }
     };
 
-    fetchMostWantedData();
+    fetchRisingStarsData();
   }, []);
 
   const marketWhispers = [
@@ -47,7 +47,7 @@ const InformationPanels = ({ assets }) => {
           <Heading size="md" mb={4}>
             ✨ Rising Stars
           </Heading>
-          {mostWanted.map((item, index) => (
+          {risingStars.map((item, index) => (
             <Flex key={index} mb={4}>
               <Text fontWeight="bold">
                 {index + 1}. {item.name} ({item.symbol})
@@ -60,26 +60,7 @@ const InformationPanels = ({ assets }) => {
           ))}
         </Box>
       </GridItem>
-      <GridItem>
-        <Box borderWidth="1px" borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
-          <Heading size="md" mb={4}>
-            🔥 Most Wanted
-          </Heading>
-          <Stack spacing={2}>
-            {mostWanted.map((item, index) => (
-              <Flex key={index}>
-                <Text fontWeight="bold">
-                  {index + 1}. {item.name}
-                </Text>
-                <Spacer />
-                <Text color={item.change.includes("+") ? "green.500" : "red.500"} fontWeight="bold">
-                  {item.change}
-                </Text>
-              </Flex>
-            ))}
-          </Stack>
-        </Box>
-      </GridItem>
+      
       <GridItem>
         <Box borderWidth="1px" borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
           <Heading size="md" mb={4}>

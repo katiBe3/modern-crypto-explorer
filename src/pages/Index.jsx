@@ -4,7 +4,7 @@ import Header from "../components/layout/Header";
 import MarketTeaser from "../components/market/MarketTeaser";
 import FearGreedIndex from "../components/market/FearGreedIndex";
 import CryptoTable from "../components/market/CryptoTable";
-import InfoCards from "../components/market/InfoCards";
+
 import NewsletterSubscription from "../components/common/NewsletterSubscription";
 import Footer from "../components/layout/Footer";
 
@@ -76,7 +76,7 @@ const Index = ({ setFavorites }) => {
       <MarketTeaser bitcoinData={bitcoinData} />
       <FearGreedIndex assets={assets} />
       <CryptoTable assets={assets} my={8} setFavorites={setFavorites} />
-      <InfoCards assets={assets} />
+      
       <NewsletterSubscription />
       <Footer />
     </Box>

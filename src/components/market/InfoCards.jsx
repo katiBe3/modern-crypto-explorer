@@ -2,13 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Box, Grid, GridItem, Heading, Flex, Image, Text, Stack, Spacer, useColorModeValue } from "@chakra-ui/react";
 
 const InfoCards = ({ assets }) => {
-  // Sample data, replace or fetch from API
   const topNews = [
     {
       image: "https://images.unsplash.com/photo-1621504450181-5d356f61d307",
       text: "Bitcoin reaches new all-time high as institutional investors flock to crypto",
     },
-    // Add more news items as needed
   ];
 
   const [mostWanted, setMostWanted] = useState([]);
@@ -44,7 +42,6 @@ const InfoCards = ({ assets }) => {
       image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
       text: "Tune in to our latest podcast episode discussing the future of DeFi",
     },
-    // Add more items as needed
   ];
 
   return (

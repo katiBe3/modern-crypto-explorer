@@ -39,8 +39,8 @@ const InfoCards = ({ assets }) => {
 
   const marketWhispers = [
     {
-      image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3",
-      text: "Tune in to our latest podcast episode discussing the future of DeFi",
+      image: "https://images.unsplash.com/photo-1589783160142-7f2c6b70d5e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80",
+      text: "ETH whales are making waves! 🌊 Their recent moves could signal a big splash in the market. Stay alert and ride the tide! 🚀",
     },
   ];
 
@@ -87,7 +87,7 @@ const InfoCards = ({ assets }) => {
       <GridItem>
         <Box borderWidth="1px" borderColor="gray.200" boxShadow="md" p={4} borderRadius="md" h="100%" backgroundColor={useColorModeValue("gray.50", "gray.700")}>
           <Heading size="md" mb={4}>
-            🎙️ Market Whispers
+            🐳 Whale Watch
           </Heading>
           {marketWhispers.map((item, index) => (
             <Flex key={index}>

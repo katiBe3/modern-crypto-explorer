@@ -1,22 +1,24 @@
 import { Box, Text } from "@chakra-ui/react";
 
-const InfoBar = () => {
+const InfoBar = ({ assets }) => {
+  const calculateDominance = (symbol) => {
+    const totalMarketCap = assets.reduce((sum, asset) => sum + parseFloat(asset.marketCapUsd), 0);
+    const assetMarketCap = assets.find((asset) => asset.symbol === symbol)?.marketCapUsd;
+    return assetMarketCap ? ((parseFloat(assetMarketCap) / totalMarketCap) * 100).toFixed(2) : "0.00";
+  };
+
+  const btcDominance = calculateDominance("BTC");
+  const ethDominance = calculateDominance("ETH");
+
   return (
     <Box bg="gray.700" py={2} px={4}>
       <Text color="white" textAlign="left" fontSize="sm">
-        BTC dominance:{" "}
+        Dominance:{" "}
         <Text as="span" fontWeight="bold">
-          40.5%
+          BTC {btcDominance}%
         </Text>{" "}
         <Text as="span" fontWeight="bold">
-          🔥Most Wanted:
-        </Text>{" "}
-        ETH{" "}
-        <Text as="span" fontWeight="bold" color="green.500">
-          1 +2.2%
-        </Text>{" "}
-        <Text as="span" fontWeight="bold">
-          ✨Rising Stars:
+          ETH {ethDominance}%
         </Text>
       </Text>
     </Box>

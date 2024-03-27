@@ -6,6 +6,7 @@ import FearGreedIndex from "../components/market/FearGreedIndex";
 import CryptoTable from "../components/market/CryptoTable";
 import NewsletterSubscription from "../components/common/NewsletterSubscription";
 import Footer from "../components/layout/Footer";
+import InfoBar from "../components/common/InfoBar";
 
 const Index = () => {
   const [favorites, setFavorites] = useState({});
@@ -30,7 +31,7 @@ const Index = () => {
     }
 
     const endDate = new Date().getTime();
-    const startDate = endDate - 60 * 24 * 60 * 60 * 1000; // 60 days in milliseconds
+    const startDate = endDate - 60 * 24 * 60 * 60 * 1000;
     const response = await fetch(`https://api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=${startDate}&end=${endDate}`);
     const data = await response.json();
     setBitcoinData(data.data);
@@ -42,7 +43,6 @@ const Index = () => {
     historicalDataFetchRef.current = fetchHistoricalData;
   }, [fetchAssets, fetchHistoricalData]);
 
-  // Call fetch functions on component mount
   useEffect(() => {
     fetchAssets();
     fetchHistoricalData();
@@ -51,6 +51,7 @@ const Index = () => {
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
+      <InfoBar assets={assets} />
       <MarketTeaser assets={assets} mb={4} />
       <FearGreedIndex bitcoinData={bitcoinData} mt={4} />
       <CryptoTable assets={assets} my={8} favorites={favorites} setFavorites={setFavorites} />

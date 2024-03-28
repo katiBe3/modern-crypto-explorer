@@ -8,8 +8,8 @@ const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
 
   const calculateDominance = (assetSymbol) => {
     const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);
-    const asset = assets.find(a => a.symbol === assetSymbol);
-    return asset ? ((parseFloat(asset.marketCapUsd) / totalMarketCap) * 100).toFixed(2) : '0';
+    const asset = assets.find((a) => a.symbol === assetSymbol);
+    return asset ? ((parseFloat(asset.marketCapUsd) / totalMarketCap) * 100).toFixed(2) : "0";
   };
 
   const calculateTotalVolume = () => {
@@ -22,31 +22,39 @@ const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
   };
 
   const totalMarketCap = calculateTotalMarketCap();
-  const marketDirection = totalMarketCap > previousDayTotalMarketCap ? 'up' : 'down';
+  const marketDirection = totalMarketCap > previousDayTotalMarketCap ? "up" : "down";
 
-  const btcDominance = calculateDominance('BTC');
-  const ethDominance = calculateDominance('ETH');
+  const btcDominance = calculateDominance("BTC");
+  const ethDominance = calculateDominance("ETH");
   const totalVolume = calculateTotalVolume();
 
   return (
-    <Box bg="gray.900" py={2} px={4}>
+    <Box bg="gray.900" py={2} px={4} overflowX="auto" whiteSpace="nowrap">
       <Text color="white" textAlign="left" fontSize="sm">
         <Box display="inline-block" mr={4}>
-          <Text as="span" fontWeight="bold">BTC</Text> {btcDominance}%
+          <Text as="span" fontWeight="bold">
+            BTC
+          </Text>{" "}
+          {btcDominance}%
         </Box>
         <Box display="inline-block" mr={4}>
-          <Text as="span" fontWeight="bold">ETH</Text> {ethDominance}%
+          <Text as="span" fontWeight="bold">
+            ETH
+          </Text>{" "}
+          {ethDominance}%
         </Box>
         <Box display="inline-block" mr={4}>
-          24h Vol: <Text as="span" fontWeight="bold">${totalVolume} Billion</Text>
+          24h Vol:{" "}
+          <Text as="span" fontWeight="bold">
+            ${totalVolume} Billion
+          </Text>
         </Box>
         <Box display="inline-block" mr={4}>
-          Total Market Cap: <Text as="span" fontWeight="bold">${totalMarketCap.toFixed(2)} Trillion</Text>
-          {marketDirection === 'up' ? (
-            <Icon as={FaArrowUp} color="green.500" ml={2} />
-          ) : (
-            <Icon as={FaArrowDown} color="red.500" ml={2} />
-          )}
+          Total Market Cap:{" "}
+          <Text as="span" fontWeight="bold" textShadow="0 0 10px rgba(255, 255, 255, 0.5)">
+            ${totalMarketCap.toFixed(2)} Trillion
+          </Text>
+          {marketDirection === "up" ? <Icon as={FaArrowUp} color="green.500" ml={2} /> : <Icon as={FaArrowDown} color="red.500" ml={2} />}
         </Box>
       </Text>
     </Box>

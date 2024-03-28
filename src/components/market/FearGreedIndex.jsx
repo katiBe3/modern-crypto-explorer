@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text, Icon, useColorModeValue } from "@chakra-ui/react";
+import { Box, Text, Icon, useColorModeValue, Skeleton } from "@chakra-ui/react";
 import { FaBitcoin } from "react-icons/fa";
 
 const FearGreedIndex = ({ bitcoinData }) => {
@@ -85,15 +85,21 @@ const FearGreedIndex = ({ bitcoinData }) => {
         <Icon as={FaBitcoin} color="orange.400" mr={2} />
         Fear & Greed Index
       </Text>
-      <Text fontSize="6xl" fontWeight="black" color={isNaN(fearGreedIndex) ? "gray.400" : indexColor} mb={1}>
-        {isNaN(fearGreedIndex) ? "Loading..." : fearGreedIndex}
+      <Skeleton isLoaded={!isNaN(fearGreedIndex)} height="80px">
+        <Text fontSize="6xl" fontWeight="black" color={indexColor} mb={1}>
+          {fearGreedIndex}
+        </Text>
+      </Skeleton>
+      <Skeleton isLoaded={indexSentiment !== ""} height="24px">
+        <Text fontWeight="bold" color="gray.600" textAlign="center">
+          {indexSentiment}
+        </Text>
+      </Skeleton>
+      <Skeleton isLoaded={lastUpdated !== 0} height="20px" mt={2}>
+        <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center">
+          Last updated: {formatDate(lastUpdated)}
       </Text>
-      <Text fontWeight="bold" color="gray.600" textAlign="center">
-        {indexSentiment}
-      </Text>
-      <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center" mt={2}>
-        Last updated: {lastUpdated ? formatDate(lastUpdated) : "N/A"}
-      </Text>
+      </Skeleton>
     </Box>
   );
 };

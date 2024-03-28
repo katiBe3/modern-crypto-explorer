@@ -1,6 +1,6 @@
-import React from "react";
-import { Flex, Text, Button, useColorMode, Icon, IconButton, Drawer, DrawerBody, DrawerHeader, DrawerOverlay, DrawerContent, DrawerCloseButton, useDisclosure, useBreakpointValue } from "@chakra-ui/react";
-import { FaMoon, FaSun, FaBitcoin, FaBars } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { Flex, Text, Button, useColorMode, Icon } from "@chakra-ui/react";
+import { FaMoon, FaSun, FaBitcoin } from "react-icons/fa";
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();

@@ -30,33 +30,33 @@ const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
 
   return (
     <Box bg="gray.900" py={2} px={4} overflowX="auto" whiteSpace="nowrap">
-      <Text color="white" textAlign="left" fontSize="sm">
-        <Box display="inline-block" mr={4}>
-          <Text as="span" fontWeight="bold">
+      <Box color="white" textAlign="left" fontSize="sm" display="flex" alignItems="center">
+        <Box mr={4}>
+          <Box as="span" fontWeight="bold">
             BTC
-          </Text>{" "}
+          </Box>{" "}
           {btcDominance}%
         </Box>
-        <Box display="inline-block" mr={4}>
-          <Text as="span" fontWeight="bold">
+        <Box mr={4}>
+          <Box as="span" fontWeight="bold">
             ETH
-          </Text>{" "}
+          </Box>{" "}
           {ethDominance}%
         </Box>
-        <Box display="inline-block" mr={4}>
+        <Box mr={4}>
           24h Vol:{" "}
-          <Text as="span" fontWeight="bold">
+          <Box as="span" fontWeight="bold">
             ${totalVolume} Billion
-          </Text>
+          </Box>
         </Box>
-        <Box display="inline-block" mr={4}>
+        <Box mr={4}>
           Total Market Cap:{" "}
-          <Text as="span" fontWeight="bold" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
+          <Box as="span" fontWeight="bold" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
             ${totalMarketCap.toFixed(2)} Trillion
-          </Text>
+          </Box>
           {marketDirection === "up" ? <Icon as={FaArrowUp} color="green.500" ml={2} /> : <Icon as={FaArrowDown} color="red.500" ml={2} />}
         </Box>
-      </Text>
+      </Box>
     </Box>
   );
 };

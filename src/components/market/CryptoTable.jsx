@@ -38,13 +38,16 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
 
   useEffect(() => {
     if (assets) {
-      const mergedData = assets.map((asset) => ({
-        ...asset,
-        isFavorite: favorites[asset.id] || false,
-      }));
+      const mergedData = assets.map((asset) => {
+        const isFavorite = favorites[asset.id] === true;
+        return {
+          ...asset,
+          isFavorite,
+        };
+      });
       setTableData(mergedData);
     }
-  }, [assets, favorites, showFavoritesOnly]);
+  }, [assets, favorites]);
 
   const filteredData = React.useMemo(() => {
     if (showFavoritesOnly) {
@@ -77,8 +80,6 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
     }
     setSortConfig({ key, direction });
   };
-
-  
 
   const toggleFavorite = (id) => {
     setFavorites((prevFavorites) => ({

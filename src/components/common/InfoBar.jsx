@@ -51,7 +51,7 @@ const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
         </Box>
         <Box display="inline-block" mr={4}>
           Total Market Cap:{" "}
-          <Text as="span" fontWeight="bold" textShadow="0 0 10px rgba(255, 255, 255, 0.5)">
+          <Text as="span" fontWeight="bold" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
             ${totalMarketCap.toFixed(2)} Trillion
           </Text>
           {marketDirection === "up" ? <Icon as={FaArrowUp} color="green.500" ml={2} /> : <Icon as={FaArrowDown} color="red.500" ml={2} />}

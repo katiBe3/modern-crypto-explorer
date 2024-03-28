@@ -50,7 +50,7 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
       return tableData.filter((asset) => asset.isFavorite);
     }
     return tableData;
-  }, [tableData, showFavoritesOnly]);
+  }, [tableData, favorites, showFavoritesOnly]);
 
   const sortedData = React.useMemo(() => {
     if (!sortConfig.key) {

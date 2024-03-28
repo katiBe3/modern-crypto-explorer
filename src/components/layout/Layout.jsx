@@ -6,11 +6,11 @@ import Footer from "./Footer";
 const Layout = ({ children }) => {
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
-        <Header />
-        {children}
-        <Footer />
+      <Header />
+      {children}
+      <Footer />
     </Box>
   );
 };
 
-export default Layout;
+export default React.memo(Layout);

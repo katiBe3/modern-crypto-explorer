@@ -7,6 +7,7 @@ import { DataContext } from "../contexts/DataContext.jsx";
 
 const Favorites = () => {
   const { favorites, assets } = useContext(DataContext);
+  const favoritesArray = Object.values(favorites);
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />

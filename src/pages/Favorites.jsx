@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import FavoritesTable from "../components/market/FavoritesTable";
+import { DataContext } from "../contexts/DataContext.jsx";
 
-const Favorites = ({ favorites }) => {
+const Favorites = () => {
+  const { favorites } = useContext(DataContext);
   const favoritesArray = Object.values(favorites);
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">

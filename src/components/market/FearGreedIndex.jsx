@@ -85,12 +85,12 @@ const FearGreedIndex = ({ bitcoinData }) => {
         <Icon as={FaBitcoin} color="orange.400" mr={2} />
         Fear & Greed Index
       </Text>
-      <Skeleton isLoaded={!isNaN(fearGreedIndex)} height="80px">
+      <Skeleton isLoaded={fearGreedIndex !== 0} height="80px">
         <Text fontSize="6xl" fontWeight="black" color={indexColor} mb={1}>
           {fearGreedIndex}
         </Text>
       </Skeleton>
-      <Skeleton isLoaded={indexSentiment !== ""} height="24px">
+      <Skeleton isLoaded={indexSentiment !== 0} height="24px">
         <Text fontWeight="bold" color="gray.600" textAlign="center">
           {indexSentiment}
         </Text>

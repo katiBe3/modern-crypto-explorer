@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
 
-const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
+const CryptoTable = ({ assets, favorites, setFavorites, showFavoritesOnly = false }) => {
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
   const [previousPrices, setPreviousPrices] = useState({});
-  const [favorites, setFavorites] = useState({});
 
   useEffect(() => {
     if (assets) {
@@ -47,7 +46,7 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
 
   const filteredData = React.useMemo(() => {
     if (showFavoritesOnly) {
-      return tableData.filter((asset) => asset.isFavorite);
+      return tableData.filter((asset) => favorites[asset.id]);
     }
     return tableData;
   }, [tableData, favorites, showFavoritesOnly]);
@@ -57,7 +56,7 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
       return filteredData;
     }
 
-    return [...tableData].sort((a, b) => {
+    return [...filteredData].sort((a, b) => {
       const valueA = parseFloat(a[sortConfig.key]);
       const valueB = parseFloat(b[sortConfig.key]);
 
@@ -67,7 +66,7 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
         return valueB - valueA;
       }
     });
-  }, [tableData, sortConfig]);
+  }, [filteredData, sortConfig]);
 
   const handleSort = (key) => {
     let direction = "asc";

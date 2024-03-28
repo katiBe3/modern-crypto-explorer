@@ -4,7 +4,11 @@ import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import CryptoTable from "../components/market/CryptoTable";
 
+import { useContext } from "react";
+import { DataContext } from "../contexts/DataContext";
+
 const Favorites = () => {
+  const { favorites } = useContext(DataContext);
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">

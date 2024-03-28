@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
-import { DataContext } from "../../contexts/DataContext";
+import { DataContext } from "../../contexts/DataContext"; // Ensure this path is correct
 
 const CryptoTable = ({ showFavoritesOnly = false }) => {
+  const { assets, favorites, setFavorites } = useContext(DataContext);
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
   const [previousPrices, setPreviousPrices] = useState({});
-  const { assets, favorites, setFavorites } = useContext(DataContext);
 
   useEffect(() => {
     if (assets) {
@@ -82,7 +82,7 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
   };
 
   const toggleFavorite = (id) => {
-    setFavorites((prevFavorites) => ({
+    setFavorites(prevFavorites => ({
       ...prevFavorites,
       [id]: !prevFavorites[id],
     }));

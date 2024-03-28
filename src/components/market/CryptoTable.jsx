@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
 
-const CryptoTable = ({ assets }) => {
+const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
@@ -43,11 +43,18 @@ const CryptoTable = ({ assets }) => {
       }));
       setTableData(mergedData);
     }
-  }, [assets, favorites]);
+  }, [assets, favorites, showFavoritesOnly]);
+
+  const filteredData = React.useMemo(() => {
+    if (showFavoritesOnly) {
+      return tableData.filter((asset) => asset.isFavorite);
+    }
+    return tableData;
+  }, [tableData, showFavoritesOnly]);
 
   const sortedData = React.useMemo(() => {
     if (!sortConfig.key) {
-      return tableData;
+      return filteredData;
     }
 
     return [...tableData].sort((a, b) => {

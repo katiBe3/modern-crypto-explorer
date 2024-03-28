@@ -1,7 +1,11 @@
+import React, { useContext } from "react";
 import { Box, Icon } from "@chakra-ui/react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import {DataContext} from "../../contexts/DataContext";
 
-const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
+const InfoBar = ({ previousDayTotalMarketCap }) => {
+  const { assets } = useContext(DataContext);
+
   if (!assets || !assets.length) {
     return <Box>Loading data...</Box>;
   }

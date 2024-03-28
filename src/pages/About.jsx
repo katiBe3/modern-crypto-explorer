@@ -1,13 +1,10 @@
 import React from "react";
-import Header from "../components/layout/Header";
-import Footer from "../components/layout/Footer";
 import { Box, Heading, Text, Avatar, AvatarGroup, Center } from "@chakra-ui/react";
 import katrinImage from '../assets/images/katrin.jpg';  // Import the image
 
 const About = () => {
   return (
-    <Box display="flex" flexDirection="column" minHeight="100vh">
-      <Header />
+    <Layout>
       <Box px={8} py={4} maxWidth="1200px" mx="auto" textAlign="center">
         <Heading as="h1" size="xl" mt={10} mb={4}>
           About Us
@@ -30,8 +27,7 @@ const About = () => {
           </Text>
         </Center>
       </Box>
-      <Footer />
-    </Box>
+    </Layout>
   );
 };
 

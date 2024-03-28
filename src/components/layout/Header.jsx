@@ -1,6 +1,6 @@
 import { Flex, Text, Button, useColorMode, Box } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa";
-import InfoBar from "../common/InfoBar";
+import InfoBar from "./InfoBar";
 
 const Header = () => {
   const { colorMode, toggleColorMode } = useColorMode();

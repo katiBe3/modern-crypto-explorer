@@ -3,30 +3,8 @@ import { Box, Icon } from "@chakra-ui/react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import {DataContext} from "../../contexts/DataContext";
 
-const InfoBar = ({ previousDayTotalMarketCap }) => {
-  const { assets } = useContext(DataContext);
-
-  const calculateDominance = (assetSymbol) => {
-    const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);
-    const asset = assets.find((a) => a.symbol === assetSymbol);
-    return asset ? ((parseFloat(asset.marketCapUsd) / totalMarketCap) * 100).toFixed(2) : "0";
-  };
-
-  const calculateTotalVolume = () => {
-    const totalVolume = assets.reduce((acc, asset) => acc + parseFloat(asset.volumeUsd24Hr || 0), 0);
-    return (totalVolume / 1e9).toFixed(2); // Convert to billions
-  };
-
-  const calculateTotalMarketCap = () => {
-    return assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0) / 1e12; // Convert to trillions
-  };
-
-  const totalMarketCap = calculateTotalMarketCap();
-  const marketDirection = totalMarketCap > previousDayTotalMarketCap ? "up" : "down";
-
-  const btcDominance = calculateDominance("BTC");
-  const ethDominance = calculateDominance("ETH");
-  const totalVolume = calculateTotalVolume();
+const InfoBar = ({  }) => {
+  const { btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = useContext(DataContext);
 
   return (
     <Box bg="#100D30" py={2} px={4} overflowX="auto" whiteSpace="nowrap">

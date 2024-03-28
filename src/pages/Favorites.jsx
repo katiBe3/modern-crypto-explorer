@@ -6,8 +6,9 @@ import CryptoTable from "../components/market/CryptoTable";
 import { DataContext } from "../contexts/DataContext.jsx";
 
 const Favorites = () => {
-  const { favorites, assets } = useContext(DataContext);
-  const favoritesArray = Object.values(favorites);
+  const { favorites, setFavorites, assets } = useContext(DataContext);
+
+  const favoriteAssets = assets.filter((asset) => favorites[asset.id]);
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
@@ -18,7 +19,7 @@ const Favorites = () => {
         <Text fontSize="lg" mb={8}>
           Keep your most loved cryptocurrencies close and never miss a beat in the market!
         </Text>
-        <CryptoTable assets={assets} favorites={favorites} showFavoritesOnly={true} />
+        <CryptoTable assets={favoriteAssets} favorites={favorites} setFavorites={setFavorites} />
       </Box>
       <Footer />
     </Box>

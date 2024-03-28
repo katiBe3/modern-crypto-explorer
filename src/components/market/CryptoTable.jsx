@@ -76,6 +76,8 @@ const CryptoTable = ({ assets, favorites, setFavorites, showFavoritesOnly = fals
     setSortConfig({ key, direction });
   };
 
+  
+
   const toggleFavorite = (id) => {
     setFavorites((prevFavorites) => ({
       ...prevFavorites,

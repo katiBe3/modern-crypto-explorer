@@ -48,10 +48,10 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
 
   const filteredData = React.useMemo(() => {
     if (showFavoritesOnly) {
-      return tableData.filter((asset) => asset.isFavorite);
+      return tableData.filter((asset) => favorites[asset.id]);
     }
     return tableData;
-  }, [tableData, showFavoritesOnly]);
+  }, [tableData, favorites, showFavoritesOnly]);
 
   const sortedData = React.useMemo(() => {
     if (!sortConfig.key) {
@@ -77,6 +77,8 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
     }
     setSortConfig({ key, direction });
   };
+
+  
 
   const toggleFavorite = (id) => {
     setFavorites((prevFavorites) => ({

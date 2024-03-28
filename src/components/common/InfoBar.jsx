@@ -6,10 +6,6 @@ import {DataContext} from "../../contexts/DataContext";
 const InfoBar = ({ previousDayTotalMarketCap }) => {
   const { assets } = useContext(DataContext);
 
-  if (!assets || !assets.length) {
-    return <Box>Loading data...</Box>;
-  }
-
   const calculateDominance = (assetSymbol) => {
     const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);
     const asset = assets.find((a) => a.symbol === assetSymbol);

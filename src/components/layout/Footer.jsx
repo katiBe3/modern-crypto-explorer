@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <Box bg="#100D30" width="full" py={1} mt="auto">
       <Flex justifyContent="center" color="white">
-        <Text m="4">© {currentYear} CryptoMarket. Built with passion & AI. 🤖 </Text>
+        <Text m="4">© {currentYear} CryptoMarket. Built with love & AI. 🤖 </Text>
       </Flex>
     </Box>
   );

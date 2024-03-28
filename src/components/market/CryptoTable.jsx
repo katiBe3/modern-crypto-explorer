@@ -82,14 +82,14 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
   };
 
   const toggleFavorite = (id) => {
-    setFavorites(prevFavorites => ({
+    setFavorites((prevFavorites) => ({
       ...prevFavorites,
       [id]: !prevFavorites[id],
     }));
   };
 
   return (
-    <Box overflowX="auto" maxWidth="1200px" mt={8} mx="auto">
+    <Box overflowX="auto" width="100%" mt={4} mx="auto">
       <Table variant="simple">
         <Thead>
           <Tr>
@@ -97,9 +97,6 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
             <Th>Name</Th>
             <Th onClick={() => handleSort("priceUsd")}>Price {sortConfig.key === "priceUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
             <Th onClick={() => handleSort("changePercent24Hr")}>24h% {sortConfig.key === "changePercent24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
-            <Th onClick={() => handleSort("marketCapUsd")}>Market Cap {sortConfig.key === "marketCapUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
-            <Th onClick={() => handleSort("volumeUsd24Hr")}>Volume (24h) {sortConfig.key === "volumeUsd24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
-            <Th onClick={() => handleSort("supply")}>Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -108,21 +105,24 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
               <Td>
                 <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>
-              <Td>
-                <Text fontWeight="bold">{crypto.name}</Text>
-                <Text fontWeight="bold" color="gray.500">
+              <Td px={1}>
+                <Text fontWeight="bold" fontSize="sm">
+                  {crypto.name}
+                </Text>
+                <Text fontWeight="bold" color="gray.500" fontSize="xs">
                   {crypto.symbol}
                 </Text>
               </Td>
-              <Td fontWeight="bold">
-                <Text color={priceColors[crypto.id]}>${parseFloat(crypto.priceUsd).toLocaleString()}</Text>
+              <Td px={1}>
+                <Text fontWeight="bold" fontSize="sm" color={priceColors[crypto.id]}>
+                  ${parseFloat(crypto.priceUsd).toLocaleString()}
+                </Text>
               </Td>
-              <Td fontWeight="bold">
-                <Text color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>{parseFloat(crypto.changePercent24Hr).toFixed(2)}%</Text>
+              <Td px={1}>
+                <Text fontWeight="bold" fontSize="sm" color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>
+                  {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
+                </Text>
               </Td>
-              <Td fontWeight="bold">${parseFloat(crypto.marketCapUsd).toLocaleString()}</Td>
-              <Td fontWeight="bold">${parseFloat(crypto.volumeUsd24Hr).toLocaleString()}</Td>
-              <Td fontWeight="bold">{parseFloat(crypto.supply).toLocaleString()}</Td>
             </Tr>
           ))}
         </Tbody>

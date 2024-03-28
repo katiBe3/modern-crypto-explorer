@@ -6,6 +6,15 @@ export const DataProvider = ({ children }) => {
   const [assets, setAssets] = useState([]);
   const [bitcoinData, setBitcoinData] = useState([]);
   const [historicalDataLastFetched, setHistoricalDataLastFetched] = useState(null);
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const localData = localStorage.getItem("favorites");
+      return localData ? JSON.parse(localData) : {};
+    } catch (error) {
+      console.error("Error reading favorites from localStorage:", error);
+      return {};
+    }
+  });
 
   const fetchAssetsRef = useRef();
   const historicalDataFetchRef = useRef();
@@ -45,18 +54,6 @@ export const DataProvider = ({ children }) => {
     return () => clearInterval(assetsInterval);
   }, [fetchAssets, fetchHistoricalData]);
 
-  // Load favorites from localStorage
-  const [favorites, setFavorites] = useState(() => {
-    try {
-      const localData = localStorage.getItem("favorites");
-      return localData ? JSON.parse(localData) : {};
-    } catch (error) {
-      console.error("Error reading favorites from localStorage:", error);
-      return {};
-    }
-  });
-
-  // Save favorites to localStorage
   useEffect(() => {
     try {
       localStorage.setItem("favorites", JSON.stringify(favorites));
@@ -72,4 +69,23 @@ export const DataProvider = ({ children }) => {
   const totalVolume = useMemo(() => calculateTotalVolume(assets), [assets]);
 
   return <DataContext.Provider value={{ assets, setAssets, bitcoinData, setBitcoinData, favorites, setFavorites, marketDirection, totalMarketCap, btcDominance, ethDominance, totalVolume }}>{children}</DataContext.Provider>;
+};
+
+const calculateTotalMarketCap = (assets) => {
+  return assets.reduce((total, asset) => total + parseFloat(asset.marketCapUsd), 0);
+};
+
+const calculateMarketDirection = (assets, symbol) => {
+  const asset = assets.find((asset) => asset.symbol === symbol);
+  return asset ? (parseFloat(asset.changePercent24Hr) >= 0 ? "up" : "down") : null;
+};
+
+const calculateDominance = (assets, symbol) => {
+  const totalMarketCap = calculateTotalMarketCap(assets);
+  const asset = assets.find((asset) => asset.symbol === symbol);
+  return asset ? (parseFloat(asset.marketCapUsd) / totalMarketCap) * 100 : null;
+};
+
+const calculateTotalVolume = (assets) => {
+  return assets.reduce((total, asset) => total + parseFloat(asset.volumeUsd24Hr), 0);
 };

@@ -47,7 +47,7 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
 
   const filteredData = React.useMemo(() => {
     if (showFavoritesOnly) {
-      return tableData.filter((asset) => asset.isFavorite);
+      return tableData.filter((asset) => favorites[asset.id]);
     }
     return tableData;
   }, [tableData, favorites, showFavoritesOnly]);

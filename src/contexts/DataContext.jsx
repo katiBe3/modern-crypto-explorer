@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useRef, useCallback} from "react";
+import { createContext, useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 export const DataContext = createContext();
 
@@ -87,12 +87,12 @@ export const DataProvider = ({ children }) => {
     }
     return "neutral"; // Return 'neutral' if the asset is not found or changePercent24Hr is not a number
   };
-  
-  const totalMarketCap = calculateTotalMarketCap();
-  const marketDirection = calculateMarketDirection("BTC");
-  const btcDominance = calculateDominance("BTC");
-  const ethDominance = calculateDominance("ETH");
-  const totalVolume = calculateTotalVolume();
+
+  const totalMarketCap = useMemo(() => calculateTotalMarketCap(), [assets]);
+  const marketDirection = useMemo(() => calculateMarketDirection("BTC"), [assets]);
+  const btcDominance = useMemo(() => calculateDominance("BTC"), [assets]);
+  const ethDominance = useMemo(() => calculateDominance("ETH"), [assets]);
+  const totalVolume = useMemo(() => calculateTotalVolume(), [assets]);
 
   return <DataContext.Provider value={{ assets, setAssets, bitcoinData, setBitcoinData, favorites, setFavorites, marketDirection, totalMarketCap, btcDominance, ethDominance, totalVolume }}>{children}</DataContext.Provider>;
 };

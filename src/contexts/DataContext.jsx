@@ -65,11 +65,34 @@ export const DataProvider = ({ children }) => {
     }
   }, [favorites]);
 
-  const totalMarketCap = useMemo(() => calculateTotalMarketCap(assets), [assets]);
-  const marketDirection = useMemo(() => calculateMarketDirection(assets, "BTC"), [assets]);
-  const btcDominance = useMemo(() => calculateDominance(assets, "BTC"), [assets]);
-  const ethDominance = useMemo(() => calculateDominance(assets, "ETH"), [assets]);
-  const totalVolume = useMemo(() => calculateTotalVolume(assets), [assets]);
+  const calculateDominance = (assetSymbol) => {
+    const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);
+    const asset = assets.find((a) => a.symbol === assetSymbol);
+    return asset ? ((parseFloat(asset.marketCapUsd) / totalMarketCap) * 100).toFixed(2) : "0";
+  };
+
+  const calculateTotalVolume = () => {
+    const totalVolume = assets.reduce((acc, asset) => acc + parseFloat(asset.volumeUsd24Hr || 0), 0);
+    return (totalVolume / 1e9).toFixed(2); // Convert to billions
+  };
+
+  const calculateTotalMarketCap = () => {
+    return assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0) / 1e12; // Convert to trillions
+  };
+
+  const calculateMarketDirection = (assetSymbol) => {
+    const asset = assets.find((a) => a.symbol === assetSymbol);
+    if (asset && !isNaN(parseFloat(asset.changePercent24Hr))) {
+      return parseFloat(asset.changePercent24Hr) > 0 ? "up" : "down";
+    }
+    return "neutral"; // Return 'neutral' if the asset is not found or changePercent24Hr is not a number
+  };
+
+  const totalMarketCap = useMemo(() => calculateTotalMarketCap(), [assets]);
+  const marketDirection = useMemo(() => calculateMarketDirection("BTC"), [assets]);
+  const btcDominance = useMemo(() => calculateDominance("BTC"), [assets]);
+  const ethDominance = useMemo(() => calculateDominance("ETH"), [assets]);
+  const totalVolume = useMemo(() => calculateTotalVolume(), [assets]);
 
   return <DataContext.Provider value={{ assets, setAssets, bitcoinData, setBitcoinData, favorites, setFavorites, marketDirection, totalMarketCap, btcDominance, ethDominance, totalVolume }}>{children}</DataContext.Provider>;
 };

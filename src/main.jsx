@@ -6,7 +6,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 const colors = {
   brand: {
     900: "#1a365d",
-    800: "#153e75",
+    800: "#153e75", 
     700: "#2a69ac",
   },
   gray: {
@@ -16,16 +16,10 @@ const colors = {
 
 const theme = extendTheme({ colors });
 
-import { DataProvider } from "./contexts/DataContext.jsx";
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <DataProvider>
-      {" "}
-      {}
-      <ChakraProvider theme={theme}>
-        <App />
-      </ChakraProvider>
-    </DataProvider>
-  </React.StrictMode>,
+    <ChakraProvider theme={theme}>
+      <App />
+    </ChakraProvider>
+  </React.StrictMode>
 );

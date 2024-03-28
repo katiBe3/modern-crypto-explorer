@@ -1,14 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 import CryptoTable from "../components/market/CryptoTable";
-import { DataContext } from "../contexts/DataContext.jsx";
 
 const Favorites = () => {
-  const { favorites, setFavorites, assets } = useContext(DataContext);
 
-  const favoriteAssets = assets.filter((asset) => favorites[asset.id]);
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
       <Header />
@@ -19,7 +16,7 @@ const Favorites = () => {
         <Text fontSize="lg" mb={8}>
           Keep your most loved cryptocurrencies close and never miss a beat in the market!
         </Text>
-        <CryptoTable assets={favoriteAssets} favorites={favorites} setFavorites={setFavorites} />
+        <CryptoTable showFavoritesOnly={true} />
       </Box>
       <Footer />
     </Box>

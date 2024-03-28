@@ -10,7 +10,7 @@ import Footer from "../components/layout/Footer";
 import { DataContext } from "../contexts/DataContext.jsx";
 
 const Index = () => {
-  const { favorites, setFavorites, assets, bitcoinData } = useContext(DataContext);
+  const { assets, bitcoinData } = useContext(DataContext);
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
@@ -18,7 +18,7 @@ const Index = () => {
       <Header />
       <MarketTeaser assets={assets} mb={4} />
       <FearGreedIndex bitcoinData={bitcoinData} mt={4} />
-      <CryptoTable assets={assets} my={8} favorites={favorites} setFavorites={setFavorites} />
+      <CryptoTable />
       <NewsletterSubscription />
       <Footer />
     </Box>

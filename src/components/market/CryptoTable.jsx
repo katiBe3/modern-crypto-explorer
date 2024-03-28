@@ -7,34 +7,6 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
   const { assets, favorites, setFavorites } = useContext(DataContext);
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
-  const [priceColors, setPriceColors] = useState({});
-  const [previousPrices, setPreviousPrices] = useState({});
-
-  useEffect(() => {
-    if (assets) {
-      const newPriceColors = {};
-      const newPreviousPrices = {};
-
-      assets.forEach((asset) => {
-        const previousPrice = previousPrices[asset.id];
-        const currentPrice = parseFloat(asset.priceUsd);
-        newPreviousPrices[asset.id] = currentPrice;
-
-        if (previousPrice !== undefined && previousPrice !== currentPrice) {
-          newPriceColors[asset.id] = currentPrice > previousPrice ? "green.400" : "red.400";
-        }
-      });
-
-      setPriceColors(newPriceColors);
-      setPreviousPrices(newPreviousPrices);
-
-      const colorResetTimer = setTimeout(() => {
-        setPriceColors({});
-      }, 500);
-
-      return () => clearTimeout(colorResetTimer);
-    }
-  }, [assets]); // Remove previousPrices from dependencies
 
   useEffect(() => {
     if (assets) {
@@ -82,7 +54,7 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
   };
 
   const toggleFavorite = (id) => {
-    setFavorites(prevFavorites => ({
+    setFavorites((prevFavorites) => ({
       ...prevFavorites,
       [id]: !prevFavorites[id],
     }));
@@ -114,9 +86,7 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
                   {crypto.symbol}
                 </Text>
               </Td>
-              <Td fontWeight="bold">
-                <Text color={priceColors[crypto.id]}>${parseFloat(crypto.priceUsd).toLocaleString()}</Text>
-              </Td>
+              <Td fontWeight="bold">${parseFloat(crypto.priceUsd).toLocaleString()}</Td>
               <Td fontWeight="bold">
                 <Text color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>{parseFloat(crypto.changePercent24Hr).toFixed(2)}%</Text>
               </Td>

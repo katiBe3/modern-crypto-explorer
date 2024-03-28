@@ -1,4 +1,4 @@
-import { Box, Text, Icon } from "@chakra-ui/react";
+import { Box, Icon } from "@chakra-ui/react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
@@ -29,7 +29,7 @@ const InfoBar = ({ assets, previousDayTotalMarketCap }) => {
   const totalVolume = calculateTotalVolume();
 
   return (
-    <Box bg="gray.900" py={2} px={4} overflowX="auto" whiteSpace="nowrap">
+    <Box bg="#100D30" py={2} px={4} overflowX="auto" whiteSpace="nowrap">
       <Box color="white" textAlign="left" fontSize="sm" display="flex" alignItems="center">
         <Box mr={4}>
           <Box as="span" fontWeight="bold">

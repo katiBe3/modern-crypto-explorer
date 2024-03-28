@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Box, Icon } from "@chakra-ui/react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
-import {DataContext} from "../../contexts/DataContext";
+import { DataContext } from "../../contexts/DataContext";
 
-const InfoBar = ({  }) => {
+const InfoBar = () => {
   const { btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = useContext(DataContext);
 
   return (

@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Heading, Text, Avatar, AvatarGroup, Center } from "@chakra-ui/react";
 import katrinImage from '../assets/images/katrin.jpg';  // Import the image
+import Layout from "../components/layout/Layout";
 
 const About = () => {
   return (

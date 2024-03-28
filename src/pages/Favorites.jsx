@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import CryptoTable from "../components/market/CryptoTable";
+import Layout from "../components/layout/Layout";
 
 const Favorites = () => {
   return (

@@ -46,6 +46,9 @@ const Index = () => {
   useEffect(() => {
     fetchAssets();
     fetchHistoricalData();
+    const assetsInterval = setInterval(fetchAssets, 10000);
+
+    return () => clearInterval(assetsInterval);
   }, [fetchAssets, fetchHistoricalData]);
 
   return (

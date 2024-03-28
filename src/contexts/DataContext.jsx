@@ -88,11 +88,5 @@ export const DataProvider = ({ children }) => {
     return "neutral"; // Return 'neutral' if the asset is not found or changePercent24Hr is not a number
   };
 
-  const totalMarketCap = useMemo(() => calculateTotalMarketCap(), [assets]);
-  const marketDirection = useMemo(() => calculateMarketDirection("BTC"), [assets]);
-  const btcDominance = useMemo(() => calculateDominance("BTC"), [assets]);
-  const ethDominance = useMemo(() => calculateDominance("ETH"), [assets]);
-  const totalVolume = useMemo(() => calculateTotalVolume(), [assets]);
-
   return <DataContext.Provider value={{ assets, setAssets, bitcoinData, setBitcoinData, favorites, setFavorites, marketDirection, totalMarketCap, btcDominance, ethDominance, totalVolume }}>{children}</DataContext.Provider>;
 };

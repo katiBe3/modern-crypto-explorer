@@ -14,7 +14,7 @@ const CryptoTable = ({ assets }) => {
       const newPriceColors = {};
       const newPreviousPrices = {};
 
-      assets.forEach(asset => {
+      assets.forEach((asset) => {
         const previousPrice = previousPrices[asset.id];
         const currentPrice = parseFloat(asset.priceUsd);
         newPreviousPrices[asset.id] = currentPrice;
@@ -37,7 +37,7 @@ const CryptoTable = ({ assets }) => {
 
   useEffect(() => {
     if (assets) {
-      const mergedData = assets.map(asset => ({
+      const mergedData = assets.map((asset) => ({
         ...asset,
         isFavorite: favorites[asset.id] || false,
       }));
@@ -45,8 +45,33 @@ const CryptoTable = ({ assets }) => {
     }
   }, [assets, favorites]);
 
-  const toggleFavorite = id => {
-    setFavorites(prevFavorites => ({
+  const sortedData = React.useMemo(() => {
+    if (!sortConfig.key) {
+      return tableData;
+    }
+
+    return [...tableData].sort((a, b) => {
+      const valueA = parseFloat(a[sortConfig.key]);
+      const valueB = parseFloat(b[sortConfig.key]);
+
+      if (sortConfig.direction === "asc") {
+        return valueA - valueB;
+      } else {
+        return valueB - valueA;
+      }
+    });
+  }, [tableData, sortConfig]);
+
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const toggleFavorite = (id) => {
+    setFavorites((prevFavorites) => ({
       ...prevFavorites,
       [id]: !prevFavorites[id],
     }));
@@ -59,15 +84,15 @@ const CryptoTable = ({ assets }) => {
           <Tr>
             <Th></Th>
             <Th>Name</Th>
-            <Th>Price</Th>
-            <Th>24h%</Th>
-            <Th>Market Cap</Th>
-            <Th>Volume (24h)</Th>
-            <Th>Circulating Supply</Th>
+            <Th onClick={() => handleSort("priceUsd")}>Price {sortConfig.key === "priceUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
+            <Th onClick={() => handleSort("changePercent24Hr")}>24h% {sortConfig.key === "changePercent24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
+            <Th onClick={() => handleSort("marketCapUsd")}>Market Cap {sortConfig.key === "marketCapUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
+            <Th onClick={() => handleSort("volumeUsd24Hr")}>Volume (24h) {sortConfig.key === "volumeUsd24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
+            <Th onClick={() => handleSort("supply")}>Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {tableData.map(crypto => (
+          {sortedData.map((crypto) => (
             <Tr key={crypto.id}>
               <Td>
                 <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />

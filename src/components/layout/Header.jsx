@@ -1,14 +1,21 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Flex, Text, Button, useColorMode, Icon, useMediaQuery, Box } from "@chakra-ui/react";
 import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
 import InfoBar from "../common/InfoBar";
 import InfoTicker from "../common/InfoTicker";
 
 const Header = ({ marketData = {} }) => {
-  const { colorMode, toggleColorMode } = useColorMode();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const [isMobile] = useMediaQuery("(max-width: 768px)");
+
+  const { colorMode, setColorMode } = useColorMode();
+  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
+
+  useEffect(() => {
+    if (isMobile && prefersDarkMode) {
+      setColorMode("dark");
+    }
+  }, [isMobile, prefersDarkMode, setColorMode]);
 
   const formattedMarketData = useMemo(() => {
     const { btcDominance = 0, ethDominance = 0, totalVolume = 0, marketDirection = "neutral", totalMarketCap = 0 } = marketData;
@@ -48,9 +55,11 @@ const Header = ({ marketData = {} }) => {
         ))}
       </Flex>
       <Flex alignItems="center" gap={4} justifyContent="flex-end">
-        <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200" ml="auto">
-          {colorMode === "light" ? <FaMoon /> : <FaSun />}
-        </Button>
+        {!isMobile && (
+          <Button onClick={() => setColorMode(colorMode === "light" ? "dark" : "light")} variant="outline" borderColor="gray.200" ml="auto">
+            {colorMode === "light" ? <FaMoon /> : <FaSun />}
+          </Button>
+        )}
         {learnMoreButton}
       </Flex>
     </Flex>

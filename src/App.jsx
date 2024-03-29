@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import Index from "./pages/Index.jsx";

@@ -28,7 +28,7 @@ const InfoBar = ({ formattedMarketData = {} }) => {
         <Box mr={4}>
           Total Market Cap:{" "}
           <Box as="span" fontWeight="bold" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
-            ${totalMarketCap.toFixed(2)} Trillion
+            ${totalMarketCap} Trillion
           </Box>
           {marketDirection === "up" ? <Icon as={FaArrowUp} color="green.500" ml={2} /> : <Icon as={FaArrowDown} color="red.500" ml={2} />}
         </Box>

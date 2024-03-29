@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import Bar from "../layout/Bar";
 
 const InfoTicker = ({ formattedMarketData = {} }) => {

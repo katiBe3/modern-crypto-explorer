@@ -2,12 +2,12 @@ import { Flex, Text, Button, useColorMode, Box } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa";
 import InfoBar from "./InfoBar";
 
-const Header = () => {
+const Header = ({ btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Box>
-      <InfoBar />
+      <InfoBar btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />
       <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
         <Flex maxWidth="1200" fontWeight="bold" mr={8}>
           <Text as="a" href="/" mr={8}>

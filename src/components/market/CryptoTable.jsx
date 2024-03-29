@@ -1,42 +1,40 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
-import { DataContext } from "../../contexts/DataContext"; // Ensure this path is correct
 
-const CryptoTable = ({ showFavoritesOnly = false }) => {
-  const { assets } = useContext(DataContext);
+const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
   const [previousPrices, setPreviousPrices] = useState({});
 
-    // Load favorites from localStorage
-    const [favorites, setFavorites] = useState(() => {
-      try {
-        const localData = localStorage.getItem("favorites");
-        return localData ? JSON.parse(localData) : {};
-      } catch (error) {
-        console.error("Error reading favorites from localStorage:", error);
-        return {};
-      }
-    });
-  
-    // Save favorites to localStorage
-    useEffect(() => {
-      try {
-        localStorage.setItem("favorites", JSON.stringify(favorites));
-      } catch (error) {
-        console.error("Error saving favorites to localStorage:", error);
-      }
-    }, [favorites]);
-  
-    const toggleFavorite = (id) => {
-      setFavorites(prevFavorites => ({
-        ...prevFavorites,
-        [id]: !prevFavorites[id],
-      }));
-    };
-  
+  // Load favorites from localStorage
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const localData = localStorage.getItem("favorites");
+      return localData ? JSON.parse(localData) : {};
+    } catch (error) {
+      console.error("Error reading favorites from localStorage:", error);
+      return {};
+    }
+  });
+
+  // Save favorites to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    } catch (error) {
+      console.error("Error saving favorites to localStorage:", error);
+    }
+  }, [favorites]);
+
+  const toggleFavorite = (id) => {
+    setFavorites((prevFavorites) => ({
+      ...prevFavorites,
+      [id]: !prevFavorites[id],
+    }));
+  };
+
   useEffect(() => {
     if (assets) {
       const newPriceColors = {};

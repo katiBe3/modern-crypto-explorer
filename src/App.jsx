@@ -82,7 +82,7 @@ function App() {
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
-      <Header />
+      <Header btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />
       <Router>
         <Routes>
           <Route exact path="/" element={<Index assets={assets} bitcoinData={bitcoinData} btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />} />

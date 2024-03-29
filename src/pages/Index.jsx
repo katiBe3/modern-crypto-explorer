@@ -29,6 +29,7 @@ const Index = ({ assets, marketData }) => {
   );
 
   return (
+  <>
     <Box mx="auto" maxWidth="1200px">
       <MarketTeaser assets={assets} mb={4} />
       <Box my={2} height="210px">
@@ -36,8 +37,9 @@ const Index = ({ assets, marketData }) => {
         { desktopCards }
       </Box>
       <CryptoTable assets={assets} />
-      <TradingTips />
     </Box>
+    <TradingTips />
+  </>
   );
 };
 

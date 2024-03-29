@@ -5,7 +5,7 @@ import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 const InfoBar = ({ marketData = {} }) => {
   const { btcDominance = 0, ethDominance = 0, totalVolume = 0, marketDirection = "neutral", totalMarketCap = 0 } = marketData;
   return (
-    <Box bg="#100D30" py={2} px={4} overflowX="auto" whiteSpace="nowrap">
+    <Box bg="gray.800" py={2} px={4} overflowX="auto" whiteSpace="nowrap">
       <Box color="white" textAlign="left" fontSize="sm" display="flex" alignItems="center">
         <Box mr={4}>
           <Box as="span" fontWeight="bold">

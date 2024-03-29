@@ -2,8 +2,8 @@ import React from "react";
 import { Box, Icon } from "@chakra-ui/react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
-const InfoBar = ({ marketData }) => {
-  const { btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = marketData;
+const InfoBar = ({ marketData = {} }) => {
+  const { btcDominance = 0, ethDominance = 0, totalVolume = 0, marketDirection = "neutral", totalMarketCap = 0 } = marketData;
   return (
     <Box bg="#100D30" py={2} px={4} overflowX="auto" whiteSpace="nowrap">
       <Box color="white" textAlign="left" fontSize="sm" display="flex" alignItems="center">

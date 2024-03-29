@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
+import Bar from "../layout/Bar";
 
 const InfoTicker = ({ formattedMarketData = {} }) => {
   const { btcDominance, ethDominance, totalVolume, totalMarketCap, marketDirection } = formattedMarketData;
@@ -28,15 +29,13 @@ const InfoTicker = ({ formattedMarketData = {} }) => {
   }
 
   return (
-    <Box bg="gray.800" py={2} px={4}>
-      <Flex alignItems="flex-start" justifyContent="flex-start">
-        {/* Render current ticker data based on tickerIndex */}
-        <Text color="white" fontSize="sm">
-          <Text as="span" fontWeight="bold">{tickerData[tickerIndex].label}:</Text>{" "}
-          <Text as="span" fontWeight="normal">{tickerData[tickerIndex].value}</Text>
-        </Text>
-      </Flex>
-    </Box>
+    <Bar>
+      {/* Render current ticker data based on tickerIndex */}
+      <Text color="white" fontSize="sm">
+        <Text as="span" fontWeight="bold">{tickerData[tickerIndex].label}:</Text>{" "}
+        <Text as="span" fontWeight="normal">{tickerData[tickerIndex].value}</Text>
+      </Text>
+    </Bar>
   );
 };
 

@@ -16,7 +16,7 @@ const Header = ({ marketData = {} }) => {
       ethDominance: `${ethDominance}%`,
       totalVolume: `$${totalVolume} Billion`,
       marketDirection,
-      totalMarketCap: `$${parseFloat(totalMarketCap).toFixed(2)} Trillion`,
+      totalMarketCap: `$${totalMarketCap.toFixed(2)} Trillion`,
     };
   }, [marketData]);
 

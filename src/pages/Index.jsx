@@ -23,21 +23,21 @@ const Index = ({ assets, marketData }) => {
   );
 
   const desktopCards = !isMobile && (
-    <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={8} my={2} mx={{ base: 4, md: 8 }} maxWidth="1200px" alignItems="center">
+    <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={8} my={2} alignItems="center">
       { cards }
     </Grid>
   );
 
   return (
-    <>
+    <Box mx="auto" maxWidth="1200px">
       <MarketTeaser assets={assets} mb={4} />
-      <Box my={2} mx={{ base: 4, md: 8 }} maxWidth="1200px" height="210px">
+      <Box my={2} height="210px">
         { mobileCardSlider }
         { desktopCards }
-        <CryptoTable assets={assets} />
-        <TradingTips />
       </Box>
-    </>
+      <CryptoTable assets={assets} />
+      <TradingTips />
+    </Box>
   );
 };
 

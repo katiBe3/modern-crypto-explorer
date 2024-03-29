@@ -110,39 +110,73 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
 
   return (
     <Box overflowX="auto" maxWidth="1200px" mt={8} mx="auto">
-      <Table variant="simple">
+      <Table variant="simple" size={isMobile ? "sm" : "md"}>
         <Thead>
           <Tr>
-            <Th></Th>
-            <Th>Name</Th>
-            <Th onClick={() => handleSort("priceUsd")}>Price {sortConfig.key === "priceUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
-            <Th onClick={() => handleSort("changePercent24Hr")}>24h% {sortConfig.key === "changePercent24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
-            {!isMobile && <Th onClick={() => handleSort("marketCapUsd")}>Market Cap {sortConfig.key === "marketCapUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>}
-            {!isMobile && <Th onClick={() => handleSort("volumeUsd24Hr")}>Volume (24h) {sortConfig.key === "volumeUsd24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>}
-            {!isMobile && <Th onClick={() => handleSort("supply")}>Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>}
+            <Th px={isMobile ? 1 : 4}></Th>
+            <Th px={isMobile ? 1 : 4}>Name</Th>
+            <Th px={isMobile ? 1 : 4} onClick={() => handleSort("priceUsd")}>
+              Price {sortConfig.key === "priceUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+            </Th>
+            <Th px={isMobile ? 1 : 4} onClick={() => handleSort("changePercent24Hr")}>
+              24h% {sortConfig.key === "changePercent24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+            </Th>
+            {!isMobile && (
+              <Th px={4} onClick={() => handleSort("marketCapUsd")}>
+                Market Cap {sortConfig.key === "marketCapUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+              </Th>
+            )}
+            {!isMobile && (
+              <Th px={4} onClick={() => handleSort("volumeUsd24Hr")}>
+                Volume (24h) {sortConfig.key === "volumeUsd24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+              </Th>
+            )}
+            {!isMobile && (
+              <Th px={4} onClick={() => handleSort("supply")}>
+                Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+              </Th>
+            )}
           </Tr>
         </Thead>
         <Tbody>
           {sortedData.map((crypto) => (
             <Tr key={crypto.id}>
-              <Td>
+              <Td px={isMobile ? 1 : 4}>
                 <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>
-              <Td>
-                <Text fontWeight="bold">{crypto.name}</Text>
-                <Text fontWeight="bold" color="gray.500">
+              <Td px={isMobile ? 1 : 4}>
+                <Text fontSize={isMobile ? "sm" : "md"} fontWeight="bold">
+                  {crypto.name}
+                </Text>
+                <Text fontSize={isMobile ? "xs" : "sm"} fontWeight="bold" color="gray.500">
                   {crypto.symbol}
                 </Text>
               </Td>
-              <Td fontWeight="bold">
-                <Text color={priceColors[crypto.id]}>${parseFloat(crypto.priceUsd).toLocaleString()}</Text>
+              <Td px={isMobile ? 1 : 4} fontWeight="bold">
+                <Text fontSize={isMobile ? "sm" : "md"} color={priceColors[crypto.id]}>
+                  ${parseFloat(crypto.priceUsd).toLocaleString()}
+                </Text>
               </Td>
-              <Td fontWeight="bold">
-                <Text color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>{parseFloat(crypto.changePercent24Hr).toFixed(2)}%</Text>
+              <Td px={isMobile ? 1 : 4} fontWeight="bold">
+                <Text fontSize={isMobile ? "sm" : "md"} color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>
+                  {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
+                </Text>
               </Td>
-              {!isMobile && <Td fontWeight="bold">${parseFloat(crypto.marketCapUsd).toLocaleString()}</Td>}
-              {!isMobile && <Td fontWeight="bold">${parseFloat(crypto.volumeUsd24Hr).toLocaleString()}</Td>}
-              {!isMobile && <Td fontWeight="bold">{parseFloat(crypto.supply).toLocaleString()}</Td>}
+              {!isMobile && (
+                <Td px={4} fontWeight="bold">
+                  ${parseFloat(crypto.marketCapUsd).toLocaleString()}
+                </Td>
+              )}
+              {!isMobile && (
+                <Td px={4} fontWeight="bold">
+                  ${parseFloat(crypto.volumeUsd24Hr).toLocaleString()}
+                </Td>
+              )}
+              {!isMobile && (
+                <Td px={4} fontWeight="bold">
+                  {parseFloat(crypto.supply).toLocaleString()}
+                </Td>
+              )}
             </Tr>
           ))}
         </Tbody>

@@ -4,12 +4,39 @@ import { FaHeart } from "react-icons/fa";
 import { DataContext } from "../../contexts/DataContext"; // Ensure this path is correct
 
 const CryptoTable = ({ showFavoritesOnly = false }) => {
-  const { assets, favorites, setFavorites } = useContext(DataContext);
+  const { assets } = useContext(DataContext);
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
   const [previousPrices, setPreviousPrices] = useState({});
 
+    // Load favorites from localStorage
+    const [favorites, setFavorites] = useState(() => {
+      try {
+        const localData = localStorage.getItem("favorites");
+        return localData ? JSON.parse(localData) : {};
+      } catch (error) {
+        console.error("Error reading favorites from localStorage:", error);
+        return {};
+      }
+    });
+  
+    // Save favorites to localStorage
+    useEffect(() => {
+      try {
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+      } catch (error) {
+        console.error("Error saving favorites to localStorage:", error);
+      }
+    }, [favorites]);
+  
+    const toggleFavorite = (id) => {
+      setFavorites(prevFavorites => ({
+        ...prevFavorites,
+        [id]: !prevFavorites[id],
+      }));
+    };
+  
   useEffect(() => {
     if (assets) {
       const newPriceColors = {};
@@ -79,13 +106,6 @@ const CryptoTable = ({ showFavoritesOnly = false }) => {
       direction = "desc";
     }
     setSortConfig({ key, direction });
-  };
-
-  const toggleFavorite = (id) => {
-    setFavorites(prevFavorites => ({
-      ...prevFavorites,
-      [id]: !prevFavorites[id],
-    }));
   };
 
   return (

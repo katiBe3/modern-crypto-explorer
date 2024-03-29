@@ -45,26 +45,6 @@ export const DataProvider = ({ children }) => {
     return () => clearInterval(assetsInterval);
   }, [fetchAssets, fetchHistoricalData]);
 
-  // Load favorites from localStorage
-  const [favorites, setFavorites] = useState(() => {
-    try {
-      const localData = localStorage.getItem("favorites");
-      return localData ? JSON.parse(localData) : {};
-    } catch (error) {
-      console.error("Error reading favorites from localStorage:", error);
-      return {};
-    }
-  });
-
-  // Save favorites to localStorage
-  useEffect(() => {
-    try {
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-    } catch (error) {
-      console.error("Error saving favorites to localStorage:", error);
-    }
-  }, [favorites]);
-
   const calculateDominance = (assetSymbol) => {
     const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);
     const asset = assets.find((a) => a.symbol === assetSymbol);
@@ -101,8 +81,6 @@ export const DataProvider = ({ children }) => {
         setAssets,
         bitcoinData,
         setBitcoinData,
-        favorites,
-        setFavorites,
         btcDominance,
         ethDominance,
         totalVolume,

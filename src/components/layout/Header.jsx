@@ -16,11 +16,11 @@ const Header = () => {
           <Text as="a" href="/blog" mr={8}>
             🐳 Whale Splash
           </Text>
-          <Text as="a" href="/learn" mr={8}>
-            🎓 Learn
-          </Text>
           <Text as="a" href="/favorites" mr={8}>
             ❤️ Favorites
+          </Text>
+          <Text as="a" href="/learn" mr={8}>
+            🎓 Learn
           </Text>
         </Flex>
         <Flex alignItems="center" gap={4} justifyContent="flex-end">

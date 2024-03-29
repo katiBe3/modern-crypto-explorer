@@ -15,13 +15,13 @@ const CardSlider = ({ cards }) => {
 
   return (
     <Box position="relative" height="100%" width="100%">
-      <IconButton aria-label="Previous Slide" icon={<FaChevronLeft />} position="absolute" left="2" top="50%" transform="translate(0, -50%)" zIndex="2" onClick={prevSlide} />
+      <IconButton aria-label="Previous Slide" icon={<FaChevronLeft />} position="absolute" left="2" top="50%" transform="translate(0, -50%)" zIndex="2" onClick={prevSlide} />}
       {cards.map((card, index) => (
         <Box key={index} position="absolute" top="0" left="0" right="0" bottom="0" opacity={index === currentIndex ? "1" : "0"} transition="opacity 0.5s">
           {card}
         </Box>
       ))}
-      <IconButton aria-label="Next Slide" icon={<FaChevronRight />} position="absolute" right="2" top="50%" transform="translate(0, -50%)" zIndex="2" onClick={nextSlide} />
+      <IconButton aria-label="Next Slide" icon={<FaChevronRight />} position="absolute" right="2" top="50%" transform="translate(0, -50%)" zIndex="2" onClick={nextSlide} />}
     </Box>
   );
 };

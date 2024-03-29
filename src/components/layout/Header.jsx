@@ -1,13 +1,20 @@
-import { Flex, Text, Button, useColorMode, Box } from "@chakra-ui/react";
+import { Flex, Text, Button, useColorMode, Box, useBreakpointValue } from "@chakra-ui/react";
 import { FaMoon, FaSun } from "react-icons/fa";
-import InfoBar from "./InfoBar";
+import InfoBar from "../common/InfoBar";
+import InfoTicker from "../common/InfoTicker.jsx";
 
 const Header = ({ marketData = {} }) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
+  // Determine if the device is mobile
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
+  // Conditionally render ticker based on device type
+  const infoComponent = isMobile ? <InfoTicker marketData={marketData} /> : <InfoBar marketData={marketData} />;
+  
   return (
     <Box>
-      <InfoBar marketData={marketData} />
+      {infoComponent}
       <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
         <Flex maxWidth="1200" fontWeight="bold" mr={8}>
           <Text as="a" href="/" mr={8}>

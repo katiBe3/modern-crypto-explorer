@@ -76,10 +76,6 @@ const FearGreedIndex = ({ bitcoinData }) => {
     return () => clearInterval(interval);
   }, [bitcoinData]);
 
-  if (!bitcoinData) {
-    return <Box>Loading...</Box>;
-  }
-
   return (
     <Card title="Fear & Greed Index" alignItems="center">
       <Skeleton isLoaded={fearGreedIndex !== 0} height="80px">
@@ -88,12 +84,12 @@ const FearGreedIndex = ({ bitcoinData }) => {
         </Text>
       </Skeleton>
       <Skeleton isLoaded={indexSentiment !== 0} height="24px">
-        <Text fontWeight="bold" color="gray.600" textAlign="center">
+        <Text fontWeight="bold" textAlign="center">
           {indexSentiment}
         </Text>
       </Skeleton>
       <Skeleton isLoaded={lastUpdated !== 0} height="20px" mt={2}>
-        <Text fontSize="sm" fontWeight="normal" color="gray.500" textAlign="center">
+        <Text fontSize="sm" fontWeight="normal"  textAlign="center">
           Last updated: {formatDate(lastUpdated)}
       </Text>
       </Skeleton>

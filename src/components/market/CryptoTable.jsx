@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon } from "@chakra-ui/react";
+import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon, useBreakpointValue } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
 
 const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
@@ -7,6 +7,8 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
   const [previousPrices, setPreviousPrices] = useState({});
+
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   // Load favorites from localStorage
   const [favorites, setFavorites] = useState(() => {
@@ -115,9 +117,9 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
             <Th>Name</Th>
             <Th onClick={() => handleSort("priceUsd")}>Price {sortConfig.key === "priceUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
             <Th onClick={() => handleSort("changePercent24Hr")}>24h% {sortConfig.key === "changePercent24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
-            <Th onClick={() => handleSort("marketCapUsd")}>Market Cap {sortConfig.key === "marketCapUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
-            <Th onClick={() => handleSort("volumeUsd24Hr")}>Volume (24h) {sortConfig.key === "volumeUsd24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
-            <Th onClick={() => handleSort("supply")}>Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>
+            {!isMobile && <Th onClick={() => handleSort("marketCapUsd")}>Market Cap {sortConfig.key === "marketCapUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>}
+            {!isMobile && <Th onClick={() => handleSort("volumeUsd24Hr")}>Volume (24h) {sortConfig.key === "volumeUsd24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>}
+            {!isMobile && <Th onClick={() => handleSort("supply")}>Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}</Th>}
           </Tr>
         </Thead>
         <Tbody>
@@ -138,9 +140,9 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
               <Td fontWeight="bold">
                 <Text color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>{parseFloat(crypto.changePercent24Hr).toFixed(2)}%</Text>
               </Td>
-              <Td fontWeight="bold">${parseFloat(crypto.marketCapUsd).toLocaleString()}</Td>
-              <Td fontWeight="bold">${parseFloat(crypto.volumeUsd24Hr).toLocaleString()}</Td>
-              <Td fontWeight="bold">{parseFloat(crypto.supply).toLocaleString()}</Td>
+              {!isMobile && <Td fontWeight="bold">${parseFloat(crypto.marketCapUsd).toLocaleString()}</Td>}
+              {!isMobile && <Td fontWeight="bold">${parseFloat(crypto.volumeUsd24Hr).toLocaleString()}</Td>}
+              {!isMobile && <Td fontWeight="bold">{parseFloat(crypto.supply).toLocaleString()}</Td>}
             </Tr>
           ))}
         </Tbody>

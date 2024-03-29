@@ -23,7 +23,7 @@ const TradingTips = () => {
           {currentTip.text}
         </Text>
       </Box>
-      <Button bg="white" color="5A4FCF" fontWeight="bold" px="4" textShadow="0 0 8px rgba(255, 255, 255, 0.4)">
+      <Button bg="white" color="5A4FCF" fontWeight="bold" px="4" textShadow="0 0 8px rgba(255, 255, 255, 0.4)" onClick={() => (window.location.href = "/learn")}>
         Show More
       </Button>
     </Box>

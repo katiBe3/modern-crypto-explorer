@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Icon, useColorModeValue, Skeleton } from "@chakra-ui/react";
 import { FaBitcoin } from "react-icons/fa";
+import Card from "../../layout/Card";
 
 const FearGreedIndex = ({ bitcoinData }) => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
@@ -80,13 +81,9 @@ const FearGreedIndex = ({ bitcoinData }) => {
   }
 
   return (
-    <Box maxWidth="420px" mx="auto" mt={4} borderWidth={1} borderColor="gray.200" borderRadius="md" boxShadow="md" p={4} align="center" backgroundColor="gray.50">
-      <Text fontSize="xl" fontWeight="bold" mb={1}>
-        <Icon as={FaBitcoin} color="orange.400" mr={2} />
-        Fear & Greed Index
-      </Text>
+    <Card title="Fear & Greed Index" alignItems="center">
       <Skeleton isLoaded={fearGreedIndex !== 0} height="80px">
-        <Text fontSize="6xl" fontWeight="black" color={indexColor} mb={1}>
+        <Text fontSize="6xl" fontWeight="black" color={indexColor} mb={1} textAlign="center">
           {fearGreedIndex}
         </Text>
       </Skeleton>
@@ -100,7 +97,7 @@ const FearGreedIndex = ({ bitcoinData }) => {
           Last updated: {formatDate(lastUpdated)}
       </Text>
       </Skeleton>
-    </Box>
+    </Card>
   );
 };
 

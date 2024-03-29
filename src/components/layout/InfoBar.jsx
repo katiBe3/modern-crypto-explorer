@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Box, Icon } from "@chakra-ui/react";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
@@ -37,4 +37,4 @@ const InfoBar = ({ marketData = {} }) => {
   );
 };
 
-export default InfoBar;
+export default memo(InfoBar);

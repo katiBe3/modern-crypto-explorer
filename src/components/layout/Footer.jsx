@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Box, Text, Flex, useColorModeValue } from "@chakra-ui/react";
 
 const Footer = () => {
@@ -13,4 +13,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);

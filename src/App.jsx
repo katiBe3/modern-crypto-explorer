@@ -14,23 +14,6 @@ function App() {
   const [bitcoinData, setBitcoinData] = useState([]);
   const [historicalDataLastFetched, setHistoricalDataLastFetched] = useState(null);
 
-  const btcDominance = useMemo(() => calculateDominance("BTC"), [assets]);
-  const ethDominance = useMemo(() => calculateDominance("ETH"), [assets]);
-  const totalVolume = useMemo(() => calculateTotalVolume(), [assets]);
-  const marketDirection = useMemo(() => calculateMarketDirection("BTC"), [assets]);
-  const totalMarketCap = useMemo(() => calculateTotalMarketCap(), [assets]);
-
-  const marketData = useMemo(
-    () => ({
-      btcDominance,
-      ethDominance,
-      totalVolume,
-      marketDirection,
-      totalMarketCap,
-    }),
-    [btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap],
-  );
-
   const fetchAssetsRef = useRef();
   const historicalDataFetchRef = useRef();
 
@@ -91,9 +74,15 @@ function App() {
     return "neutral";
   };
 
+  const btcDominance = useMemo(() => calculateDominance("BTC"), [assets]);
+  const ethDominance = useMemo(() => calculateDominance("ETH"), [assets]);
+  const totalVolume = useMemo(() => calculateTotalVolume(), [assets]);
+  const marketDirection = useMemo(() => calculateMarketDirection("BTC"), [assets]);
+  const totalMarketCap = useMemo(() => calculateTotalMarketCap(), [assets]);
+
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
-      <Header marketData={marketData} />
+      <Header marketData={{ btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />
       <Router>
         <Routes>
           <Route exact path="/" element={<Index assets={assets} marketData={{ bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />} />

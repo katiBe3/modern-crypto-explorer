@@ -4,7 +4,8 @@ import FearGreedIndex from "../components/market/FearGreedIndex";
 import CryptoTable from "../components/market/CryptoTable";
 import NewsletterSubscription from "../components/common/NewsletterSubscription";
 
-const Index = ({ assets, bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }) => {
+const Index = ({ assets, marketData }) => {
+  const { bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = marketData;
   return (
     <>
       <MarketTeaser assets={assets} mb={4} />

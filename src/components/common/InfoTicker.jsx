@@ -1,23 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 
-const InfoTicker = () => {
-  const [tickerData, setTickerData] = useState([]);
+const InfoTicker = ({ formattedMarketData = {} }) => {
+  const { btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = formattedMarketData;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
-  useEffect(() => {
-    const sampleData = ["BTC dominance: 40.5%", "ETH gas fees: 20 Gwei", "Total market cap: $1.2T"];
-    setTickerData(sampleData);
+  const tickerData = [`BTC: ${btcDominance}`, `ETH: ${ethDominance}`, `24h Vol: ${totalVolume}`, `Market Cap: ${totalMarketCap}`];
 
+  useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % sampleData.length);
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % tickerData.length);
     }, 5000);
 
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [tickerData]);
 
   if (!isVisible) {
     return null;

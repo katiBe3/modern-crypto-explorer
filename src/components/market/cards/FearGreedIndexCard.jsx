@@ -78,12 +78,10 @@ const FearGreedIndex = ({ bitcoinData }) => {
 
   return (
     <Card title="Fear & Greed Index">
-      <Skeleton isLoaded={fearGreedIndex !== 0} height="80px">
-        <Flex justifyContent="center">
-          <Text fontSize="6xl" fontWeight="black" color={indexColor} mb={1}>
-            {fearGreedIndex}
-          </Text>
-        </Flex>
+      <Skeleton isLoaded={fearGreedIndex !== 0} height="60px">
+        <Text fontSize="6xl" lineHeight="100%" fontWeight="black" color={indexColor} >
+          {fearGreedIndex}
+        </Text>
       </Skeleton>
       <Skeleton isLoaded={indexSentiment !== 0} height="24px">
         <Text fontWeight="bold" textAlign="center">
@@ -91,7 +89,7 @@ const FearGreedIndex = ({ bitcoinData }) => {
         </Text>
       </Skeleton>
       <Skeleton isLoaded={lastUpdated !== 0} height="20px" mt={2}>
-        <Text fontSize="sm" fontWeight="normal" textAlign="center">
+        <Text fontSize="sm" fontWeight="normal" textAlign="center" color="gray.500">
           Last updated: {formatDate(lastUpdated)}
         </Text>
       </Skeleton>

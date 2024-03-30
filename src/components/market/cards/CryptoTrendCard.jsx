@@ -4,11 +4,18 @@ import Card from "../../layout/Card";
 
 const CryptoTrendCard = ({ title, assets, value, isColored = true }) => {
   const formatNumber = (number) => {
-    // Check if the value contains "percent" (case insensitive)
-    if (value.toLowerCase().includes("percent")) {
-      return parseFloat(number).toFixed(2);
+    // Check if the value contains "usd" (case insensitive)
+    if (value.toLowerCase().includes("usd")) {
+      number = parseInt(number);
+      // Format the number as USD currency without decimals
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 0 // Set minimumFractionDigits to 0
+      }).format(number);
     } else {
-      return parseInt(number).toLocaleString();
+      // Format the number with two decimal places
+      return parseFloat(number).toFixed(2);
     }
   };
 

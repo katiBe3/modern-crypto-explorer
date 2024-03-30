@@ -146,14 +146,35 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
               <Td px={{ base: 1, md: 4 }} fontWeight="bold">
                 <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} _hover={{ color: "red.400", cursor: "pointer" }} onClick={() => toggleFavorite(crypto.id)} />
               </Td>
-              <Td px={{ base: 1, md: 4 }} fontWeight="bold">
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => (window.location.href = `/crypto/${crypto.id}`)}>
                 <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
                   {crypto.name}
                 </Text>
-                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500" onClick={() => toggleFavorite(crypto.id)}>
+                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
                   {crypto.symbol}
                 </Text>
               </Td>
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => (window.location.href = `/crypto/${crypto.id}`)}>
+                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
+                  ${parseFloat(crypto.priceUsd).toLocaleString()}
+                </Text>
+              </Td>
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => (window.location.href = `/crypto/${crypto.id}`)}>
+                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
+                  {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
+                </Text>
+              </Td>
+              <Hide below="md">
+                <Td px={4} fontWeight="bold" onClick={() => (window.location.href = `/crypto/${crypto.id}`)}>
+                  ${parseInt(crypto.marketCapUsd).toLocaleString()}
+                </Td>
+                <Td px={4} fontWeight="bold" onClick={() => (window.location.href = `/crypto/${crypto.id}`)}>
+                  ${parseInt(crypto.volumeUsd24Hr).toLocaleString()}
+                </Td>
+                <Td px={4} fontWeight="bold" onClick={() => (window.location.href = `/crypto/${crypto.id}`)}>
+                  {parseInt(crypto.supply).toLocaleString()}
+                </Td>
+              </Hide>
               <Td px={{ base: 1, md: 4 }} fontWeight="bold">
                 <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
                   ${parseFloat(crypto.priceUsd).toLocaleString()}

@@ -24,9 +24,7 @@ const WhaleWatchCard = () => {
         const currentTime = new Date();
         const oneHourAgo = new Date(currentTime.getTime() - 120 * 60 * 1000);
 
-        const recentTrades = tradeData.bids
-          .concat(tradeData.asks)
-          .filter((trade) => new Date(trade.timestamp) >= oneHourAgo && parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD);
+        const recentTrades = tradeData.bids.concat(tradeData.asks).filter((trade) => new Date(trade.timestamp) >= oneHourAgo && parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD);
 
         if (recentTrades.length > 0) {
           // Find the highest trade
@@ -66,7 +64,7 @@ const WhaleWatchCard = () => {
             <>
               <Text>BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Stay alert and ride the tide!</Text>
               <Text fontWeight="bold" textAlign="center">
-                  The highest trade in the last hour was ${highestTrade.amountUSD} at {highestTrade.timestamp}.
+                The highest trade in the last hour was ${highestTrade.amountUSD.toLocaleString()} at {highestTrade.timestamp}.
               </Text>
             </>
           ) : (

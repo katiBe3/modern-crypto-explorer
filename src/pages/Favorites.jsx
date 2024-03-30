@@ -28,7 +28,7 @@ const Favorites = ({ assets }) => {
       <Text fontSize="lg" mb={8}>
         Keep your most loved cryptocurrencies close and never miss a beat in the market!
       </Text>
-      <CryptoTable assets={assets} assetPriceData={assetPriceData} setFavorites={setFavorites} showFavoritesOnly={true} />
+      <CryptoTable assets={assets} setFavorites={setFavorites} showFavoritesOnly={true} />
     </Box>
   );
 };

@@ -1,9 +1,10 @@
 import React, { memo } from "react";
-import { Box, Icon } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Bar from "../layout/Bar";
+import MarketArrow from "./MarketArrow";
 
 const InfoBar = ({ formattedMarketData = {} }) => {
-  const { btcDominance, ethDominance, totalVolume, directionArrow, totalMarketCap } = formattedMarketData;
+  const { btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = formattedMarketData;
   return (
     <Bar>
       <Box mr={4}>
@@ -27,7 +28,7 @@ const InfoBar = ({ formattedMarketData = {} }) => {
       <Box mr={4}>
         Total Market Cap:{" "}
         <Box as="span" fontWeight="bold" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
-          {totalMarketCap} {directionArrow}
+          {totalMarketCap} <MarketArrow marketDirection={marketDirection} />
         </Box>
       </Box>
     </Bar>

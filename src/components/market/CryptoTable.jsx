@@ -149,11 +149,6 @@ const CryptoTable = React.memo(({ assets, assetPriceData, showFavoritesOnly = fa
                 Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </Th>
             )}
-            {!isMobile && (
-              <Th colSpan={8} textAlign="right" px={isMobile ? 1 : 4}>
-                30m
-              </Th>
-            )}
           </Tr>
         </Thead>
         <Tbody>
@@ -200,13 +195,6 @@ const CryptoTable = React.memo(({ assets, assetPriceData, showFavoritesOnly = fa
               {!isMobile && (
                 <Td px={4} fontWeight="bold">
                   {parseInt(crypto.supply).toLocaleString()}
-                </Td>
-              )}
-              {!isMobile && (
-                <Td px={4} fontWeight="bold">
-                  <Box width="100px" height="30px" display={assetPriceData[crypto.id] && assetPriceData[crypto.id].length > 0 ? "block" : "none"}>
-                    <CryptoChart color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"} data={assetPriceData[crypto.id]} />
-                  </Box>
                 </Td>
               )}
             </Tr>

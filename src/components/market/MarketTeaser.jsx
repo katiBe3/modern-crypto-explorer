@@ -42,7 +42,7 @@ const MarketTeaser = ({ assets }) => {
   return (
     <Box textAlign="center" m={8}>
       <Hide below='md'>
-        <Heading mb={4} >Top 100 Cryptocurrency Prices by Market Cap</Heading>
+        <Heading mb={4} as="h1">Explore the Top 100 Cryptocurrencies</Heading>
       </Hide>
       <Text fontSize="xl">
        Our top 100 crypto have a total market value  of{" "}

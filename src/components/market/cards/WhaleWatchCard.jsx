@@ -9,32 +9,28 @@ const WhaleWatchCard = () => {
   useEffect(() => {
     const fetchWhaleActivity = async () => {
       try {
-        // Fetch all recent trades
-        const response = await fetch("https://api.blockchain.com/v3/exchange/l3/{symbol}");
-        if (!response.ok) {
-          throw new Error("Failed to fetch whale activity");
-        }
-        const data = await response.json();
-
-        // Calculate the timestamp for 24 hours ago
+        const symbols = ["BTC-USD", "ETH-USD"];
+        const threshold = 100;
         const twentyFourHoursAgo = new Date();
         twentyFourHoursAgo.setDate(twentyFourHoursAgo.getDate() - 1);
 
-        // Filter trades that occurred within the last day for BTC and ETH symbols
-        const threshold = 100;
         const formattedTrades = {};
-        ["BTC-USD", "ETH-USD"].forEach(symbol => {
-          const recentTrades = data.filter(
-            (trade) => trade.symbol === symbol &&
-            parseFloat(trade.quantity) >= threshold &&
-            new Date(trade.timestamp) >= twentyFourHoursAgo
-          );
+
+        for (const symbol of symbols) {
+          const response = await fetch(`https://api.blockchain.com/v3/exchange/l2/${symbol}`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch whale activity for ${symbol}`);
+          }
+          const data = await response.json();
+
+          const recentTrades = data.bids.concat(data.asks).filter((trade) => parseFloat(trade.px) * parseFloat(trade.qty) >= threshold && new Date(trade.timestamp) >= twentyFourHoursAgo);
 
           formattedTrades[symbol] = recentTrades.map((trade) => ({
-            quantity: parseFloat(trade.quantity),
+            price: parseFloat(trade.px),
+            quantity: parseFloat(trade.qty),
             timestamp: new Date(trade.timestamp).toLocaleString(),
           }));
-        });
+        }
 
         setWhaleActivities(formattedTrades);
         setError(null);

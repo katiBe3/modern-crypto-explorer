@@ -179,17 +179,17 @@ const CryptoTable = ({ assets, assetPriceData, showFavoritesOnly = false }) => {
               </Td>
               {!isMobile && (
                 <Td px={4} fontWeight="bold">
-                  ${parseFloat(crypto.marketCapUsd).toLocaleString()}
+                  ${parseInt(crypto.marketCapUsd).toLocaleString()}
                 </Td>
               )}
               {!isMobile && (
                 <Td px={4} fontWeight="bold">
-                  ${parseFloat(crypto.volumeUsd24Hr).toLocaleString()}
+                  ${parseInt(crypto.volumeUsd24Hr).toLocaleString()}
                 </Td>
               )}
               {!isMobile && (
                 <Td px={4} fontWeight="bold">
-                  {parseFloat(crypto.supply).toLocaleString()}
+                  {parseInt(crypto.supply).toLocaleString()}
                 </Td>
               )}
               {!isMobile && (

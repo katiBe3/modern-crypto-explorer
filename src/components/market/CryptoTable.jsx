@@ -165,7 +165,7 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
                 </Text>
               </Td>
               <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
-              <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
+              <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>
                   {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
                 </Text>
               </Td>

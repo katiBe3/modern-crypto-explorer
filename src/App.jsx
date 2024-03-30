@@ -22,7 +22,11 @@ function App() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const data = await response.json();
-      setAssets(data.data);
+      const assetsWithRank = data.data.map((asset, index) => ({
+        ...asset,
+        rank: index + 1,
+      }));
+      setAssets(assetsWithRank);
     } catch (error) {
       console.error("Error fetching assets:", error);
     }

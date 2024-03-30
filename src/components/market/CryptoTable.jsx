@@ -123,6 +123,9 @@ const CryptoTable = ({ assets, assetPriceData, showFavoritesOnly = false }) => {
       <Table variant="simple" size={isMobile ? "sm" : "md"}>
         <Thead>
           <Tr>
+            <Th px={isMobile ? 1 : 4} onClick={() => handleSort("rank")}>
+              Rank {sortConfig.key === "rank" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+            </Th>
             <Th px={isMobile ? 1 : 4}></Th>
             <Th px={isMobile ? 1 : 4}>Name</Th>
             <Th px={isMobile ? 1 : 4} onClick={() => handleSort("priceUsd")}>
@@ -156,6 +159,9 @@ const CryptoTable = ({ assets, assetPriceData, showFavoritesOnly = false }) => {
         <Tbody>
           {sortedData.map((crypto) => (
             <Tr key={crypto.id}>
+              <Td px={isMobile ? 1 : 4} fontWeight="bold">
+                {crypto.rank}
+              </Td>
               <Td px={isMobile ? 1 : 4}>
                 <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>

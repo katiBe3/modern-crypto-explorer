@@ -3,48 +3,64 @@ import { Flex } from "@chakra-ui/react";
 import Card from "../../layout/Card";
 
 const WhaleWatchCard = () => {
-    const [whaleActivity, setWhaleActivity] = useState(null);
+  const [whaleActivity, setWhaleActivity] = useState(null);
 
-    useEffect(() => {
-        const fetchWhaleActivity = async () => {
-            try {
-                // Fetch whale activity data from the Blockchain.com API
-                const response = await fetch("https://api.blockchain.com/v3/exchange/largest_trades");
-                if (!response.ok) {
-                    throw new Error("Failed to fetch whale activity");
-                }
-                const data = await response.json();
-                // Check if there are any large trades
-                const hasLargeTrades = data && data.trades && data.trades.length > 0;
-                return hasLargeTrades;
-            } catch (error) {
-                console.error("Error fetching whale activity:", error.message);
-                return null;
-            }
-        };
+  useEffect(() => {
+    const fetchWhaleActivity = async () => {
+      try {
+        const response = await fetch("https://api.blockchain.com/v3/exchange/l3/{symbol}");
+        if (!response.ok) {
+          throw new Error("Failed to fetch whale activity");
+        }
+        const data = await response.json();
 
-        fetchWhaleActivity().then((activity) => {
-            setWhaleActivity(activity);
-        });
-    }, []);
+        const threshold = 100;
+        const largeTrades = data.filter((trade) => parseFloat(trade.quantity) >= threshold);
 
-    return (
-        <Card title="🐋 Whale Watch">
-            <Flex align="center">
-                {whaleActivity !== null ? (
-                    <>
-                        {whaleActivity === true ? (
-                            <span>ETH whales are making waves! 🌊 Their recent moves could signal a big splash in the market. Stay alert and ride the tide! 🚀</span>
-                        ) : (
-                            <span>No significant whale activity detected at the moment. Keep an eye on the market for updates.</span>
-                        )}
-                    </>
-                ) : (
-                    <span>Loading whale activity...</span>
-                )}
-            </Flex>
-        </Card>
-    );
+        const formattedTrades = largeTrades.map((trade) => ({
+          symbol: trade.symbol,
+          quantity: parseFloat(trade.quantity),
+          timestamp: new Date(trade.timestamp).toLocaleString(),
+        }));
+
+        return formattedTrades;
+      } catch (error) {
+        console.error("Error fetching whale activity:", error.message);
+        return null;
+      }
+    };
+
+    fetchWhaleActivity().then((activity) => {
+      setWhaleActivity(activity);
+    });
+  }, []);
+
+  return (
+    <Card title="🐋 Whale Watch">
+      <Flex align="center">
+        {whaleActivity !== null ? (
+          <>
+            {whaleActivity.length > 0 ? (
+              <div>
+                <p>Recent large trades:</p>
+                <ul>
+                  {whaleActivity.map((trade, index) => (
+                    <li key={index}>
+                      {trade.quantity} {trade.symbol} at {trade.timestamp}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              <span>No significant whale activity detected at the moment.</span>
+            )}
+          </>
+        ) : (
+          <span>Loading whale activity...</span>
+        )}
+      </Flex>
+    </Card>
+  );
 };
 
 export default WhaleWatchCard;

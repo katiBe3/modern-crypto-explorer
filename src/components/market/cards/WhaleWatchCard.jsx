@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Box, Tabs, TabList, TabPanels, Tab, TabPanel, Text } from "@chakra-ui/react";
 import Card from "../../layout/Card";
 
 const WhaleWatchCard = () => {
@@ -9,38 +9,38 @@ const WhaleWatchCard = () => {
   useEffect(() => {
     const fetchWhaleActivity = async () => {
       try {
-        const symbol = "BTC-USD"; // Only BTC symbol
+        const symbols = ["BTC-USD", "ETH-USD", "BNB-USD"];
         const thresholdUSD = 100000;
         const formattedTrades = {};
 
         // Fetch the current cryptocurrency price
-        const response = await fetch(`https://api.blockchain.com/v3/exchange/tickers/${symbol}`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch price for ${symbol}`);
+        for (const symbol of symbols) {
+          const response = await fetch(`https://api.blockchain.com/v3/exchange/tickers/${symbol}`);
+          if (!response.ok) {
+            throw new Error(`Failed to fetch price for ${symbol}`);
+          }
+          const data = await response.json();
+          const price = parseFloat(data.last_trade_price);
+
+          const tradeResponse = await fetch(`https://api.blockchain.com/v3/exchange/l2/${symbol}`);
+          if (!tradeResponse.ok) {
+            throw new Error(`Failed to fetch whale activity for ${symbol}`);
+          }
+          const tradeData = await tradeResponse.json();
+
+          const recentTrades = tradeData.bids
+            .concat(tradeData.asks)
+            .filter((trade) => parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD / price)
+            .sort((a, b) => parseFloat(b.px) * parseFloat(b.qty) - parseFloat(a.px) * parseFloat(a.qty))
+            .slice(0, 5);
+
+          formattedTrades[symbol] = recentTrades.map((trade) => ({
+            amount: parseFloat(trade.qty),
+            amountUSD: parseFloat(trade.qty) * price,
+            symbol: symbol.split("-")[0],
+            timestamp: new Date(trade.timestamp).toLocaleString(),
+          }));
         }
-        const data = await response.json();
-        const priceBTC = parseFloat(data.last_trade_price);
-
-        // Fetch recent trades
-        const tradeResponse = await fetch(`https://api.blockchain.com/v3/exchange/l2/${symbol}`);
-        if (!tradeResponse.ok) {
-          throw new Error(`Failed to fetch whale activity for ${symbol}`);
-        }
-        const tradeData = await tradeResponse.json();
-
-        // Filter recent trades based on the cryptocurrency threshold
-        const recentTrades = tradeData.bids
-          .concat(tradeData.asks)
-          .filter((trade) => parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD / priceBTC)
-          .sort((a, b) => parseFloat(b.px) * parseFloat(b.qty) - parseFloat(a.px) * parseFloat(a.qty))
-          .slice(0, 5);
-
-        formattedTrades[symbol] = recentTrades.map((trade) => ({
-          amountBTC: parseFloat(trade.qty), // Trade amount in BTC
-          amountUSD: parseFloat(trade.qty) * priceBTC, // Equivalent trade amount in USD
-          symbol: symbol.split("-")[0], // Extracting BTC or ETH from the symbol
-          timestamp: new Date(trade.timestamp).toLocaleString(),
-        }));
 
         setWhaleActivities(formattedTrades);
         setError(null);
@@ -55,32 +55,34 @@ const WhaleWatchCard = () => {
 
   return (
     <Card title="🐋 Whale Watch">
-      <Flex align="center">
-        {Object.entries(whaleActivities).map(([symbol, activity]) => (
-          <div key={symbol}>
-            {error !== null ? (
-              <span>{error}</span>
-            ) : (
-              <>
-                {activity && activity.length > 0 ? (
-                  <div>
-                    <p>Recent large trades for {symbol}:</p>
-                    <ul>
-                      {activity.map((trade, index) => (
-                        <li key={index}>
-                          {new Date(trade.timestamp).toLocaleTimeString()} - USD {trade.amountUSD.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : (
-                  <span>No significant whale activity detected for {symbol} at the moment.</span>
-                )}
-              </>
-            )}
-          </div>
-        ))}
-      </Flex>
+      {error !== null ? (
+        <Text>{error}</Text>
+      ) : (
+        <Tabs>
+          <TabList>
+            <Tab>BTC</Tab>
+            <Tab>ETH</Tab>
+            <Tab>BNB</Tab>
+          </TabList>
+          <TabPanels>
+            {Object.entries(whaleActivities).map(([symbol, activity]) => (
+              <TabPanel key={symbol}>
+                <Box bg="white" borderWidth="1px" borderColor="gray.200" borderRadius="md" p={4} fontFamily="monospace" fontSize="sm">
+                  {activity && activity.length > 0 ? (
+                    activity.map((trade, index) => (
+                      <Text key={index}>
+                        [{new Date(trade.timestamp).toLocaleTimeString()}] {trade.symbol}: {trade.amount.toFixed(4)} ({trade.amountUSD.toLocaleString(undefined, { maximumFractionDigits: 2 })} USD)
+                      </Text>
+                    ))
+                  ) : (
+                    <Text>No significant whale activity detected for {symbol.split("-")[0]} at the moment.</Text>
+                  )}
+                </Box>
+              </TabPanel>
+            ))}
+          </TabPanels>
+        </Tabs>
+      )}
     </Card>
   );
 };

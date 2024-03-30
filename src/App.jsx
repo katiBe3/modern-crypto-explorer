@@ -16,9 +16,16 @@ function App() {
   const [assetPriceData, setAssetPriceData] = useState({});
 
   const fetchAssets = async () => {
-    const response = await fetch("https://api.coincap.io/v2/assets");
-    const data = await response.json();
-    setAssets(data.data);
+    try {
+      const response = await fetch("https://api.coincap.io/v2/assets");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setAssets(data.data);
+    } catch (error) {
+      console.error("Error fetching assets:", error);
+    }
   };
 
   const fetchHistoricalBtcData = async () => {
@@ -100,7 +107,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/learn" element={<Learn />} />
-          <Route path="/favorites" element={<Favorites assets={assets} assetPriceData={assetPriceData}/>} />
+          <Route path="/favorites" element={<Favorites assets={assets} assetPriceData={assetPriceData} />} />
         </Routes>
       </Router>
       <Footer />

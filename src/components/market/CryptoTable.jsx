@@ -158,7 +158,11 @@ const CryptoTable = ({ assets, assetPriceData, showFavoritesOnly = false }) => {
         </Thead>
         <Tbody>
           {sortedData.map((crypto) => (
-            <Tr key={crypto.id}>
+            <Tr
+              key={crypto.id}
+              onClick={() => window.location.href = `/crypto/${crypto.id}`}
+              _hover={{ bg: "gray.100", cursor: "pointer" }}
+            >
               <Td px={isMobile ? 1 : 4} fontWeight="bold">
                 {crypto.rank}
               </Td>
@@ -206,6 +210,7 @@ const CryptoTable = ({ assets, assetPriceData, showFavoritesOnly = false }) => {
                 </Td>
               )}
             </Tr>
+            
           ))}
         </Tbody>
       </Table>

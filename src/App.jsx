@@ -8,6 +8,7 @@ import Learn from "./pages/Learn.jsx";
 import Favorites from "./pages/Favorites.jsx";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
+import CryptoDetails from "./pages/CryptoDetails";
 
 function App() {
   const [assets, setAssets] = useState([]);
@@ -119,6 +120,8 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/learn" element={<Learn />} />
           <Route path="/favorites" element={<Favorites assets={assets} assetPriceData={assetPriceData} />} />
+          <Route path="/crypto/:id" element={<CryptoDetails assets={assets} />} />
+          <Route path="/crypto/:id" element={<CryptoDetails assets={assets} />} />
         </Routes>
       </Router>
       <Footer />

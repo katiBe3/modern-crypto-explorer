@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading, Text, Hide } from "@chakra-ui/react";
 
 const MarketTeaser = ({ assets }) => {
   if (!assets) {
@@ -41,9 +41,11 @@ const MarketTeaser = ({ assets }) => {
 
   return (
     <Box textAlign="center" m={8}>
-      <Heading mb={4}>Top 100 Cryptocurrency Prices by Market Cap</Heading>
+      <Hide below='md'>
+        <Heading mb={4} >Top 100 Cryptocurrency Prices by Market Cap</Heading>
+      </Hide>
       <Text fontSize="xl">
-       Our top 100 crypto assets have a total market value  of{" "}
+       Our top 100 crypto have a total market value  of{" "}
         <Text as="span" fontWeight="bold">
           ${marketCap} Trillion
         </Text>

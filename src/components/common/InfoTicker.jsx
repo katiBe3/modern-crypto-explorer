@@ -5,11 +5,9 @@ import MarketArrow from "./MarketArrow";
 
 const InfoTicker = ({ formattedMarketData = {} }) => {
   const { btcDominance, ethDominance, totalVolume, totalMarketCap, marketDirection } = formattedMarketData;
-  const [isVisible] = useState(true);
   const [tickerIndex, setTickerIndex] = useState(0);
 
-  // Convert marketDirection to a string if it's an object
-  // Array of data options to cycle through
+  // Define ticker data options
   const tickerData = [
     { label: "Dominance", value: `BTC: ${btcDominance} - ETH: ${ethDominance}`, hasArrow: false },
     { label: "Market Cap", value: `${totalMarketCap}`, hasArrow: false },
@@ -17,19 +15,14 @@ const InfoTicker = ({ formattedMarketData = {} }) => {
   ];
 
   useEffect(() => {
+    // Function to cycle through ticker data every 5 seconds
     const interval = setInterval(() => {
-      // Increment tickerIndex and cycle back to 0 if it exceeds the array length
-      setTickerIndex((prevIndex) => (prevIndex + 1) % tickerData.length);
+      setTickerIndex(prevIndex => (prevIndex + 1) % tickerData.length);
     }, 5000);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [tickerData]); // Include tickerData in dependency array to ensure useEffect runs when data changes
-
-  if (!isVisible) {
-    return null;
-  }
+    // Clear interval on component unmount
+    return () => clearInterval(interval);
+  }, [tickerData]); // useEffect will re-run if tickerData changes
 
   return (
     <Bar>

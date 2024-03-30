@@ -11,13 +11,13 @@ const InfoBar = ({ formattedMarketData = {} }) => {
         <Box as="span" fontWeight="bold">
           BTC
         </Box>{" "}
-        {btcDominance}%
+        {btcDominance}
       </Box>
       <Box mr={4}>
         <Box as="span" fontWeight="bold">
           ETH
         </Box>{" "}
-        {ethDominance}%
+        {ethDominance}
       </Box>
       <Box mr={4}>
         24h Vol:{" "}

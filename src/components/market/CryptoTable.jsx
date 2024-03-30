@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon, useBreakpointValue } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
+// Removed the import for react-chartjs-2
+
+// Replaced CryptoChart with a simple SVG mockup for visualization
+const CryptoChart = ({ color }) => {
+  return (
+    <svg width="100" height="30" viewBox="0 0 100 30">
+      <polyline fill="none" stroke={color} strokeWidth="2" points="0,20 20,10 40,15 60,10 80,20 100,10" />
+    </svg>
+  );
+};
 
 const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
   const [tableData, setTableData] = useState([]);
@@ -137,6 +147,11 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
               </Th>
             )}
           </Tr>
+          <Tr>
+            <Th colSpan={8} textAlign="right" px={isMobile ? 1 : 4}>
+              30m
+            </Th>
+          </Tr>
         </Thead>
         <Tbody>
           {sortedData.map((crypto) => (
@@ -177,6 +192,11 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
                   {parseFloat(crypto.supply).toLocaleString()}
                 </Td>
               )}
+              <Td px={isMobile ? 1 : 4} textAlign="center">
+                <Box width="100px" height="30px">
+                  <CryptoChart color="brand.main" />
+                </Box>
+              </Td>
             </Tr>
           ))}
         </Tbody>

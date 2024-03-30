@@ -146,11 +146,11 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
                 Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </Th>
             )}
-          </Tr>
-          <Tr>
-            <Th colSpan={8} textAlign="right" px={isMobile ? 1 : 4}>
-              30m
-            </Th>
+            {!isMobile && (
+              <Th colSpan={8} textAlign="right" px={isMobile ? 1 : 4}>
+                30m
+              </Th>
+            )}
           </Tr>
         </Thead>
         <Tbody>
@@ -192,11 +192,13 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
                   {parseFloat(crypto.supply).toLocaleString()}
                 </Td>
               )}
-              <Td px={isMobile ? 1 : 4} textAlign="center">
-                <Box width="100px" height="30px">
-                  <CryptoChart color="brand.main" />
-                </Box>
-              </Td>
+              {!isMobile && (
+                <Td px={4} fontWeight="bold">
+                  <Box width="50px" height="30px">
+                    <CryptoChart color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"} />
+                  </Box>
+                </Td>
+              )} 
             </Tr>
           ))}
         </Tbody>

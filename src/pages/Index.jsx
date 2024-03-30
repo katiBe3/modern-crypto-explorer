@@ -5,13 +5,12 @@ import WhaleWatchCard from "../components/market/cards/WhaleWatchCard";
 
 const CryptoTable = React.lazy(() => import("../components/market/CryptoTable"));
 import TradingTips from "../components/common/TradingTips";
-import { Grid, Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Grid, Box, Flex, Show, Hide } from "@chakra-ui/react";
 import CardSlider from "../components/layout/CardSlider";
 import CryptoTrendCard from "../components/market/cards/CryptoTrendCard";
 
 const Index = ({ assets, assetPriceData, marketData }) => {
   const { bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = marketData;
-  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const getTopAssets = (property, count, isAscending = false) =>
     assets
@@ -32,7 +31,7 @@ const Index = ({ assets, assetPriceData, marketData }) => {
   const mobileCards = (
     <Flex justifyContent="center" height="210px">
       <Box width="100%" maxWidth="400px" mx={4}>
-        <CardSlider cards={[<FearGreedIndexCard bitcoinData={bitcoinData} btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />, <WhaleWatchCard />, ...cryptoTrendCards]} />
+        <CardSlider hasAutoSlide="true" cards={[<FearGreedIndexCard bitcoinData={bitcoinData} btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />, <WhaleWatchCard />, ...cryptoTrendCards]} />
       </Box>
     </Flex>
   );
@@ -50,10 +49,15 @@ const Index = ({ assets, assetPriceData, marketData }) => {
       <Box mx="auto" maxWidth="1200px">
         <MarketTeaser assets={assets} mb={4} />
         <Box my={2} minHeight="210px">
-          {isMobile ? mobileCards : desktopCards}
+          <Show below='md'>
+            {mobileCards}
+          </Show>
+          <Hide below='md'>
+            {desktopCards}
+          </Hide>
         </Box>
         <Suspense fallback={<div>Loading...</div>}>
-          <CryptoTable assets={assets} assetPriceData={assetPriceData} />
+          <CryptoTable assets={assets}  />
         </Suspense>
       </Box>
       <TradingTips />

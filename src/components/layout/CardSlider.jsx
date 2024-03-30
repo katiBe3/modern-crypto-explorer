@@ -29,7 +29,7 @@ const CardSlider = ({ cards, hasAutoSlide = false, slideInterval = 5000, hasNavi
   };
 
   return (
-    <Box position="relative" height={{ base: "210px", md: "100%" }} width="100%" sx={{ maxWidth: { base: "320px", md: "none" } }}>
+    <Box position="relative" height={{ base: "210px", md: "100%" }} width="100%" sx={{ maxWidth: { base: "320px", md: "none" } }} >
       {hasNavigation && (
         <>
           <IconButton aria-label="Previous Slide" icon={<FaChevronLeft />} position="absolute" left="2" top="50%" transform="translate(0, -50%)" zIndex="2" onClick={prevSlide} />
@@ -44,7 +44,7 @@ const CardSlider = ({ cards, hasAutoSlide = false, slideInterval = 5000, hasNavi
       {hasPoints && (
         <Flex position="absolute" bottom="2" left="50%" transform="translateX(-50%)" zIndex="2" width="100%" justifyContent="center">
           {cards.map((_, index) => (
-            <Circle key={index} size="4" mx="2" bg={index === currentIndex ? "brand.main" : "gray.200"} _hover={{ cursor: "pointer" }} onClick={() => goToSlide(index)} />
+            <Circle key={index} size="3" mx="1" my="2" bg={index === currentIndex ? "brand.main" : "gray.200"} _hover={{ cursor: "pointer" }} onClick={() => goToSlide(index)} />
           ))}
         </Flex>
       )}

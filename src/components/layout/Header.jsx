@@ -39,7 +39,7 @@ const Header = ({ marketData = {} }) => {
   const infoComponent = isMobile ? <InfoTicker formattedMarketData={formattedMarketData} /> : <InfoBar formattedMarketData={formattedMarketData} />;
 
   const desktopMenu = !isMobile && !isMenuOpen && (
-    <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
+    <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200">
       <Flex maxWidth="1200" fontWeight="bold" mr={8}>
         {menuItems.map((item, index) => (
           <Text key={index} as="a" href={item.href} mr={8}>
@@ -57,7 +57,7 @@ const Header = ({ marketData = {} }) => {
   );
 
   const mobileMenu = isMobile && (
-    <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200" boxShadow="md">
+    <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200">
       <Flex alignItems="center">
         <Button variant="ghost" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           {isMenuOpen ? <Icon as={FaTimes} /> : <Icon as={FaBars} />}

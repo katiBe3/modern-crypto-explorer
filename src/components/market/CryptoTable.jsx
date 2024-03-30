@@ -161,7 +161,7 @@ const CryptoTable = ({ assets, assetPriceData, showFavoritesOnly = false }) => {
             <Tr
               key={crypto.id}
               onClick={() => window.location.href = `/crypto/${crypto.id}`}
-              _hover={{ bg: "gray.100", cursor: "pointer" }}
+              _hover={{ bg: "gray.50", cursor: "pointer" }}
             >
               <Td px={isMobile ? 1 : 4} fontWeight="bold">
                 {crypto.rank}

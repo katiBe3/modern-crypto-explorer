@@ -12,11 +12,12 @@ const Index = ({ assets, marketData }) => {
   const { bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = marketData;
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const getTopAssets = (property, count) => assets.slice().sort((a, b) => b[property] - a[property]).slice(0, count);
+  const getTopAssets = (property, count, isAscending = false) =>
+    assets.slice().sort((a, b) => (isAscending ? a[property] - b[property] : b[property] - a[property])).slice(0, count);
 
-  const winningCryptos = getTopAssets("changePercent24Hr", 3);
-  const biggestDropCryptos = getTopAssets("changePercent24Hr", 3);
-  const highVolumeCryptos = getTopAssets("volumeUsd24Hr", 3);
+  const winningCryptos = getTopAssets("changePercent24Hr", 3, false);
+  const biggestDropCryptos = getTopAssets("changePercent24Hr", 3, true);
+  const highVolumeCryptos = getTopAssets("volumeUsd24Hr", 3, false);
 
   const cryptoTrendCards = [
     { title: "🔥 Most Wanted", assets: winningCryptos, value: "changePercent24Hr" },

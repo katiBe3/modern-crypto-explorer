@@ -9,7 +9,7 @@ import { Grid, Box, Flex, Show, Hide } from "@chakra-ui/react";
 import CardSlider from "../components/layout/CardSlider";
 import CryptoTrendCard from "../components/market/cards/CryptoTrendCard";
 
-const Index = ({ assets, assetPriceData, marketData }) => {
+const Index = ({ assets, marketData }) => {
   const { bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = marketData;
 
   const getTopAssets = (property, count, isAscending = false) =>

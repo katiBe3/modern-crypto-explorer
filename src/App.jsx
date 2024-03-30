@@ -50,40 +50,15 @@ function App() {
     }
   };
 
-  const fetchAssetPriceData = async (assetId) => {
-    const endDate = new Date().toISOString();
-    const startDate = new Date(new Date().getTime() - 30 * 60 * 1000).toISOString();
-    const response = await fetch(`https://api.coincap.io/v2/assets/${assetId}/history?interval=m30&start=${startDate}&end=${endDate}`);
-    const data = await response.json();
-    if (data && data.data) {
-      setAssetPriceData((prevData) => ({
-        ...prevData,
-        [assetId]: data.data,
-      }));
-    }
-  };
-
   useEffect(() => {
     fetchAssets();
     fetchHistoricalBtcData();
     const assetsInterval = setInterval(fetchAssets, 10000);
-
-    const priceDataInterval = setInterval(() => {
-      assets.forEach((asset) => {
-        fetchAssetPriceData(asset.id);
-      });
-    }, 1800000); // Fetch every 30 minutes
-
     return () => {
       clearInterval(assetsInterval);
-      clearInterval(priceDataInterval);
     };
   }, [assets]);
 
-  // Log the asset price data to check if it's fetched correctly
-  useEffect(() => {
-    console.log("Asset Price Data:", assetPriceData);
-  }, [assetPriceData]);
 
   const calculateDominance = (assetSymbol) => {
     const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);
@@ -119,11 +94,11 @@ function App() {
       <Header marketData={{ btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />
       <Router>
         <Routes>
-          <Route exact path="/" element={<Index assets={assets} assetPriceData={assetPriceData} marketData={{ bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />} />
+          <Route exact path="/" element={<Index assets={assets} marketData={{ bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />} />
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/learn" element={<Learn />} />
-          <Route path="/favorites" element={<Favorites assets={assets} assetPriceData={assetPriceData} />} />
+          <Route path="/favorites" element={<Favorites assets={assets} />} />
           <Route path="/crypto/:id" element={<CryptoDetails assets={assets} />} />
           <Route path="/crypto/:id" element={<CryptoDetails assets={assets} />} />
         </Routes>

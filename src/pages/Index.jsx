@@ -29,7 +29,11 @@ const Index = ({ assets, assetPriceData, marketData }) => {
     { title: "⚡Biggest Drop", assets: biggestDropCryptos, value: "changePercent24Hr" },
   ].map((config, index) => <CryptoTrendCard key={index} {...config} />);
 
-  const mobileCards = <CardSlider cards={[<FearGreedIndexCard bitcoinData={bitcoinData} btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />, <WhaleWatchCard />, ...cryptoTrendCards]} />;
+  const mobileCards = (
+    <Box height="210px">
+      <CardSlider cards={[<FearGreedIndexCard bitcoinData={bitcoinData} btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />, <WhaleWatchCard />, ...cryptoTrendCards]} />
+    </Box>
+  );
 
   const desktopCards = (
     <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={8} my={2} alignItems="center">

@@ -29,7 +29,7 @@ const CardSlider = ({ cards, hasAutoSlide = false, slideInterval = 5000, hasNavi
   };
 
   return (
-    <Box position="relative" height="100%" width="100%" sx={{ maxWidth: { base: "320px", md: "none" } }}>
+    <Box position="relative" height={{ base: "210px", md: "100%" }} width="100%" sx={{ maxWidth: { base: "320px", md: "none" } }}>
       {hasNavigation && (
         <>
           <IconButton aria-label="Previous Slide" icon={<FaChevronLeft />} position="absolute" left="2" top="50%" transform="translate(0, -50%)" zIndex="2" onClick={prevSlide} />
@@ -37,30 +37,14 @@ const CardSlider = ({ cards, hasAutoSlide = false, slideInterval = 5000, hasNavi
         </>
       )}
       {cards.map((card, index) => (
-        <Box
-          key={index}
-          position="absolute"
-          top="0"
-          left="0"
-          right="0"
-          bottom="0"
-          opacity={index === currentIndex ? "1" : "0"}
-          transition="opacity 0.5s"
-        >
+        <Box key={index} position="absolute" top="0" left="0" right="0" bottom="0" opacity={index === currentIndex ? "1" : "0"} transition="opacity 0.5s">
           {card}
         </Box>
       ))}
       {hasPoints && (
         <Flex position="absolute" bottom="4" left="50%" transform="translateX(-50%)" zIndex="2">
           {cards.map((_, index) => (
-            <Circle
-              key={index}
-              size="3"
-              mx="1"
-              bg={index === currentIndex ? "brand.main" : "gray.200"}
-              _hover={{ cursor: "pointer" }}
-              onClick={() => goToSlide(index)}
-            />
+            <Circle key={index} size="3" mx="1" bg={index === currentIndex ? "brand.main" : "gray.200"} _hover={{ cursor: "pointer" }} onClick={() => goToSlide(index)} />
           ))}
         </Flex>
       )}

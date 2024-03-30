@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, IconButton, Flex, Circle } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const CardSlider = ({ cards, hasAutoSlide = false, hasNavigation = true, hasPoints = true }) => {
+const CardSlider = ({ cards, hasAutoSlide = false, hasNavigation = false, hasPoints = true }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Auto slide effect
@@ -51,13 +51,13 @@ const CardSlider = ({ cards, hasAutoSlide = false, hasNavigation = true, hasPoin
         </Box>
       ))}
       {hasPoints && (
-        <Flex position="absolute" bottom="2" left="50%" transform="translateX(-50%)" zIndex="2">
+        <Flex position="absolute" bottom="4" left="50%" transform="translateX(-50%)" zIndex="2">
           {cards.map((_, index) => (
             <Circle
               key={index}
-              size="4"
+              size="3"
               mx="1"
-              bg={index === currentIndex ? "blue.500" : "gray.200"}
+              bg={index === currentIndex ? "#4A3FBF" : "gray.200"}
               _hover={{ cursor: "pointer" }}
               onClick={() => goToSlide(index)}
             />

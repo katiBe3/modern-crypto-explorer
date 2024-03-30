@@ -42,9 +42,9 @@ const CardSlider = ({ cards, hasAutoSlide = false, slideInterval = 5000, hasNavi
         </Box>
       ))}
       {hasPoints && (
-        <Flex position="absolute" bottom="4" left="50%" transform="translateX(-50%)" zIndex="2">
+        <Flex position="absolute" bottom="2" left="50%" transform="translateX(-50%)" zIndex="2" width="100%" justifyContent="center">
           {cards.map((_, index) => (
-            <Circle key={index} size="3" mx="1" bg={index === currentIndex ? "brand.main" : "gray.200"} _hover={{ cursor: "pointer" }} onClick={() => goToSlide(index)} />
+            <Circle key={index} size="4" mx="2" bg={index === currentIndex ? "brand.main" : "gray.200"} _hover={{ cursor: "pointer" }} onClick={() => goToSlide(index)} />
           ))}
         </Flex>
       )}

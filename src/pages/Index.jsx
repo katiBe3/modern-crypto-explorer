@@ -30,7 +30,7 @@ const Index = ({ assets, assetPriceData, marketData }) => {
   ].map((config, index) => <CryptoTrendCard key={index} {...config} />);
 
   const mobileCards = (
-    <Box height="210px">
+    <Box height="210px" mx={4}>
       <CardSlider cards={[<FearGreedIndexCard bitcoinData={bitcoinData} btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />, <WhaleWatchCard />, ...cryptoTrendCards]} />
     </Box>
   );

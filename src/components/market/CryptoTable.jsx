@@ -194,7 +194,7 @@ const CryptoTable = ({ assets, assetPriceData, showFavoritesOnly = false }) => {
               )}
               {!isMobile && (
                 <Td px={4} fontWeight="bold">
-                  <Box width="100px" height="30px">
+                  <Box width="100px" height="30px" display={assetPriceData[crypto.id] && assetPriceData[crypto.id].length > 0 ? "block" : "none"}>
                     <CryptoChart color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"} data={assetPriceData[crypto.id]} />
                   </Box>
                 </Td>

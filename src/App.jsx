@@ -73,6 +73,11 @@ function App() {
     };
   }, [fetchAssets, fetchHistoricalBtcData, fetchAssetPriceData]);
 
+    // Log the asset price data to check if it's fetched correctly
+    useEffect(() => {
+      console.log("Asset Price Data:", assetPriceData);
+    }, [assetPriceData]);
+
   const calculateDominance = (assetSymbol) => {
     const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);
     const asset = assets.find((a) => a.symbol === assetSymbol);

@@ -30,11 +30,9 @@ const Index = ({ assets, marketData }) => {
 
   const mobileCards = (
     <Flex justifyContent="center" height="210px">
-      <Flex justifyContent="center" height="210px">
       <Box width="100%" maxWidth="400px" mx={4}>
         <CardSlider hasAutoSlide="true" cards={[<FearGreedIndexCard bitcoinData={bitcoinData} btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />, <WhaleWatchCard />, ...cryptoTrendCards]} />
       </Box>
-    </Flex>
     </Flex>
   );
 

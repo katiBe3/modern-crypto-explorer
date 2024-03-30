@@ -29,7 +29,11 @@ function App() {
       }));
       setAssets(assetsWithRank);
     } catch (error) {
-      console.error("Error fetching assets:", error);
+      if (error.name === "AbortError") {
+        console.error("Fetch aborted while fetching assets:", error.message);
+      } else {
+        console.error("Error fetching assets:", error);
+      }
     }
   };
 

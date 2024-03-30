@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, IconButton, Flex, Circle } from "@chakra-ui/react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const CardSlider = ({ cards, hasAutoSlide = false, hasNavigation = false, hasPoints = true }) => {
+const CardSlider = ({ cards, hasAutoSlide = false, slideInterval = 5000, hasNavigation = false, hasPoints = true }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // Auto slide effect
@@ -11,10 +11,10 @@ const CardSlider = ({ cards, hasAutoSlide = false, hasNavigation = false, hasPoi
     if (hasAutoSlide && cards && cards.length > 0) {
       intervalId = setInterval(() => {
         setCurrentIndex((oldIndex) => (oldIndex === cards.length - 1 ? 0 : oldIndex + 1));
-      }, 5000); // Slide every 5 seconds
+      }, slideInterval);
     }
     return () => clearInterval(intervalId);
-  }, [hasAutoSlide, cards]);
+  }, [hasAutoSlide, cards, slideInterval]);
 
   const prevSlide = () => {
     setCurrentIndex((oldIndex) => (oldIndex === 0 ? cards.length - 1 : oldIndex - 1));

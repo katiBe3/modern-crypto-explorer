@@ -59,29 +59,21 @@ function App() {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      await fetchAssets();
-      await fetchHistoricalBtcData();
-
-      assets.forEach((asset) => {
-        fetchAssetPriceData(asset.id);
-      });
-    };
-
-    fetchData();
-
+    fetchAssets();
+    fetchHistoricalBtcData();
     const assetsInterval = setInterval(fetchAssets, 10000);
+
     const priceDataInterval = setInterval(() => {
       assets.forEach((asset) => {
         fetchAssetPriceData(asset.id);
       });
-    }, 1800000);
+    }, 1800000); // Fetch every 30 minutes
 
     return () => {
       clearInterval(assetsInterval);
       clearInterval(priceDataInterval);
     };
-  }, []);
+  }, [assets]);
 
   // Log the asset price data to check if it's fetched correctly
   useEffect(() => {

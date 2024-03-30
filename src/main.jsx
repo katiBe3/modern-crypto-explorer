@@ -13,6 +13,7 @@ const colors = {
   },
   gray: {
     50: "#F5F5F5",
+    200:"#EBEBEB"
   },
   fonts: {
     heading: `'Nunito', sans-serif`,

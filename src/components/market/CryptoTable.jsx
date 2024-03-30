@@ -12,7 +12,7 @@ const CryptoChart = ({ color }) => {
   );
 };
 
-const CryptoTable = ({ assets, assetPriceData, showFavoritesOnly = false }) => {
+const CryptoTable = React.memo(({ assets, assetPriceData, showFavoritesOnly = false }) => {
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
@@ -216,6 +216,6 @@ const CryptoTable = ({ assets, assetPriceData, showFavoritesOnly = false }) => {
       </Table>
     </Box>
   );
-};
+});
 
-export default CryptoTable;
+export default React.memo(CryptoTable);

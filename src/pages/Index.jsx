@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Suspense } from "react";
 import MarketTeaser from "../components/market/MarketTeaser";
 import FearGreedIndexCard from "../components/market/cards/FearGreedIndexCard";
 import WhaleWatchCard from "../components/market/cards/WhaleWatchCard";
-import CryptoTable from "../components/market/CryptoTable";
+
+const CryptoTable = React.lazy(() => import("../components/market/CryptoTable"));
 import TradingTips from "../components/common/TradingTips";
 import { Grid, Box, useBreakpointValue } from "@chakra-ui/react";
 import CardSlider from "../components/layout/CardSlider";
@@ -45,7 +46,9 @@ const Index = ({ assets, assetPriceData, marketData }) => {
         <Box my={2} minHeight="210px">
           {isMobile ? mobileCards : desktopCards}
         </Box>
-        <CryptoTable assets={assets} assetPriceData={assetPriceData} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <CryptoTable assets={assets} assetPriceData={assetPriceData} />
+        </Suspense>
       </Box>
       <TradingTips />
     </>

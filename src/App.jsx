@@ -13,6 +13,7 @@ function App() {
   const [assets, setAssets] = useState([]);
   const [bitcoinData, setBitcoinData] = useState([]);
   const [historicalDataLastFetched, setHistoricalDataLastFetched] = useState(null);
+  const [assetPriceData, setAssetPriceData] = useState({});
 
   const fetchAssetsRef = useRef();
   const historicalDataFetchRef = useRef();
@@ -38,6 +39,17 @@ function App() {
     setHistoricalDataLastFetched(Date.now());
   }, [historicalDataLastFetched]);
 
+  const fetchAssetPriceData = useCallback(async (assetId) => {
+    const endDate = new Date().getTime();
+    const startDate = endDate - 30 * 60 * 1000;
+    const response = await fetch(`https://api.coincap.io/v2/assets/${assetId}/history?interval=m1&start=${startDate}&end=${endDate}`);
+    const data = await response.json();
+    setAssetPriceData((prevData) => ({
+      ...prevData,
+      [assetId]: data.data,
+    }));
+  }, []);
+
   useEffect(() => {
     fetchAssetsRef.current = fetchAssets;
     historicalDataFetchRef.current = fetchHistoricalData;
@@ -48,8 +60,17 @@ function App() {
     fetchHistoricalData();
     const assetsInterval = setInterval(fetchAssets, 10000);
 
-    return () => clearInterval(assetsInterval);
-  }, [fetchAssets, fetchHistoricalData]);
+    const priceDataInterval = setInterval(() => {
+      assets.forEach((asset) => {
+        fetchAssetPriceData(asset.id);
+      });
+    }, 60000);
+
+    return () => {
+      clearInterval(assetsInterval);
+      clearInterval(priceDataInterval);
+    };
+  }, [fetchAssets, fetchHistoricalData, assets, fetchAssetPriceData]);
 
   const calculateDominance = (assetSymbol) => {
     const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);

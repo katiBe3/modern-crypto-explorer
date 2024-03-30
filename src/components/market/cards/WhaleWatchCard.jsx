@@ -9,28 +9,34 @@ const WhaleWatchCard = () => {
   useEffect(() => {
     const fetchWhaleActivity = async () => {
       try {
-        const symbols = ["BTC-USD", "ETH-USD"];
-        const threshold = 100;
-        const twentyFourHoursAgo = new Date();
-        twentyFourHoursAgo.setDate(twentyFourHoursAgo.getDate() - 1);
-
+        const symbol = "BTC-USD"; // Only BTC symbol
+        const thresholdUSD = 1000000; // Threshold in USD
         const formattedTrades = {};
 
-        for (const symbol of symbols) {
-          const response = await fetch(`https://api.blockchain.com/v3/exchange/l2/${symbol}`);
-          if (!response.ok) {
-            throw new Error(`Failed to fetch whale activity for ${symbol}`);
-          }
-          const data = await response.json();
-
-          const recentTrades = data.bids.concat(data.asks).filter((trade) => parseFloat(trade.px) * parseFloat(trade.qty) >= threshold && new Date(trade.timestamp) >= twentyFourHoursAgo);
-
-          formattedTrades[symbol] = recentTrades.map((trade) => ({
-            price: parseFloat(trade.px),
-            quantity: parseFloat(trade.qty),
-            timestamp: new Date(trade.timestamp).toLocaleString(),
-          }));
+        // Fetch the current cryptocurrency price
+        const response = await fetch(`https://api.blockchain.com/v3/exchange/tickers/${symbol}`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch price for ${symbol}`);
         }
+        const data = await response.json();
+        const priceBTC = parseFloat(data.last_trade_price);
+
+        // Fetch recent trades
+        const tradeResponse = await fetch(`https://api.blockchain.com/v3/exchange/l2/${symbol}`);
+        if (!tradeResponse.ok) {
+          throw new Error(`Failed to fetch whale activity for ${symbol}`);
+        }
+        const tradeData = await tradeResponse.json();
+
+        // Filter recent trades based on the cryptocurrency threshold
+        const recentTrades = tradeData.bids.concat(tradeData.asks).filter((trade) => parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD / priceBTC);
+
+        formattedTrades[symbol] = recentTrades.map((trade) => ({
+          amountBTC: parseFloat(trade.qty), // Trade amount in BTC
+          amountUSD: parseFloat(trade.qty) * priceBTC, // Equivalent trade amount in USD
+          symbol: symbol.split('-')[0], // Extracting BTC or ETH from the symbol
+          timestamp: new Date(trade.timestamp).toLocaleString(),
+        }));
 
         setWhaleActivities(formattedTrades);
         setError(null);
@@ -58,7 +64,7 @@ const WhaleWatchCard = () => {
                     <ul>
                       {activity.map((trade, index) => (
                         <li key={index}>
-                          {trade.quantity} {symbol} at {trade.timestamp}
+                          {trade.amountBTC.toFixed(8)} {trade.symbol} at {trade.timestamp} (BTC {trade.amountBTC.toFixed(8)}) - USD {trade.amountUSD.toFixed(2)}
                         </li>
                       ))}
                     </ul>

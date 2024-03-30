@@ -46,14 +46,16 @@ function App() {
   };
 
   const fetchAssetPriceData = async (assetId) => {
-    const endDate = new Date().getTime();
-    const startDate = endDate - 30 * 60 * 1000;
-    const response = await fetch(`https://api.coincap.io/v2/assets/${assetId}/history?interval=m1&start=${startDate}&end=${endDate}`);
+    const endDate = new Date().toISOString();
+    const startDate = new Date(new Date().getTime() - 30 * 60 * 1000).toISOString();
+    const response = await fetch(`https://api.coincap.io/v2/assets/${assetId}/history?interval=m30&start=${startDate}&end=${endDate}`);
     const data = await response.json();
-    setAssetPriceData((prevData) => ({
-      ...prevData,
-      [assetId]: data.data,
-    }));
+    if (data && data.data) {
+      setAssetPriceData((prevData) => ({
+        ...prevData,
+        [assetId]: data.data,
+      }));
+    }
   };
 
   useEffect(() => {
@@ -71,12 +73,12 @@ function App() {
       clearInterval(assetsInterval);
       clearInterval(priceDataInterval);
     };
-  }, [fetchAssets, fetchHistoricalBtcData, fetchAssetPriceData]);
+  }, [assets]);
 
-    // Log the asset price data to check if it's fetched correctly
-    useEffect(() => {
-      console.log("Asset Price Data:", assetPriceData);
-    }, [assetPriceData]);
+  // Log the asset price data to check if it's fetched correctly
+  useEffect(() => {
+    console.log("Asset Price Data:", assetPriceData);
+  }, [assetPriceData]);
 
   const calculateDominance = (assetSymbol) => {
     const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);

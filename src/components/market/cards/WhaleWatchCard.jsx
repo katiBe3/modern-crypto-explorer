@@ -14,6 +14,7 @@ const WhaleWatchCard = () => {
         const thresholdUSD = 10000; // Threshold of $10,000 USD
 
         // Fetch recent trades
+        // Fetch recent trades
         const tradeResponse = await fetch(`https://api.blockchain.com/v3/exchange/l2/${symbol}`);
         if (!tradeResponse.ok) {
           throw new Error(`Failed to fetch whale activity for ${symbol}`);
@@ -22,7 +23,7 @@ const WhaleWatchCard = () => {
 
         // Filter recent trades within the last hour and with amount greater than threshold
         const currentTime = new Date();
-        const oneHourAgo = new Date(currentTime.getTime() - 120 * 60 * 1000);
+        const oneHourAgo = new Date(currentTime.getTime() - 60 * 60 * 1000);
 
         const recentTrades = tradeData.bids.concat(tradeData.asks).filter((trade) => new Date(trade.timestamp) >= oneHourAgo && parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD);
 

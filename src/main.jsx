@@ -12,7 +12,7 @@ const colors = {
     lighter: "#6E66CC"
   },
   gray: {
-    50: "#F0EFFB",
+    50: "#F5F5F5",
   },
   fonts: {
     heading: `'Nunito', sans-serif`,

@@ -141,7 +141,6 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
           {sortedData.map((crypto) => (
             <Tr
               key={crypto.id}
-              onClick={() => window.location.href = `/crypto/${crypto.id}`}
               _hover={{ bg: "gray.50", cursor: "pointer" }}
             >
               <Hide below="md">
@@ -152,32 +151,32 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
               <Td px={{ base: 1, md: 4 }} fontWeight="bold">
                 <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>
-              <Td px={{ base: 1, md: 4 }} fontWeight="bold">
-              <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
+              <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold">
                   {crypto.name}
                 </Text>
                 <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
                   {crypto.symbol}
                 </Text>
               </Td>
-              <Td px={{ base: 1, md: 4 }} fontWeight="bold">
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
                 <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
                   ${parseFloat(crypto.priceUsd).toLocaleString()}
                 </Text>
               </Td>
-              <Td px={{ base: 1, md: 4 }} fontWeight="bold">
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
               <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
                   {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
                 </Text>
               </Td>
               <Hide below="md">
-                <Td px={4} fontWeight="bold">
+                <Td px={4} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
                   ${parseInt(crypto.marketCapUsd).toLocaleString()}
                 </Td>
-                <Td px={4} fontWeight="bold">
+                <Td px={4} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
                   ${parseInt(crypto.volumeUsd24Hr).toLocaleString()}
                 </Td>
-                <Td px={4} fontWeight="bold">
+                <Td px={4} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
                   {parseInt(crypto.supply).toLocaleString()}
                 </Td>
               </Hide>

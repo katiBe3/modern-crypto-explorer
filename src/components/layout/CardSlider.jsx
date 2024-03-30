@@ -8,13 +8,13 @@ const CardSlider = ({ cards, hasAutoSlide = false, slideInterval = 5000, hasNavi
   // Auto slide effect
   useEffect(() => {
     let intervalId;
-    if (hasAutoSlide && cards && cards.length > 0) {
+    if (hasAutoSlide) {
       intervalId = setInterval(() => {
         setCurrentIndex((oldIndex) => (oldIndex === cards.length - 1 ? 0 : oldIndex + 1));
       }, slideInterval);
     }
     return () => clearInterval(intervalId);
-  }, [hasAutoSlide, cards, slideInterval]);
+  }, [hasAutoSlide, cards.length, slideInterval]);
 
   const prevSlide = () => {
     setCurrentIndex((oldIndex) => (oldIndex === 0 ? cards.length - 1 : oldIndex - 1));
@@ -29,7 +29,7 @@ const CardSlider = ({ cards, hasAutoSlide = false, slideInterval = 5000, hasNavi
   };
 
   return (
-    <Box position="relative" height={{ base: "210px", md: "100%" }} width="100%" sx={{ maxWidth: { base: "320px", md: "none" } }} >
+    <Box position="relative" height={{ base: "210px", md: "100%" }} width="100%" sx={{ maxWidth: { base: "320px", md: "none" } }}>
       {hasNavigation && (
         <>
           <IconButton aria-label="Previous Slide" icon={<FaChevronLeft />} position="absolute" left="2" top="50%" transform="translate(0, -50%)" zIndex="2" onClick={prevSlide} />

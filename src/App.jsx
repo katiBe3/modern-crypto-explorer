@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import React, { useState, useEffect, useMemo } from "react";
 import { Box } from "@chakra-ui/react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Index from "./pages/Index.jsx";
 import About from "./pages/About.jsx";
 import Blog from "./pages/Blog.jsx";
@@ -15,31 +15,26 @@ function App() {
   const [historicalDataLastFetched, setHistoricalDataLastFetched] = useState(null);
   const [assetPriceData, setAssetPriceData] = useState({});
 
-  const fetchAssetsRef = useRef();
-  const historicalDataFetchRef = useRef();
-
-  const fetchAssets = useCallback(async () => {
+  const fetchAssets = async () => {
     const response = await fetch("https://api.coincap.io/v2/assets");
     const data = await response.json();
     setAssets(data.data);
-  }, []);
+  };
 
-  const fetchHistoricalData = useCallback(async () => {
+  const fetchHistoricalBtcData = async () => {
     const twentyFourHoursAgo = Date.now() - 24 * 60 * 60 * 1000;
 
-    if (historicalDataLastFetched && historicalDataLastFetched > twentyFourHoursAgo) {
-      return;
+    if (!historicalDataLastFetched || historicalDataLastFetched < twentyFourHoursAgo) {
+      const endDate = new Date().getTime();
+      const startDate = endDate - 60 * 24 * 60 * 60 * 1000;
+      const response = await fetch(`https://api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=${startDate}&end=${endDate}`);
+      const data = await response.json();
+      setBitcoinData(data.data);
+      setHistoricalDataLastFetched(Date.now());
     }
+  };
 
-    const endDate = new Date().getTime();
-    const startDate = endDate - 60 * 24 * 60 * 60 * 1000;
-    const response = await fetch(`https://api.coincap.io/v2/assets/bitcoin/history?interval=d1&start=${startDate}&end=${endDate}`);
-    const data = await response.json();
-    setBitcoinData(data.data);
-    setHistoricalDataLastFetched(Date.now());
-  }, [historicalDataLastFetched]);
-
-  const fetchAssetPriceData = useCallback(async (assetId) => {
+  const fetchAssetPriceData = async (assetId) => {
     const endDate = new Date().getTime();
     const startDate = endDate - 30 * 60 * 1000;
     const response = await fetch(`https://api.coincap.io/v2/assets/${assetId}/history?interval=m1&start=${startDate}&end=${endDate}`);
@@ -48,29 +43,24 @@ function App() {
       ...prevData,
       [assetId]: data.data,
     }));
-  }, []);
-
-  useEffect(() => {
-    fetchAssetsRef.current = fetchAssets;
-    historicalDataFetchRef.current = fetchHistoricalData;
-  }, [fetchAssets, fetchHistoricalData]);
+  };
 
   useEffect(() => {
     fetchAssets();
-    fetchHistoricalData();
+    fetchHistoricalBtcData();
     const assetsInterval = setInterval(fetchAssets, 10000);
 
     const priceDataInterval = setInterval(() => {
       assets.forEach((asset) => {
         fetchAssetPriceData(asset.id);
       });
-    }, 60000);
+    }, 1800000); // Fetch every 30 minutes
 
     return () => {
       clearInterval(assetsInterval);
       clearInterval(priceDataInterval);
     };
-  }, [fetchAssets, fetchHistoricalData, assets, fetchAssetPriceData]);
+  }, [fetchAssets, fetchHistoricalBtcData, fetchAssetPriceData]);
 
   const calculateDominance = (assetSymbol) => {
     const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);
@@ -110,7 +100,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/learn" element={<Learn />} />
-          <Route path="/favorites" element={<Favorites assets={assets} />} />
+          <Route path="/favorites" element={<Favorites assets={assets} assetPriceData={assetPriceData}/>} />
         </Routes>
       </Router>
       <Footer />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import CryptoTable from "../components/market/CryptoTable";
 
-const Favorites = ({ assets }) => {
+const Favorites = ({ assets, assetPriceData }) => {
   const [favorites, setFavorites] = useState(() => {
     try {
       const localData = localStorage.getItem("favorites");
@@ -28,7 +28,7 @@ const Favorites = ({ assets }) => {
       <Text fontSize="lg" mb={8}>
         Keep your most loved cryptocurrencies close and never miss a beat in the market!
       </Text>
-      <CryptoTable assets={assets} favorites={favorites} setFavorites={setFavorites} showFavoritesOnly={true} />
+      <CryptoTable assets={assets} assetPriceData={assetPriceData} setFavorites={setFavorites} showFavoritesOnly={true} />
     </Box>
   );
 };

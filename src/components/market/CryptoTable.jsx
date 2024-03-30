@@ -134,23 +134,29 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
               <Th px={{ base: 1, md: 4 }} onClick={() => handleSort("supply")}>
                 Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </Th>
-            </Hide>
+          </Hide>
           </Tr>
         </Thead>
         <Tbody>
           {sortedData.map((crypto) => (
-            <Tr key={crypto.id}>
+            <Tr
+              key={crypto.id}
+              onClick={() => window.location.href = `/crypto/${crypto.id}`}
+              _hover={{ bg: "gray.50", cursor: "pointer" }}
+            >
               <Hide below="md">
-                <Td fontWeight="bold">{crypto.rank}</Td>
+                <Td  fontWeight="bold">
+                  {crypto.rank}
+                </Td>
               </Hide>
               <Td px={{ base: 1, md: 4 }} fontWeight="bold">
-                <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} _hover={{ color: "red.400", cursor: "pointer" }} onClick={() => toggleFavorite(crypto.id)} />
+                <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>
               <Td px={{ base: 1, md: 4 }} fontWeight="bold">
-                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
+              <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
                   {crypto.name}
                 </Text>
-                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500" onClick={() => toggleFavorite(crypto.id)}>
+                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
                   {crypto.symbol}
                 </Text>
               </Td>
@@ -160,7 +166,7 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
                 </Text>
               </Td>
               <Td px={{ base: 1, md: 4 }} fontWeight="bold">
-                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
+              <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
                   {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
                 </Text>
               </Td>

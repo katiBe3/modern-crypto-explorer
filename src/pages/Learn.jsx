@@ -9,6 +9,9 @@ const Learn = () => {
       <Heading as="h1" size="2xl" mt={10} mb={8} textAlign="center">
         Trading Tips
       </Heading>
+      <Text>
+        Discover the keys to successful crypto trading with our expert tips! From managing risks to mastering emotions, we've got you covered. Let's dive in and conquer the crypto markets together! 🚀
+      </Text>
       {tradingTips.map((tip, index) => (
         <TradingTipCard key={index} tip={tip} />
       ))}

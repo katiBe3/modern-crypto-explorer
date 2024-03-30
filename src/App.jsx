@@ -14,7 +14,6 @@ function App() {
   const [assets, setAssets] = useState([]);
   const [bitcoinData, setBitcoinData] = useState([]);
   const [historicalDataLastFetched, setHistoricalDataLastFetched] = useState(null);
-  const [assetPriceData, setAssetPriceData] = useState({});
 
   const fetchAssets = async () => {
     try {
@@ -53,7 +52,7 @@ function App() {
   useEffect(() => {
     fetchAssets();
     fetchHistoricalBtcData();
-    const assetsInterval = setInterval(fetchAssets, 10000);
+    const assetsInterval = setInterval(fetchAssets, 5000); // Fetch asset data every 5 seconds.
     return () => {
       clearInterval(assetsInterval);
     };

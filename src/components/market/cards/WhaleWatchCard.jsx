@@ -10,7 +10,7 @@ const WhaleWatchCard = () => {
     const fetchWhaleActivity = async () => {
       try {
         const symbol = "BTC-USD"; // Only BTC symbol
-        const thresholdUSD = 1000000; // Threshold in USD
+        const thresholdUSD = 100000;
         const formattedTrades = {};
 
         // Fetch the current cryptocurrency price
@@ -29,12 +29,16 @@ const WhaleWatchCard = () => {
         const tradeData = await tradeResponse.json();
 
         // Filter recent trades based on the cryptocurrency threshold
-        const recentTrades = tradeData.bids.concat(tradeData.asks).filter((trade) => parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD / priceBTC);
+        const recentTrades = tradeData.bids
+          .concat(tradeData.asks)
+          .filter((trade) => parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD / priceBTC)
+          .sort((a, b) => parseFloat(b.px) * parseFloat(b.qty) - parseFloat(a.px) * parseFloat(a.qty))
+          .slice(0, 5);
 
         formattedTrades[symbol] = recentTrades.map((trade) => ({
           amountBTC: parseFloat(trade.qty), // Trade amount in BTC
           amountUSD: parseFloat(trade.qty) * priceBTC, // Equivalent trade amount in USD
-          symbol: symbol.split('-')[0], // Extracting BTC or ETH from the symbol
+          symbol: symbol.split("-")[0], // Extracting BTC or ETH from the symbol
           timestamp: new Date(trade.timestamp).toLocaleString(),
         }));
 
@@ -64,7 +68,7 @@ const WhaleWatchCard = () => {
                     <ul>
                       {activity.map((trade, index) => (
                         <li key={index}>
-                          {trade.amountBTC.toFixed(8)} {trade.symbol} at {trade.timestamp} (BTC {trade.amountBTC.toFixed(8)}) - USD {trade.amountUSD.toFixed(2)}
+                          {new Date(trade.timestamp).toLocaleTimeString()} - USD {trade.amountUSD.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                         </li>
                       ))}
                     </ul>

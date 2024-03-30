@@ -1,31 +1,27 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement } from "chart.js";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement);
 
-const CryptoChart = ({ color }) => {
-  const generateMockData = () => {
-    const data = [];
-    for (let i = 0; i < 30; i++) {
-      data.push(Math.random() * 100);
-    }
-    return data;
-  };
+const CryptoChart = ({ color, data }) => {
+  const chartData = useMemo(() => {
+    if (!data) return null;
 
-  const chartData = {
-    labels: Array.from({ length: 30 }, (_, i) => i + 1),
-    datasets: [
-      {
-        data: generateMockData(),
-        borderColor: color,
-        borderWidth: 2,
-        fill: false,
-        tension: 0.4,
-        pointRadius: 0,
-      },
-    ],
-  };
+    return {
+      labels: data.map((_, index) => index + 1),
+      datasets: [
+        {
+          data: data.map((dataPoint) => parseFloat(dataPoint.priceUsd)),
+          borderColor: color,
+          borderWidth: 2,
+          fill: false,
+          tension: 0.4,
+          pointRadius: 0,
+        },
+      ],
+    };
+  }, [data, color]);
 
   const chartOptions = {
     scales: {
@@ -38,6 +34,8 @@ const CryptoChart = ({ color }) => {
     },
     maintainAspectRatio: false,
   };
+
+  if (!chartData) return null;
 
   return <Line data={chartData} options={chartOptions} />;
 };

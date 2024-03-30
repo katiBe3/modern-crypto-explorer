@@ -106,7 +106,7 @@ function App() {
       <Header marketData={{ btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />
       <Router>
         <Routes>
-          <Route exact path="/" element={<Index assets={assets} marketData={{ bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />} />
+          <Route exact path="/" element={<Index assets={assets} assetPriceData={assetPriceData} marketData={{ bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />} />
           <Route path="/about" element={<About />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/learn" element={<Learn />} />

@@ -12,7 +12,7 @@ const CryptoChart = ({ color }) => {
   );
 };
 
-const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
+const CryptoTable = ({ assets, assetPriceData, showFavoritesOnly = false }) => {
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
@@ -194,11 +194,11 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
               )}
               {!isMobile && (
                 <Td px={4} fontWeight="bold">
-                  <Box width="50px" height="30px">
-                    <CryptoChart color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"} />
+                  <Box width="100px" height="30px">
+                    <CryptoChart color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"} data={assetPriceData[crypto.id]} />
                   </Box>
                 </Td>
-              )} 
+              )}
             </Tr>
           ))}
         </Tbody>

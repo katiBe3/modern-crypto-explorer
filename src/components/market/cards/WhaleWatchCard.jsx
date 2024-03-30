@@ -50,23 +50,19 @@ const WhaleWatchCard = () => {
           <div key={symbol}>
             {error !== null ? (
               <span>{error}</span>
+            ) : activity && activity.length > 0 ? (
+              <div>
+                <p>Recent large trades for {symbol}:</p>
+                <ul>
+                  {activity.map((trade, index) => (
+                    <li key={index}>
+                      {trade.quantity} {symbol} at {trade.timestamp}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ) : (
-              <>
-                {activity && activity.length > 0 ? (
-                  <div>
-                    <p>Recent large trades for {symbol}:</p>
-                    <ul>
-                      {activity.map((trade, index) => (
-                        <li key={index}>
-                          {trade.quantity} {symbol} at {trade.timestamp}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : (
-                  <span>No significant whale activity detected for {symbol} at the moment.</span>
-                )}
-              </>
+              <span>No significant whale activity detected at the moment.</span>
             )}
           </div>
         ))}

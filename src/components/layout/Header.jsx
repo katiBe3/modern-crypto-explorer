@@ -30,9 +30,9 @@ const Header = ({ marketData = {} }) => {
     { label: "🎓 Learn", href: "/learn" },
   ];
 
-  const learnMoreButton = (
+  const ctaButton = (
     <Button bg="brand.main" color="white" fontWeight="bold" textShadow="0 0 8px rgba(255, 255, 255, 0.4)" _hover={{ bg: "brand.darker" }} _active={{ bg: "brand.main" }} onClick={() => (window.location.href = "/about")}>
-      Learn More
+      About Us
     </Button>
   );
 
@@ -51,7 +51,7 @@ const Header = ({ marketData = {} }) => {
         <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200" ml="auto">
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>
-        {learnMoreButton}
+        {ctaButton}
       </Flex>
     </Flex>
   );
@@ -73,7 +73,7 @@ const Header = ({ marketData = {} }) => {
           {item.label}
         </Text>
       ))}
-      {learnMoreButton}
+      {ctaButton}
     </Flex>
   );
 

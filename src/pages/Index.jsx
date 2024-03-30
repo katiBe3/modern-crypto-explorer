@@ -5,7 +5,7 @@ import WhaleWatchCard from "../components/market/cards/WhaleWatchCard";
 
 const CryptoTable = React.lazy(() => import("../components/market/CryptoTable"));
 import TradingTips from "../components/common/TradingTips";
-import { Grid, Box, useBreakpointValue } from "@chakra-ui/react";
+import { Grid, Box, Flex, useBreakpointValue } from "@chakra-ui/react";
 import CardSlider from "../components/layout/CardSlider";
 import CryptoTrendCard from "../components/market/cards/CryptoTrendCard";
 
@@ -30,9 +30,11 @@ const Index = ({ assets, assetPriceData, marketData }) => {
   ].map((config, index) => <CryptoTrendCard key={index} {...config} />);
 
   const mobileCards = (
-    <Box height="210px" mx={4}>
-      <CardSlider cards={[<FearGreedIndexCard bitcoinData={bitcoinData} btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />, <WhaleWatchCard />, ...cryptoTrendCards]} />
-    </Box>
+    <Flex justifyContent="center" height="210px">
+      <Box width="100%" maxWidth="400px" mx={4}>
+        <CardSlider cards={[<FearGreedIndexCard bitcoinData={bitcoinData} btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />, <WhaleWatchCard />, ...cryptoTrendCards]} />
+      </Box>
+    </Flex>
   );
 
   const desktopCards = (

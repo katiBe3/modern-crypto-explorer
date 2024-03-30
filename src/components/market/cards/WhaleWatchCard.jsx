@@ -1,25 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, Text, Skeleton } from "@chakra-ui/react";
 import Card from "../../layout/Card";
 
 const WhaleWatchCard = () => {
-  const [whaleActivities, setWhaleActivities] = useState({});
+  const [highestTrade, setHighestTrade] = useState(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchWhaleActivity = async () => {
       try {
         const symbol = "BTC-USD"; // Only BTC symbol
-        const thresholdUSD = 100000;
-        const formattedTrades = {};
-
-        // Fetch the current cryptocurrency price
-        const response = await fetch(`https://api.blockchain.com/v3/exchange/tickers/${symbol}`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch price for ${symbol}`);
-        }
-        const data = await response.json();
-        const priceBTC = parseFloat(data.last_trade_price);
+        const thresholdUSD = 10000; // Threshold of $10,000 USD
 
         // Fetch recent trades
         const tradeResponse = await fetch(`https://api.blockchain.com/v3/exchange/l2/${symbol}`);
@@ -28,25 +20,36 @@ const WhaleWatchCard = () => {
         }
         const tradeData = await tradeResponse.json();
 
-        // Filter recent trades based on the cryptocurrency threshold
+        // Filter recent trades within the last hour and with amount greater than threshold
+        const currentTime = new Date();
+        const oneHourAgo = new Date(currentTime.getTime() - 120 * 60 * 1000);
+
         const recentTrades = tradeData.bids
           .concat(tradeData.asks)
-          .filter((trade) => parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD / priceBTC)
-          .sort((a, b) => parseFloat(b.px) * parseFloat(b.qty) - parseFloat(a.px) * parseFloat(a.qty))
-          .slice(0, 5);
+          .filter((trade) => new Date(trade.timestamp) >= oneHourAgo && parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD);
 
-        formattedTrades[symbol] = recentTrades.map((trade) => ({
-          amountBTC: parseFloat(trade.qty), // Trade amount in BTC
-          amountUSD: parseFloat(trade.qty) * priceBTC, // Equivalent trade amount in USD
-          symbol: symbol.split("-")[0], // Extracting BTC or ETH from the symbol
-          timestamp: new Date(trade.timestamp).toLocaleString(),
-        }));
+        if (recentTrades.length > 0) {
+          // Find the highest trade
+          let maxTrade = recentTrades[0];
+          for (let i = 1; i < recentTrades.length; i++) {
+            if (parseFloat(recentTrades[i].px) > parseFloat(maxTrade.px)) {
+              maxTrade = recentTrades[i];
+            }
+          }
 
-        setWhaleActivities(formattedTrades);
+          const amountUSD = parseFloat(maxTrade.qty) * parseFloat(maxTrade.px);
+          const timestamp = new Date(maxTrade.timestamp).toLocaleTimeString();
+          setHighestTrade({ amountUSD, timestamp });
+        } else {
+          setHighestTrade(null);
+        }
+
         setError(null);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching whale activity:", error.message);
         setError("Error fetching whale activity: " + error.message);
+        setIsLoading(false);
       }
     };
 
@@ -56,30 +59,20 @@ const WhaleWatchCard = () => {
   return (
     <Card title="🐋 Whale Watch">
       <Flex align="center">
-        {Object.entries(whaleActivities).map(([symbol, activity]) => (
-          <div key={symbol}>
-            {error !== null ? (
-              <span>{error}</span>
-            ) : (
-              <>
-                {activity && activity.length > 0 ? (
-                  <div>
-                    <p>Recent large trades for {symbol}:</p>
-                    <ul>
-                      {activity.map((trade, index) => (
-                        <li key={index}>
-                          {new Date(trade.timestamp).toLocaleTimeString()} - USD {trade.amountUSD.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ) : (
-                  <span>No significant whale activity detected for {symbol} at the moment.</span>
-                )}
-              </>
-            )}
-          </div>
-        ))}
+        <Skeleton isLoaded={!isLoading} height="24px">
+          {error !== null ? (
+            <Text>{error}</Text>
+          ) : highestTrade !== null ? (
+            <>
+              <Text>BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Stay alert and ride the tide!</Text>
+              <Text fontWeight="bold" textAlign="center">
+                  The highest trade in the last hour was ${highestTrade.amountUSD} at {highestTrade.timestamp}.
+              </Text>
+            </>
+          ) : (
+            <Text>No significant whale activity detected at the moment. Keep an eye on the market for updates. 👀</Text>
+          )}
+        </Skeleton>
       </Flex>
     </Card>
   );

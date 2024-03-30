@@ -79,7 +79,7 @@ const FearGreedIndex = ({ bitcoinData }) => {
   return (
     <Card title="Fear & Greed Index" alignItems="center">
       <Skeleton isLoaded={fearGreedIndex !== 0} height="80px">
-        <Text fontSize="6xl" fontWeight="black" color={indexColor} mb={1} textAlign="center">
+        <Text fontSize="6xl" fontWeight="black" color={indexColor} mb={1} textAlign="center" verticalAlign="middle">
           {fearGreedIndex}
         </Text>
       </Skeleton>

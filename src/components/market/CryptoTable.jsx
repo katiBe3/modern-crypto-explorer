@@ -110,28 +110,28 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
 
   return (
     <Box overflowX="auto" maxWidth="1200px" mt={8} mx="auto">
-      <Table variant="simple" size={useBreakpointValue({ base: "sm", md: "md" })}>
+      <Table variant="simple" size={isMobile ? "sm" : "md"}>
         <Thead>
           <Tr>
-            <Th px={{ base: 1, md: 4 }}></Th>
-            <Th px={{ base: 1, md: 4 }}>Name</Th>
-            <Th px={{ base: 1, md: 4 }} onClick={() => handleSort("priceUsd")}>
+            <Th px={isMobile ? 1 : 4}></Th>
+            <Th px={isMobile ? 1 : 4}>Name</Th>
+            <Th px={isMobile ? 1 : 4} onClick={() => handleSort("priceUsd")}>
               Price {sortConfig.key === "priceUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
             </Th>
-            <Th px={{ base: 1, md: 4 }} onClick={() => handleSort("changePercent24Hr")}>
+            <Th px={isMobile ? 1 : 4} onClick={() => handleSort("changePercent24Hr")}>
               24h% {sortConfig.key === "changePercent24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
             </Th>
-            {useBreakpointValue({ base: false, md: true }) && (
+            {!isMobile && (
               <Th px={4} onClick={() => handleSort("marketCapUsd")}>
                 Market Cap {sortConfig.key === "marketCapUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </Th>
             )}
-            {useBreakpointValue({ base: false, md: true }) && (
+            {!isMobile && (
               <Th px={4} onClick={() => handleSort("volumeUsd24Hr")}>
                 Volume (24h) {sortConfig.key === "volumeUsd24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </Th>
             )}
-            {useBreakpointValue({ base: false, md: true }) && (
+            {!isMobile && (
               <Th px={4} onClick={() => handleSort("supply")}>
                 Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </Th>
@@ -141,38 +141,38 @@ const CryptoTable = ({ assets, showFavoritesOnly = false }) => {
         <Tbody>
           {sortedData.map((crypto) => (
             <Tr key={crypto.id}>
-              <Td px={{ base: 1, md: 4 }}>
+              <Td px={isMobile ? 1 : 4}>
                 <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>
-              <Td px={{ base: 1, md: 4 }}>
-                <Text fontSize={{ base: "sm", md: "md" }} fontWeight="bold">
+              <Td px={isMobile ? 1 : 4}>
+                <Text fontSize={isMobile ? "sm" : "md"} fontWeight="bold">
                   {crypto.name}
                 </Text>
-                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
+                <Text fontSize={isMobile ? "xs" : "sm"} fontWeight="bold" color="gray.500">
                   {crypto.symbol}
                 </Text>
               </Td>
-              <Td px={{ base: 1, md: 4 }} fontWeight="bold">
-                <Text fontSize={{ base: "sm", md: "md" }} color={priceColors[crypto.id]}>
+              <Td px={isMobile ? 1 : 4} fontWeight="bold">
+                <Text fontSize={isMobile ? "sm" : "md"} color={priceColors[crypto.id]}>
                   ${parseFloat(crypto.priceUsd).toLocaleString()}
                 </Text>
               </Td>
-              <Td px={{ base: 1, md: 4 }} fontWeight="bold">
-                <Text fontSize={{ base: "sm", md: "md" }} color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>
+              <Td px={isMobile ? 1 : 4} fontWeight="bold">
+                <Text fontSize={isMobile ? "sm" : "md"} color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>
                   {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
                 </Text>
               </Td>
-              {useBreakpointValue({ base: false, md: true }) && (
+              {!isMobile && (
                 <Td px={4} fontWeight="bold">
                   ${parseFloat(crypto.marketCapUsd).toLocaleString()}
                 </Td>
               )}
-              {useBreakpointValue({ base: false, md: true }) && (
+              {!isMobile && (
                 <Td px={4} fontWeight="bold">
                   ${parseFloat(crypto.volumeUsd24Hr).toLocaleString()}
                 </Td>
               )}
-              {useBreakpointValue({ base: false, md: true }) && (
+              {!isMobile && (
                 <Td px={4} fontWeight="bold">
                   {parseFloat(crypto.supply).toLocaleString()}
                 </Td>

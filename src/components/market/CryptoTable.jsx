@@ -1,24 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon, Hide } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
-// Removed the import for react-chartjs-2
 
-// Replaced CryptoChart with a simple SVG mockup for visualization
-const CryptoChart = ({ color }) => {
-  return (
-    <svg width="100" height="30" viewBox="0 0 100 30">
-      <polyline fill="none" stroke={color} strokeWidth="2" points="0,20 20,10 40,15 60,10 80,20 100,10" />
-    </svg>
-  );
-};
-
-const CryptoTable = React.memo(({ assets, assetPriceData, showFavoritesOnly = false }) => {
+const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
   const [previousPrices, setPreviousPrices] = useState({});
-
-  const isMobile = useBreakpointValue({ base: true, md: false });
 
   // Load favorites from localStorage
   const [favorites, setFavorites] = useState(() => {
@@ -71,7 +59,7 @@ const CryptoTable = React.memo(({ assets, assetPriceData, showFavoritesOnly = fa
 
       return () => clearTimeout(colorResetTimer);
     }
-  }, [assets]); // Remove previousPrices from dependencies
+  }, [assets]);
 
   useEffect(() => {
     if (assets) {
@@ -119,36 +107,34 @@ const CryptoTable = React.memo(({ assets, assetPriceData, showFavoritesOnly = fa
   };
 
   return (
-    <Box overflowX="auto" maxWidth="1200px" mt={8} mx="auto">
-      <Table variant="simple" size={isMobile ? "sm" : "md"}>
+    <Box overflowX="auto" maxWidth="1200px" mt={8} mx="auto" pb={12}>
+      <Table variant="simple" size={{ base: "sm", md: "md" }}>
         <Thead>
           <Tr>
-            <Th px={isMobile ? 1 : 4} onClick={() => handleSort("rank")}>
-              Rank {sortConfig.key === "rank" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
-            </Th>
-            <Th px={isMobile ? 1 : 4}></Th>
-            <Th px={isMobile ? 1 : 4}>Name</Th>
-            <Th px={isMobile ? 1 : 4} onClick={() => handleSort("priceUsd")}>
+            <Hide below="md">
+              <Th px={{ base: 1, md: 4 }} onClick={() => handleSort("rank")}>
+                Rank {sortConfig.key === "rank" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
+              </Th>
+            </Hide>
+            <Th px={{ base: 1, md: 4 }}></Th>
+            <Th px={{ base: 1, md: 4 }}>Name</Th>
+            <Th px={{ base: 1, md: 4 }} onClick={() => handleSort("priceUsd")}>
               Price {sortConfig.key === "priceUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
             </Th>
-            <Th px={isMobile ? 1 : 4} onClick={() => handleSort("changePercent24Hr")}>
+            <Th px={{ base: 1, md: 4 }} onClick={() => handleSort("changePercent24Hr")}>
               24h% {sortConfig.key === "changePercent24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
             </Th>
-            {!isMobile && (
-              <Th px={4} onClick={() => handleSort("marketCapUsd")}>
+            <Hide below="md">
+              <Th px={{ base: 1, md: 4 }} onClick={() => handleSort("marketCapUsd")}>
                 Market Cap {sortConfig.key === "marketCapUsd" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </Th>
-            )}
-            {!isMobile && (
-              <Th px={4} onClick={() => handleSort("volumeUsd24Hr")}>
+              <Th px={{ base: 1, md: 4 }} onClick={() => handleSort("volumeUsd24Hr")}>
                 Volume (24h) {sortConfig.key === "volumeUsd24Hr" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </Th>
-            )}
-            {!isMobile && (
-              <Th px={4} onClick={() => handleSort("supply")}>
+              <Th px={{ base: 1, md: 4 }} onClick={() => handleSort("supply")}>
                 Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </Th>
-            )}
+          </Hide>
           </Tr>
         </Thead>
         <Tbody>
@@ -158,47 +144,44 @@ const CryptoTable = React.memo(({ assets, assetPriceData, showFavoritesOnly = fa
               onClick={() => window.location.href = `/crypto/${crypto.id}`}
               _hover={{ bg: "gray.50", cursor: "pointer" }}
             >
-              <Td px={isMobile ? 1 : 4} fontWeight="bold">
-                {crypto.rank}
-              </Td>
-              <Td px={isMobile ? 1 : 4}>
+              <Hide below="md">
+                <Td  fontWeight="bold">
+                  {crypto.rank}
+                </Td>
+              </Hide>
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold">
                 <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>
-              <Td px={isMobile ? 1 : 4}>
-                <Text fontSize={isMobile ? "sm" : "md"} fontWeight="bold">
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold">
+              <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
                   {crypto.name}
                 </Text>
-                <Text fontSize={isMobile ? "xs" : "sm"} fontWeight="bold" color="gray.500">
+                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
                   {crypto.symbol}
                 </Text>
               </Td>
-              <Td px={isMobile ? 1 : 4} fontWeight="bold">
-                <Text fontSize={isMobile ? "sm" : "md"} color={priceColors[crypto.id]}>
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold">
+                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
                   ${parseFloat(crypto.priceUsd).toLocaleString()}
                 </Text>
               </Td>
-              <Td px={isMobile ? 1 : 4} fontWeight="bold">
-                <Text fontSize={isMobile ? "sm" : "md"} color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold">
+              <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
                   {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
                 </Text>
               </Td>
-              {!isMobile && (
+              <Hide below="md">
                 <Td px={4} fontWeight="bold">
                   ${parseInt(crypto.marketCapUsd).toLocaleString()}
                 </Td>
-              )}
-              {!isMobile && (
                 <Td px={4} fontWeight="bold">
                   ${parseInt(crypto.volumeUsd24Hr).toLocaleString()}
                 </Td>
-              )}
-              {!isMobile && (
                 <Td px={4} fontWeight="bold">
                   {parseInt(crypto.supply).toLocaleString()}
                 </Td>
-              )}
+              </Hide>
             </Tr>
-            
           ))}
         </Tbody>
       </Table>

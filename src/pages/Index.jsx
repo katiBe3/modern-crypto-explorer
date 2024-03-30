@@ -41,14 +41,16 @@ const Index = ({ assets, marketData }) => {
   );
 
   return (
-    <Box mx="auto" maxWidth="1200px">
-      <MarketTeaser assets={assets} mb={4} />
-      <Box my={2} minHeight="210px">
-        {isMobile ? mobileCards : desktopCards}
+    <>
+      <Box mx="auto" maxWidth="1200px">
+        <MarketTeaser assets={assets} mb={4} />
+        <Box my={2} minHeight="210px">
+          {isMobile ? mobileCards : desktopCards}
+        </Box>
+        <CryptoTable assets={assets} />
       </Box>
-      <CryptoTable assets={assets} />
       <TradingTips />
-    </Box>
+    </>
   );
 };
 

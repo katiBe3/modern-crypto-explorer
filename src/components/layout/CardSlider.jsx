@@ -57,7 +57,7 @@ const CardSlider = ({ cards, hasAutoSlide = false, slideInterval = 5000, hasNavi
               key={index}
               size="3"
               mx="1"
-              bg={index === currentIndex ? "#4A3FBF" : "gray.200"}
+              bg={index === currentIndex ? "brand.main" : "gray.200"}
               _hover={{ cursor: "pointer" }}
               onClick={() => goToSlide(index)}
             />

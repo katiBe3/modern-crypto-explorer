@@ -31,7 +31,7 @@ const Header = ({ marketData = {} }) => {
   ];
 
   const learnMoreButton = (
-    <Button bg="#5A4FCF" color="white" fontWeight="bold" textShadow="0 0 8px rgba(255, 255, 255, 0.4)" _hover={{ bg: "#4A3FBF" }} _active={{ bg: "#3A2FAF" }} onClick={() => (window.location.href = "/about")}>
+    <Button bg="brand.main" color="white" fontWeight="bold" textShadow="0 0 8px rgba(255, 255, 255, 0.4)" _hover={{ bg: "brand.darker" }} _active={{ bg: "brand.main" }} onClick={() => (window.location.href = "/about")}>
       Learn More
     </Button>
   );

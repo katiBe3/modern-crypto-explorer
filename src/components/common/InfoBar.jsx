@@ -3,7 +3,9 @@ import { Box, Icon } from "@chakra-ui/react";
 import Bar from "../layout/Bar";
 
 const InfoBar = ({ formattedMarketData = {} }) => {
-  const { btcDominance, ethDominance, totalVolume, directionArrow, totalMarketCap } = formattedMarketData;
+  const { btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = formattedMarketData;
+  const marketDirectionIcon = marketDirection === "up" ? FaArrowUp : marketDirection === "down" ? FaArrowDown : null;
+  const marketDirectionColor = marketDirection === "up" ? "green.400" : "red.400";
   return (
     <Bar>
       <Box mr={4}>
@@ -25,9 +27,10 @@ const InfoBar = ({ formattedMarketData = {} }) => {
         </Box>
       </Box>
       <Box mr={4}>
-        Total Market Cap:{" "}
+        Total Market Cap:
         <Box as="span" fontWeight="bold" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
-          {totalMarketCap} {directionArrow}
+          {totalMarketCap}
+          {marketDirectionIcon && <Icon as={marketDirectionIcon} color={marketDirectionColor} ml={2} />}
         </Box>
       </Box>
     </Bar>

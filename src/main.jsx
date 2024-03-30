@@ -8,9 +8,14 @@ const colors = {
     900: "#1a365d",
     800: "#153e75", 
     700: "#2a69ac",
+    500: "#4A3FBF",
   },
   gray: {
     50: "#F0EFFB",
+  },
+  fonts: {
+    heading: `'Nunito', sans-serif`,
+    body: `'Nunito', sans-serif`,
   },
 };
 

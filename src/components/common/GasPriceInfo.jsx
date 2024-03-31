@@ -62,7 +62,7 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 300000 }) => {
           {gasInfo}
         </Tooltip>
       ) : (
-        {gasInfo} {/* Remove curly braces here */}
+        {gasInfo} 
       )}
     </>
   );

@@ -22,21 +22,17 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
       }
     };
 
-    const updateGasPrices = () => {
-      fetchGasPrices().then((gasPrices) => {
-        if (gasPrices !== null && gasPrices !== undefined) {
-          // Check for undefined data
-          if (gasPrices.SafeGasPrice !== undefined && gasPrices.ProposeGasPrice !== undefined && gasPrices.SafeGasPrice !== gasPrices.ProposeGasPrice) {
-            setSlowGasPrice(gasPrices.SafeGasPrice);
-            setStandardGasPrice(gasPrices.ProposeGasPrice);
-          } else {
-            console.warn("Unexpected gas price values from API:", gasPrices);
-          }
-          if (gasPrices.FastGasPrice !== undefined) {
-            setFastGasPrice(gasPrices.FastGasPrice);
-          }
-        }
-      });
+    const updateGasPrices = async () => {
+      const gasPrices = await fetchGasPrices();
+      if (gasPrices) {
+        setSlowGasPrice(gasPrices.SafeGasPrice || "N/A");
+        setStandardGasPrice(gasPrices.ProposeGasPrice || "N/A");
+        setFastGasPrice(gasPrices.FastGasPrice || "N/A");
+      } else {
+        setSlowGasPrice("Error");
+        setStandardGasPrice("Error");
+        setFastGasPrice("Error");
+      }
     };
 
     // Initial fetch
@@ -54,7 +50,7 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
       <Icon as={MdLocalGasStation} color="gray.500" mr={2} />
       <Text mr={2}>ETH Gas: </Text>
       <Text fontWeight="bold" as="span" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
-        {standardGasPrice !== null ? `${standardGasPrice} Gwei` : "Loading..."}
+        {standardGasPrice} {standardGasPrice !== "Error" && standardGasPrice !== "N/A" && "Gwei"}
       </Text>
     </Flex>
   );
@@ -62,7 +58,7 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
   return (
     <>
       {showTooltip ? (
-        <Tooltip label={`Slow: ${slowGasPrice !== null ? slowGasPrice : "Loading..."} Gwei | Medium: ${standardGasPrice !== null ? standardGasPrice : "Loading..."} Gwei | Fast: ${fastGasPrice !== null ? fastGasPrice : "Loading..."} Gwei`} aria-label="Gas Price Tooltip">
+        <Tooltip label={`Slow: ${slowGasPrice} Gwei | Medium: ${standardGasPrice} Gwei | Fast: ${fastGasPrice} Gwei`} aria-label="Gas Price Tooltip">
           {gasInfo}
         </Tooltip>
       ) : (

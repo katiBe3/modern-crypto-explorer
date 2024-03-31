@@ -24,13 +24,20 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000  }) => {
 
     const updateGasPrices = () => {
       fetchGasPrices().then((gasPrices) => {
-        if (gasPrices !== null) {
-          setSlowGasPrice(gasPrices.SafeGasPrice);
-          setStandardGasPrice(gasPrices.ProposeGasPrice);
-          setFastGasPrice(gasPrices.FastGasPrice);
+        if (gasPrices !== null && gasPrices !== undefined) { // Check for undefined data
+          if (gasPrices.SafeGasPrice !== undefined) {
+            setSlowGasPrice(gasPrices.SafeGasPrice);
+          }
+          if (gasPrices.ProposeGasPrice !== undefined) {
+            setStandardGasPrice(gasPrices.ProposeGasPrice);
+          }
+          if (gasPrices.FastGasPrice !== undefined) {
+            setFastGasPrice(gasPrices.FastGasPrice);
+          }
         }
       });
     };
+    
 
     // Initial fetch
     updateGasPrices();

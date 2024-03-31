@@ -33,7 +33,7 @@ const InfoBar = ({ formattedMarketData = {} }) => {
         </Box>
       </Box>
       <Box mr={4}>
-        <NextHalvingInfo />
+        <NextHalvingInfo showTooltip={true} />
       </Box>
     </Bar>
   );

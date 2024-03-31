@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Flex, Text, Icon } from "@chakra-ui/react";
+import { Flex, Text, Icon, Tooltip } from "@chakra-ui/react";
 import { FaBitcoin } from "react-icons/fa";
 
-const NextHalvingInfo = () => {
+const NextHalvingInfo = ({ showTooltip = false }) => {
   const [daysUntilHalving, setDaysUntilHalving] = useState(null);
+  const [remainingBlocks, setRemainingBlocks] = useState(null);
+  const [approximateBlockTime, setApproximateBlockTime] = useState(null);
 
   useEffect(() => {
     const fetchCurrentBlockHeight = async () => {
@@ -35,6 +37,12 @@ const NextHalvingInfo = () => {
         const minutesUntilHalving = blocksUntilHalving * averageBlockTime;
         const daysUntilHalving = Math.ceil(minutesUntilHalving / 1440); // 1440 minutes in a day
 
+        const remainingBlocks = blocksUntilHalving;
+        const approximateBlockTime = averageBlockTime;
+
+        setRemainingBlocks(remainingBlocks);
+        setApproximateBlockTime(approximateBlockTime);
+
         return daysUntilHalving;
       } catch (error) {
         console.error("Error calculating next halving:", error.message);
@@ -48,10 +56,15 @@ const NextHalvingInfo = () => {
   }, []);
 
   return (
-    <Flex alignItems="center">
-      <Icon as={FaBitcoin} color="orange.400" mr={2} />
-      <Text mr={2}>Next Halving: </Text><Text fontWeight="bold" as="span" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">{daysUntilHalving !== null ? daysUntilHalving + " days" : "Loading..."}</Text>
-    </Flex>
+    <Tooltip label={`Remaining Blocks: ${remainingBlocks}, Approximate Block Time: ${approximateBlockTime} minutes`} aria-label="A tooltip">
+      <Flex alignItems="center">
+        <Icon as={FaBitcoin} color="orange.400" mr={2} />
+        <Text mr={2}>Next Halving: </Text>
+        <Text fontWeight="bold" as="span" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
+          {daysUntilHalving !== null ? daysUntilHalving + " days" : "Loading..."}
+        </Text>
+      </Flex>
+    </Tooltip>
   );
 };
 

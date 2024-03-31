@@ -58,7 +58,6 @@ function App() {
     };
   }, [assets]);
 
-
   const calculateDominance = (assetSymbol) => {
     const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);
     const asset = assets.find((a) => a.symbol === assetSymbol);
@@ -90,7 +89,7 @@ function App() {
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
-      <Header marketData={{ btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />
+      <Header marketData={{ btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} assets={assets} />
       <Router>
         <Routes>
           <Route exact path="/" element={<Index assets={assets} marketData={{ bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />} />

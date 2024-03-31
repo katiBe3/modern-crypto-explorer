@@ -6,7 +6,7 @@ import InfoTicker from "../common/InfoTicker";
 import GasPriceInfo from "../common/GasPriceInfo";
 import SearchInput from "./SearchInput";
 
-const Header = ({ marketData = {} }) => {
+const Header = ({ marketData = {}, assets }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -51,7 +51,7 @@ const Header = ({ marketData = {} }) => {
       </Flex>
       <Flex alignItems="center" gap={4} justifyContent="flex-end">
         <SearchInput />
-        <GasPriceInfo showTooltip = {true} />
+        <GasPriceInfo showTooltip={true} />
         <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200" ml="auto">
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>

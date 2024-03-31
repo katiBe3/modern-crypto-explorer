@@ -161,7 +161,7 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
               </Td>
               <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
                 <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
-                  ${parseFloat(crypto.priceUsd).toLocaleString()}
+                  {parseFloat(crypto.priceUsd) >= 100 ? `$${parseInt(crypto.priceUsd).toLocaleString()}` : parseFloat(crypto.priceUsd) >= 1 ? `$${parseFloat(crypto.priceUsd).toLocaleString()}` : `$${parseFloat(crypto.priceUsd).toFixed(8)}`}
                 </Text>
               </Td>
               <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>

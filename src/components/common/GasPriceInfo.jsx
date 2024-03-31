@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Flex, Text, Icon, Tooltip } from "@chakra-ui/react";
 import { MdLocalGasStation } from "react-icons/md";
 
-const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000  }) => {
+const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
   const [slowGasPrice, setSlowGasPrice] = useState(null);
   const [standardGasPrice, setStandardGasPrice] = useState(null);
   const [fastGasPrice, setFastGasPrice] = useState(null);
@@ -22,22 +22,20 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000  }) => {
       }
     };
 
-    const updateGasPrices = () => {
-      fetchGasPrices().then((gasPrices) => {
-        if (gasPrices !== null && gasPrices !== undefined) { // Check for undefined data
-          if (gasPrices.SafeGasPrice !== undefined) {
-            setSlowGasPrice(gasPrices.SafeGasPrice);
-          }
-          if (gasPrices.ProposeGasPrice !== undefined) {
-            setStandardGasPrice(gasPrices.ProposeGasPrice);
-          }
-          if (gasPrices.FastGasPrice !== undefined) {
-            setFastGasPrice(gasPrices.FastGasPrice);
-          }
+    const updateGasPrices = async () => {
+      const gasPrices = await fetchGasPrices();
+      if (gasPrices !== null && gasPrices !== undefined) {
+        if (gasPrices.SafeGasPrice !== undefined) {
+          setSlowGasPrice(gasPrices.SafeGasPrice);
         }
-      });
+        if (gasPrices.ProposeGasPrice !== undefined) {
+          setStandardGasPrice(gasPrices.ProposeGasPrice);
+        }
+        if (gasPrices.FastGasPrice !== undefined) {
+          setFastGasPrice(gasPrices.FastGasPrice);
+        }
+      }
     };
-    
 
     // Initial fetch
     updateGasPrices();
@@ -49,11 +47,11 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000  }) => {
     return () => clearInterval(intervalId);
   }, [refreshInterval]);
 
-  const gasInfo = (        
+  const gasInfo = (
     <Flex alignItems="center">
       <Icon as={MdLocalGasStation} color="gray.500" mr={2} />
       <Text mr={2}>ETH Gas: </Text>
-      <Text fontWeight="bold" as="span" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
+      <Text fontWeight="bold" as="span">
         {standardGasPrice !== null ? `${standardGasPrice} Gwei` : "Loading..."}
       </Text>
     </Flex>
@@ -63,13 +61,15 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000  }) => {
     <>
       {showTooltip ? (
         <Tooltip
-          label={`Slow: ${slowGasPrice !== null ? slowGasPrice : "Loading..."} Gwei | Medium: ${standardGasPrice !== null ? standardGasPrice : "Loading..."} Gwei | Fast: ${fastGasPrice !== null ? fastGasPrice : "Loading..."} Gwei`}
+          label={`Slow: ${slowGasPrice !== null ? slowGasPrice : "Loading..."} Gwei | Medium: ${
+            standardGasPrice !== null ? standardGasPrice : "Loading..."
+          } Gwei | Fast: ${fastGasPrice !== null ? fastGasPrice : "Loading..."} Gwei`}
           aria-label="Gas Price Tooltip"
         >
           {gasInfo}
         </Tooltip>
       ) : (
-        {gasInfo} 
+        { gasInfo }
       )}
     </>
   );

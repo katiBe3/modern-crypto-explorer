@@ -57,9 +57,11 @@ const WhaleWatchCard = () => {
             <Text>{error}</Text>
           ) : highestTrade !== null ? (
             <>
-              <Text>BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Here's the highest trade in the last 60 minutes:</Text>
-              <Text fontWeight="bold" textAlign="center">
-                <Text color="green.500" fontSize="2xl" mt={2}>${parseFloat(highestTrade.px * highestTrade.qty).toLocaleString()}</Text>
+              <Text>
+                BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Here's the highest trade in the last 60 minutes:
+                <Text fontWeight="bold" textAlign="center" color="green.500" fontSize="2xl" mt={2}>
+                  ${parseFloat(highestTrade.px * highestTrade.qty).toLocaleString()}
+                </Text>
               </Text>
             </>
           ) : (

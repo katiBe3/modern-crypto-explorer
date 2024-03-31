@@ -50,7 +50,7 @@ const Header = ({ marketData = {}, assets }) => {
         ))}
       </Flex>
       <Flex alignItems="center" gap={4} justifyContent="flex-end">
-        <SearchInput />
+        <SearchInput assets={assets} />
         <GasPriceInfo showTooltip={true} />
         <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200" ml="auto">
           {colorMode === "light" ? <FaMoon /> : <FaSun />}

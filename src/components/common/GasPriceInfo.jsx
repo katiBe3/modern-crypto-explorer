@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Flex, Text, Icon, Tooltip } from "@chakra-ui/react";
 import { MdLocalGasStation } from "react-icons/md";
 
-const GasPriceInfo = ({ showTooltip = false, refreshInterval = 300000 }) => {
+const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000  }) => {
   const [slowGasPrice, setSlowGasPrice] = useState(null);
   const [standardGasPrice, setStandardGasPrice] = useState(null);
   const [fastGasPrice, setFastGasPrice] = useState(null);

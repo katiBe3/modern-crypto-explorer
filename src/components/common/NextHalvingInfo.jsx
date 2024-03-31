@@ -57,7 +57,7 @@ const NextHalvingInfo = ({ showTooltip = false }) => {
 
   return (
     <Tooltip label={`Remaining Blocks: ${remainingBlocks}, Approximate Block Time: ${approximateBlockTime} minutes`} aria-label="A tooltip">
-      <Flex alignItems="center">
+      <Flex alignItems="center"  cursor="pointer" >
         <Icon as={FaBitcoin} color="orange.400" mr={2} />
         <Text mr={2}>Next Halving: </Text>
         <Text fontWeight="bold" as="span" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">

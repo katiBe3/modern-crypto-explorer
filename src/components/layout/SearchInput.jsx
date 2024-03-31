@@ -12,8 +12,9 @@ const SearchInput = ({ assets }) => {
     const query = e.target.value;
     setSearchQuery(query);
 
-    if (query.trim().length >= 3) {
-      const filteredAssets = assets.filter((asset) => asset.name.toLowerCase().includes(query.toLowerCase()));
+    if (query.trim().length >= 2) {
+      const lowerCaseQuery = query.toLowerCase();
+      const filteredAssets = assets.filter((asset) => asset.name.toLowerCase().includes(lowerCaseQuery) || asset.symbol.toLowerCase().includes(lowerCaseQuery));
       setSuggestions(filteredAssets);
     } else {
       setSuggestions([]);
@@ -28,13 +29,13 @@ const SearchInput = ({ assets }) => {
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && suggestions.length > 0) {
-      window.location.href = `/crypto/${suggestions[0].id}`
+      window.location.href = `/crypto/${suggestions[0].id}`;
     }
   };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (!e.target.closest(".search-input") && !e.target.closest(".search-result-list")) {
+      if (!e.target.closest(".search-input") && !resultListRef.current.contains(e.target)) {
         setSearchQuery("");
         setSuggestions([]);
         setIsFocused(false);
@@ -52,7 +53,7 @@ const SearchInput = ({ assets }) => {
 
   return (
     <InputGroup mr={0} width="200px" className="search-input">
-      <InputLeftElement pointerEvents="none" verticalAlign="middle" >
+      <InputLeftElement pointerEvents="none" verticalAlign="middle">
         <Icon as={FaSearch} color="gray.400" />
       </InputLeftElement>
       <Input
@@ -85,7 +86,7 @@ const SearchInput = ({ assets }) => {
               key={asset.id}
               px={4}
               py={2}
-              _hover={{ bg: "gray.50", fontWeight:"bold", cursor: "pointer" }}
+              _hover={{ bg: "gray.50", fontWeight: "bold", cursor: "pointer" }}
               onClick={() => window.location.href = `/crypto/${asset.id}`}
             >
               {asset.name}

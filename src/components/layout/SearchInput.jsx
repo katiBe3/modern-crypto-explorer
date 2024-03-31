@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { InputGroup, InputLeftElement, Icon, Input, List, ListItem } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 
 const SearchInput = ({ assets }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
-  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const query = e.target.value;
@@ -23,7 +21,7 @@ const SearchInput = ({ assets }) => {
   const handleSuggestionClick = (assetId) => {
     setSearchQuery("");
     setSuggestions([]);
-    navigate(`/crypto/${assetId}`);
+    // Perform navigation here if needed
   };
 
   const handleKeyPress = (e) => {
@@ -41,7 +39,7 @@ const SearchInput = ({ assets }) => {
       {suggestions.length > 0 && (
         <List position="absolute" top="100%" left={0} right={0} bg="white" borderWidth={1} borderColor="gray.200" zIndex={10}>
           {suggestions.map((asset) => (
-            <ListItem key={asset.id} px={4} py={2} _hover={{ bg: "gray.100", cursor: "pointer" }} onClick={() => handleSuggestionClick(asset.id)}>
+            <ListItem key={asset.id} px={4} py={2} _hover={{ bg: "gray.100", cursor: "pointer" }} onClick={() => window.location.href = `/crypto/${asset.id}`}>
               {asset.name}
             </ListItem>
           ))}

@@ -11,7 +11,6 @@ const WhaleWatchCard = () => {
     const fetchWhaleActivity = async () => {
       try {
         const symbol = "BTC-USD"; // Only BTC symbol
-        const thresholdUSD = 100000;
 
         // Fetch the current cryptocurrency price
         const response = await fetch(`https://api.blockchain.com/v3/exchange/tickers/${symbol}`);
@@ -22,19 +21,14 @@ const WhaleWatchCard = () => {
         const priceBTC = parseFloat(data.last_trade_price);
 
         // Fetch recent trades
-        const tradeResponse = await fetch(`https://api.blockchain.com/v3/exchange/l2/${symbol}`);
+        const tradeResponse = await fetch(`https://api.blockchain.com/v3/exchange/l3/${symbol}`);
         if (!tradeResponse.ok) {
           throw new Error(`Failed to fetch whale activity for ${symbol}`);
         }
         const tradeData = await tradeResponse.json();
 
-        // Filter recent trades based on the cryptocurrency threshold
-        const recentTrades = tradeData.bids
-          .concat(tradeData.asks)
-          .filter((trade) => parseFloat(trade.px) * parseFloat(trade.qty) >= thresholdUSD / priceBTC);
-
         // Find the highest trade
-        const highestTrade = recentTrades.length > 0 ? recentTrades[0] : null;
+        const highestTrade = tradeData.bids.length > 0 ? tradeData.bids[0] : null;
 
         setHighestTrade(highestTrade);
         setIsLoading(false); // Set isLoading to false once data is fetched
@@ -59,9 +53,9 @@ const WhaleWatchCard = () => {
             <>
               <Text>
                 BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Here's the latest trade:
-                <Text fontWeight="bold" textAlign="center" color="green.500" fontSize="2xl" mt={2}>
-                  ${parseFloat(highestTrade.px).toLocaleString()} 
-                </Text>
+              </Text>
+              <Text fontWeight="bold" textAlign="center" color="green.500" fontSize="2xl" mt={2}>
+                ${parseFloat(highestTrade.px).toLocaleString()} 
               </Text>
             </>
           ) : (

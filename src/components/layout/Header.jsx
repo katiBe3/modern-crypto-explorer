@@ -3,6 +3,7 @@ import { Flex, Text, Button, useColorMode, Icon, useMediaQuery, Box } from "@cha
 import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
 import InfoBar from "../common/InfoBar";
 import InfoTicker from "../common/InfoTicker";
+import GasPriceInfo from "../common/GasPriceInfo";
 
 const Header = ({ marketData = {} }) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -48,6 +49,7 @@ const Header = ({ marketData = {} }) => {
         ))}
       </Flex>
       <Flex alignItems="center" gap={4} justifyContent="flex-end">
+        <GasPriceInfo showTooltip = {true} />
         <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200" ml="auto">
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>

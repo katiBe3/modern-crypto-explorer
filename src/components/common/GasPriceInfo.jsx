@@ -3,7 +3,6 @@ import { Flex, Text, Icon, Tooltip } from "@chakra-ui/react";
 import { MdLocalGasStation } from "react-icons/md";
 
 const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
-  const [slowGasPrice, setSlowGasPrice] = useState(null);
   const [standardGasPrice, setStandardGasPrice] = useState(null);
   const [fastGasPrice, setFastGasPrice] = useState(null);
 
@@ -25,9 +24,6 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
     const updateGasPrices = async () => {
       const gasPrices = await fetchGasPrices();
       if (gasPrices !== null && gasPrices !== undefined) {
-        if (gasPrices.SafeGasPrice !== undefined) {
-          setSlowGasPrice(gasPrices.SafeGasPrice);
-        }
         if (gasPrices.ProposeGasPrice !== undefined) {
           setStandardGasPrice(gasPrices.ProposeGasPrice);
         }
@@ -61,9 +57,7 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
     <>
       {showTooltip ? (
         <Tooltip
-          label={`Slow: ${slowGasPrice !== null ? slowGasPrice : "Loading..."} Gwei | Medium: ${
-            standardGasPrice !== null ? standardGasPrice : "Loading..."
-          } Gwei | Fast: ${fastGasPrice !== null ? fastGasPrice : "Loading..."} Gwei`}
+          label={`Standard: ${standardGasPrice !== null ? standardGasPrice : "Loading..."} Gwei | Fast: ${fastGasPrice !== null ? fastGasPrice : "Loading..."} Gwei`}
           aria-label="Gas Price Tooltip"
         >
           {gasInfo}

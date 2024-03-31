@@ -51,14 +51,16 @@ const SearchInput = ({ assets }) => {
   }, []);
 
   return (
-    <InputGroup mr={4} width="200px" className="search-input">
-      <InputLeftElement pointerEvents="none">
+    <InputGroup mr={0} width="200px" className="search-input">
+      <InputLeftElement pointerEvents="none" verticalAlign="middle" >
         <Icon as={FaSearch} color="gray.400" />
       </InputLeftElement>
       <Input
+        borderRadius="8px"
+        minHeight="38px"
         type="search"
         placeholder="Search..."
-        bg="gray.100"
+        bg="gray.main"
         size="sm"
         value={searchQuery}
         onChange={handleInputChange}
@@ -75,7 +77,7 @@ const SearchInput = ({ assets }) => {
           right={0}
           bg="white"
           borderWidth={1}
-          borderColor="gray.200"
+          borderColor="gray.darker"
           zIndex={10}
         >
           {suggestions.map((asset) => (
@@ -83,7 +85,7 @@ const SearchInput = ({ assets }) => {
               key={asset.id}
               px={4}
               py={2}
-              _hover={{ bg: "gray.100", cursor: "pointer" }}
+              _hover={{ bg: "gray.main", fontWeight:"bold", cursor: "pointer" }}
               onClick={() => window.location.href = `/crypto/${asset.id}`}
             >
               {asset.name}

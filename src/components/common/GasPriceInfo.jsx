@@ -44,7 +44,7 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
   }, [refreshInterval]);
 
   const gasInfo = (
-    <Flex alignItems="center" cursor="pointer" >
+    <Flex alignItems="center" cursor="pointer" mr={4}>
       <Icon as={MdLocalGasStation} color="gray.500" mr={2} />
       <Text mr={2}>ETH Gas: </Text>
       <Text fontWeight="bold" as="span">

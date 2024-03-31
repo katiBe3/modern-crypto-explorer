@@ -41,7 +41,7 @@ const Header = ({ marketData = {}, assets }) => {
   const infoComponent = isMobile ? <InfoTicker formattedMarketData={formattedMarketData} /> : <InfoBar formattedMarketData={formattedMarketData} />;
 
   const desktopMenu = !isMobile && !isMenuOpen && (
-    <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200">
+    <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="2px" borderColor="gray.main">
       <Flex maxWidth="1200" fontWeight="bold" mr={8}>
         {menuItems.map((item, index) => (
           <Text key={index} as="a" href={item.href} mr={8}>
@@ -49,9 +49,9 @@ const Header = ({ marketData = {}, assets }) => {
           </Text>
         ))}
       </Flex>
-      <Flex alignItems="center" gap={4} justifyContent="flex-end">
-        <SearchInput assets={assets} />
+      <Flex alignItems="center" gap={3} justifyContent="flex-end">
         <GasPriceInfo showTooltip={true} />
+        <SearchInput assets={assets} />
         <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200" ml="auto">
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>
@@ -61,7 +61,7 @@ const Header = ({ marketData = {}, assets }) => {
   );
 
   const mobileMenu = isMobile && (
-    <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="1px" borderColor="gray.200">
+    <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="2px" borderColor="gray.main">
       <Flex alignItems="center">
         <Button variant="ghost" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           {isMenuOpen ? <Icon as={FaTimes} /> : <Icon as={FaBars} />}
@@ -71,7 +71,7 @@ const Header = ({ marketData = {}, assets }) => {
   );
 
   const mobileMenuOpen = isMobile && isMenuOpen && (
-    <Flex flexDirection="column" bg="gray.100" py={4} px={2} borderBottom="1px" borderColor="gray.200" fontWeight="bold" width="100%">
+    <Flex flexDirection="column" bg="gray.100" py={4} px={2} borderBottom="2px" borderColor="gray.main" fontWeight="bold" width="100%">
       {menuItems.map((item, index) => (
         <Text key={index} as="a" href={item.href} mb={2}>
           {item.label}

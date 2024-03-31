@@ -141,7 +141,7 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
           {sortedData.map((crypto) => (
             <Tr
               key={crypto.id}
-              _hover={{ bg: "gray.50", cursor: "pointer" }}
+              _hover={{ bg: "gray.main", cursor: "pointer" }}
             >
               <Hide below="md">
                 <Td  fontWeight="bold">

@@ -12,12 +12,12 @@ const colors = {
     lighter: "#6E66CC"
   },
   gray: {
-    50: "#F5F5F5",
-    200:"#EBEBEB"
+    main: "#F5F5F5", // white smoke
+    darker:"#EBEBEB" // Anti flash white
   },
   fonts: {
-    heading: `'Nunito', sans-serif`,
-    body: `'Nunito', sans-serif`,
+    heading: "'Nunito', sans-serif'",
+    body: "'Nunito', sans-serif'",
   },
 };
 

@@ -144,7 +144,7 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
               _hover={{ bg: "gray.50", cursor: "pointer" }}
             >
               <Hide below="md">
-                <Td  fontWeight="bold">
+                <Td px={{ base: 1, md: 4 }} fontWeight="bold">
                   {crypto.rank}
                 </Td>
               </Hide>

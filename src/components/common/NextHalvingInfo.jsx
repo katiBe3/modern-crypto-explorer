@@ -8,56 +8,46 @@ const NextHalvingInfo = ({ showTooltip = false }) => {
   const [approximateBlockTime, setApproximateBlockTime] = useState(null);
 
   useEffect(() => {
-    const fetchCurrentBlockHeight = async () => {
+    const fetchBlockStats = async () => {
       try {
         const response = await fetch("https://blockchain.info/q/getblockcount");
         if (!response.ok) {
-          throw new Error("Failed to fetch current block height");
+          throw new Error("Failed to fetch block count");
         }
-        const data = await response.json();
-        return data;
+        const blockCount = await response.json();
+
+        // Assuming Bitcoin's halving occurs every 210,000 blocks
+        const blocksUntilHalving = 210000 - (blockCount % 210000);
+        const daysUntilHalving = Math.ceil(blocksUntilHalving / (6 * 24)); // Assuming 6 blocks per hour and 24 hours per day
+
+        setRemainingBlocks(blocksUntilHalving);
+        setDaysUntilHalving(daysUntilHalving);
+
+        // Now fetch additional data to calculate approximate block time using interval query
+        const blockTimeResponse = await fetch("https://blockchain.info/q/interval");
+        if (!blockTimeResponse.ok) {
+          throw new Error("Failed to fetch block time");
+        }
+        const blockTimeInSeconds = await blockTimeResponse.json();
+        
+        // Convert block time from seconds to minutes
+        const blockTimeInMinutes = blockTimeInSeconds / 60;
+        setApproximateBlockTime(blockTimeInMinutes);
       } catch (error) {
-        console.error("Error fetching current block height:", error.message);
-        return null;
+        console.error("Error:", error.message);
+        // Set fallback values
+        setRemainingBlocks(null); // Reset remaining blocks
+        setDaysUntilHalving(null); // Reset days until halving
+        setApproximateBlockTime(null); // Reset approximate block time
       }
     };
 
-    const calculateNextHalving = async () => {
-      try {
-        const currentBlockHeight = await fetchCurrentBlockHeight();
-        if (currentBlockHeight === null) {
-          return null;
-        }
-
-        const halvingInterval = 210000; // Blocks
-        const averageBlockTime = 10; // Minutes
-
-        const nextHalvingBlockHeight = Math.ceil(currentBlockHeight / halvingInterval) * halvingInterval;
-        const blocksUntilHalving = nextHalvingBlockHeight - currentBlockHeight;
-        const minutesUntilHalving = blocksUntilHalving * averageBlockTime;
-        const daysUntilHalving = Math.ceil(minutesUntilHalving / 1440); // 1440 minutes in a day
-
-        const remainingBlocks = blocksUntilHalving;
-        const approximateBlockTime = averageBlockTime;
-
-        setRemainingBlocks(remainingBlocks);
-        setApproximateBlockTime(approximateBlockTime);
-
-        return daysUntilHalving;
-      } catch (error) {
-        console.error("Error calculating next halving:", error.message);
-        return null;
-      }
-    };
-
-    calculateNextHalving().then((days) => {
-      setDaysUntilHalving(days);
-    });
+    fetchBlockStats();
   }, []);
 
   return (
-    <Tooltip label={`Remaining Blocks: ${remainingBlocks}, Approximate Block Time: ${approximateBlockTime} minutes`} aria-label="A tooltip">
-      <Flex alignItems="center"  cursor="pointer" >
+    <Tooltip label={`Remaining Blocks: ${remainingBlocks}, Approximate Block Time: ${parseInt(approximateBlockTime)} minutes`} aria-label="A tooltip">
+      <Flex alignItems="center" cursor="pointer">
         <Icon as={FaBitcoin} color="orange.400" mr={2} />
         <Text mr={2}>Next Halving: </Text>
         <Text fontWeight="bold" as="span" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">

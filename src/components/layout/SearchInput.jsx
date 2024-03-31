@@ -35,14 +35,14 @@ const SearchInput = ({ assets }) => {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (!e.target.closest(".search-input") && !resultListRef.current.contains(e.target)) {
+      if (!e.target.closest(".search-input") && !resultListRef.current?.contains(e.target)) {
         setSearchQuery("");
         setSuggestions([]);
         setIsFocused(false);
       } else {
         setIsFocused(true);
       }
-    };
+    };    
 
     document.body.addEventListener("click", handleClickOutside);
 

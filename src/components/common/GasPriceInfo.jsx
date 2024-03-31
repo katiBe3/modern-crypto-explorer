@@ -42,6 +42,16 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 300000 }) => {
     return () => clearInterval(intervalId);
   }, [refreshInterval]);
 
+  const gasInfo = (        
+    <Flex alignItems="center">
+      <Icon as={MdLocalGasStation} color="gray.500" mr={2} />
+      <Text mr={2}>ETH Gas: </Text>
+      <Text fontWeight="bold" as="span" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
+        {standardGasPrice !== null ? `${standardGasPrice} Gwei` : "Loading..."}
+      </Text>
+    </Flex>
+  );
+
   return (
     <>
       {showTooltip ? (
@@ -49,22 +59,10 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 300000 }) => {
           label={`Slow: ${slowGasPrice !== null ? slowGasPrice : "Loading..."} Gwei | Medium: ${standardGasPrice !== null ? standardGasPrice : "Loading..."} Gwei | Fast: ${fastGasPrice !== null ? fastGasPrice : "Loading..."} Gwei`}
           aria-label="Gas Price Tooltip"
         >
-          <Flex alignItems="center">
-            <Icon as={MdLocalGasStation} color="gray.500" mr={2} />
-            <Text mr={2}>Gas Prices: </Text>
-            <Text fontWeight="bold" as="span" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
-              {standardGasPrice !== null ? `${standardGasPrice} Gwei` : "Loading..."}
-            </Text>
-          </Flex>
+          {gasInfo}
         </Tooltip>
       ) : (
-        <Flex alignItems="center">
-          <Icon as={MdLocalGasStation} color="gray.500" mr={2} />
-          <Text mr={2}>Gas Prices: </Text>
-          <Text fontWeight="bold" as="span" textShadow="0 0 10px rgba(255, 255, 255, 0.75)">
-            {standardGasPrice !== null ? `${standardGasPrice} Gwei` : "Loading..."}
-          </Text>
-        </Flex>
+        {gasInfo} {/* Remove curly braces here */}
       )}
     </>
   );

@@ -60,7 +60,7 @@ const SearchInput = ({ assets }) => {
         minHeight="38px"
         type="search"
         placeholder="Search..."
-        bg="gray.main"
+        bg="gray.50"
         size="sm"
         value={searchQuery}
         onChange={handleInputChange}
@@ -77,7 +77,7 @@ const SearchInput = ({ assets }) => {
           right={0}
           bg="white"
           borderWidth={1}
-          borderColor="gray.darker"
+          borderColor="gray.100"
           zIndex={10}
         >
           {suggestions.map((asset) => (
@@ -85,7 +85,7 @@ const SearchInput = ({ assets }) => {
               key={asset.id}
               px={4}
               py={2}
-              _hover={{ bg: "gray.main", fontWeight:"bold", cursor: "pointer" }}
+              _hover={{ bg: "gray.50", fontWeight:"bold", cursor: "pointer" }}
               onClick={() => window.location.href = `/crypto/${asset.id}`}
             >
               {asset.name}

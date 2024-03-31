@@ -12,8 +12,9 @@ const colors = {
     lighter: "#6E66CC"
   },
   gray: {
-    main: "#F5F5F5", // white smoke
-    darker:"#EBEBEB" // Anti flash white
+    50: "#F5F5F5", // white smoke
+    100:"#EBEBEB", // Anti flash white
+    200: "#E0E0E0" // Platinum
   },
   fonts: {
     heading: "'Nunito', sans-serif'",

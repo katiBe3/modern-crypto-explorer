@@ -45,7 +45,7 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
 
   const gasInfo = (
     <Flex alignItems="center" cursor="pointer" mr={4}>
-      <Icon as={MdLocalGasStation} color="gray.500" mr={2} />
+      <Icon as={MdLocalGasStation} color="gray.600" mr={2} />
       <Text mr={2}>ETH Gas: </Text>
       <Text fontWeight="bold" as="span">
         {standardGasPrice !== null ? `${standardGasPrice} Gwei` : "Loading..."}

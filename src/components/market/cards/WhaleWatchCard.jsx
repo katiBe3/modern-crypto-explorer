@@ -58,9 +58,9 @@ const WhaleWatchCard = () => {
           ) : highestTrade !== null ? (
             <>
               <Text>
-                BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Here's the highest trade in the last 60 minutes:
+                BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Here's the latest trade:
                 <Text fontWeight="bold" textAlign="center" color="green.500" fontSize="2xl" mt={2}>
-                  ${parseFloat(highestTrade.px * highestTrade.qty).toLocaleString()}
+                  ${parseFloat(highestTrade.px).toLocaleString()} 
                 </Text>
               </Text>
             </>

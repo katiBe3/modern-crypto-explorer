@@ -13,13 +13,13 @@ const NewsCard = ({ newsItem }) => {
   return (
     <Card>
       <Box as="a" href={newsItem.url} target="_blank" _hover={{ textDecoration: "none" }}>
-        <Flex direction={{ base: "column", md: "row" }}>
-          <Image src={newsItem.imageurl} alt={newsItem.title} boxSize={{ base: "full", md: "100px" }} objectFit="cover" mr={4} borderRadius="8px" />
-          <Box>
+        <Flex>
+          <Image src={newsItem.imageurl} alt={newsItem.title} boxSize={{ base: "full", md: "175px" }} objectFit="cover" mr={4} borderRadius="8px" />
+          <Box align="left">
             <Heading size="sm" mb={2}>
-              {truncateText(newsItem.title, 50)}
+              {truncateText(newsItem.title, 100)}
             </Heading>
-            <Text fontSize="sm" color="gray.500" mb={2}>
+            <Text fontSize="sm" color="gray.500" fontWeight="bold" mb={2}>
               {newsItem.source_info.name}
             </Text>
           </Box>

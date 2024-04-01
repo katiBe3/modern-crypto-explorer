@@ -6,6 +6,7 @@ const WhaleWatchCard = () => {
   const [highestTransaction, setHighestTransaction] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
     const fetchWhaleActivity = async () => {
@@ -16,9 +17,27 @@ const WhaleWatchCard = () => {
         }
         const transactions = await transactionsResponse.json();
 
-        const highestTx = transactions.sort((a, b) => b.value - a.value)[0];
+        const highestTx = transactions.reduce((prev, current) => (prev.value > current.value ? prev : current));
 
-        // Removed duplicated code block, as it's unnecessary
+        const priceResponse = await fetch("https://api.coincap.io/v2/assets/bitcoin");
+        if (!priceResponse.ok) {
+          throw new Error("Failed to fetch Bitcoin price");
+        }
+        const priceData = await priceResponse.json();
+        const bitcoinPrice = parseFloat(priceData.data.priceUsd);
+
+        const usdAmount = (highestTx.value / 100000000) * bitcoinPrice;
+
+        if (initialLoad) {
+          // On initial load, simply show the highest transaction amount
+          setHighestTransaction({ ...highestTx, usdAmount });
+        } else {
+          // After initial load, update only if the new amount is higher than 1 million
+          if (usdAmount > 1000000) {
+            setHighestTransaction({ ...highestTx, usdAmount });
+          }
+        }
+
         setIsLoading(false);
         setError(null);
       } catch (error) {
@@ -29,6 +48,17 @@ const WhaleWatchCard = () => {
     };
 
     fetchWhaleActivity();
+
+    // Fetch new data every 10 seconds
+    const interval = setInterval(fetchWhaleActivity, 10000);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
+  }, [initialLoad]); // Added initialLoad to the dependency array
+
+  useEffect(() => {
+    // Set initialLoad to false after the first load
+    setInitialLoad(false);
   }, []);
 
   return (
@@ -39,12 +69,12 @@ const WhaleWatchCard = () => {
             <Text>{error}</Text>
           ) : highestTransaction !== null ? (
             <>
-              <Text>BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Here's the latest big transaction:</Text>
+              <Text>BTC whales are making waves! 🌊 Here's the latest transaction:</Text>
               <Text fontWeight="bold" textAlign="center" color="green.500" fontSize="2xl" mt={2}>
-                {(highestTransaction.value / 100000000).toFixed(2)} BTC
+                ${parseInt(highestTransaction.usdAmount).toLocaleString()} 
               </Text>
-              <Text fontWeight="bold" textAlign="center" color="gray.500" fontSize="xl">
-                (${highestTransaction.usdAmount.toLocaleString()})
+              <Text fontWeight="bold" textAlign="center" color="gray.500" fontSize="md">
+                {(highestTransaction.value / 100000000).toFixed(2)} BTC
               </Text>
             </>
           ) : (

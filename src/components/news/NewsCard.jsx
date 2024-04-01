@@ -3,17 +3,26 @@ import { Box, Flex, Heading, Text, Image } from "@chakra-ui/react";
 import Card from "../layout/Card";
 
 const NewsCard = ({ newsItem }) => {
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
+  };
+
   return (
     <Card>
-      <Flex>
-        <Image src={newsItem.imageurl} alt={newsItem.title} boxSize="100px" objectFit="cover" mr={4} />
-        <Box>
-          <Heading size="sm" mb={2}>
-            {newsItem.title}
-          </Heading>
-          <Text fontSize="sm">{newsItem.body.split(". ")[0]}.</Text>
-        </Box>
-      </Flex>
+      <Box as="a" href={newsItem.url} target="_blank" _hover={{ textDecoration: "none" }}>
+        <Heading size="sm" mb={2} textAlign="center">
+          {newsItem.title}
+        </Heading>
+        <Flex direction={{ base: "column", md: "row" }}>
+          <Image src={newsItem.imageurl} alt={newsItem.title} boxSize={{ base: "full", md: "100px" }} objectFit="cover" mr={4} />
+          <Text fontSize="sm" noOfLines={4}>
+            {truncateText(`${newsItem.body}`, 100)}
+          </Text>
+        </Flex>
+      </Box>
     </Card>
   );
 };

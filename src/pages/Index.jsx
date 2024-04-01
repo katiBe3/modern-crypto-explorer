@@ -73,6 +73,28 @@ const Index = ({ assets, marketData }) => {
       </Suspense>
     </>
   );
+  <>
+    <Box mx="auto" maxWidth="1200px">
+      <MarketTeaser assets={assets} mb={4} />
+      <Box my={2} minHeight="210px">
+        <Show below="md">{mobileCards}</Show>
+        <Hide below="md">{desktopCards}</Hide>
+      </Box>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<div>Loading...</div>}>
+              <CryptoTable assets={assets} />
+            </Suspense>
+          </Suspense>
+        </Suspense>
+      </Suspense>
+      <NewsSection />
+    </Box>
+    <Suspense fallback={<div>Loading...</div>}>
+      <TradingTips />
+    </Suspense>
+  </>;
 };
 
 export default Index;

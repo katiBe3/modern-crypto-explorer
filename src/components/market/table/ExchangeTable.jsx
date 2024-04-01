@@ -21,7 +21,7 @@ const ExchangeTable = ({ cryptoId }) => {
 
   return (
     <Box overflowX="auto" maxWidth="100%" mt={8}>
-      <Table variant="simple">
+      <Table variant="simple" width="100%">
         <Thead>
           <Tr>
             <Th>Rank</Th>

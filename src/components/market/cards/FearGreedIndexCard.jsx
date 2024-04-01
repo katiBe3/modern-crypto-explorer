@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Text, Icon, useColorModeValue, Skeleton, Flex } from "@chakra-ui/react";
+import { FaBitcoin } from "react-icons/fa";
 import Card from "../../layout/Card";
-import CardSkeleton from "../../layout/CardSkeleton";
 
 const FearGreedIndex = ({ bitcoinData }) => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
@@ -77,23 +77,23 @@ const FearGreedIndex = ({ bitcoinData }) => {
   }, [bitcoinData]);
 
   return (
-    <>
-      {bitcoinData ? (
-        <Card title="Fear & Greed Index">
-          <Text fontSize="6xl" lineHeight="100%" fontWeight="black" color={indexColor}>
-            {fearGreedIndex}
-          </Text>
-          <Text fontWeight="bold" textAlign="center">
-            {indexSentiment}
-          </Text>
-          <Text fontSize="sm" fontWeight="normal" textAlign="center" color="gray.500">
-            Last updated: {formatDate(lastUpdated)}
-          </Text>
-        </Card>
-      ) : (
-        <CardSkeleton />
-      )}
-    </>
+    <Card title="Fear & Greed Index">
+      <Skeleton isLoaded={fearGreedIndex !== 0} height="60px">
+        <Text fontSize="6xl" lineHeight="100%" fontWeight="black" color={indexColor} >
+          {fearGreedIndex}
+        </Text>
+      </Skeleton>
+      <Skeleton isLoaded={indexSentiment !== 0} height="24px">
+        <Text fontWeight="bold" textAlign="center">
+          {indexSentiment}
+        </Text>
+      </Skeleton>
+      <Skeleton isLoaded={lastUpdated !== 0} height="20px" mt={2}>
+        <Text fontSize="sm" fontWeight="normal" textAlign="center" color="gray.500">
+          Last updated: {formatDate(lastUpdated)}
+        </Text>
+      </Skeleton>
+    </Card>
   );
 };
 

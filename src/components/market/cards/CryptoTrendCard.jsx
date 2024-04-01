@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Flex, Spacer, Stack, Text } from "@chakra-ui/react";
-import CardSkeleton from "../../layout/CardSkeleton";
 import Card from "../../layout/Card";
 
 const CryptoTrendCard = ({ title, assets, value, isColored = true }) => {
@@ -12,7 +11,7 @@ const CryptoTrendCard = ({ title, assets, value, isColored = true }) => {
       return new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
-        minimumFractionDigits: 0, // Set minimumFractionDigits to 0
+        minimumFractionDigits: 0 // Set minimumFractionDigits to 0
       }).format(number);
     } else {
       // Format the number with two decimal places
@@ -21,30 +20,24 @@ const CryptoTrendCard = ({ title, assets, value, isColored = true }) => {
   };
 
   return (
-    <>
-      {assets ? (
-        <Card title={title}>
-          <Stack spacing={4}>
-            {assets.map((asset, index) => (
-              <Flex key={index} fontWeight="bold" onClick={() => (window.location.href = `/crypto/${asset.id}`)} cursor="pointer">
-                <Text color="gray.500">{`${index + 1}.`}</Text>
-                <Text ml={2}>{asset.name}</Text>
-                <Text ml={2} color="gray.500">
-                  {asset.symbol}
-                </Text>
-                <Spacer />
-                <Text ml={2} color={isColored ? (parseFloat(asset[value]) >= 0 ? "green.400" : "red.400") : "inherit"}>
-                  {formatNumber(asset[value])}
-                  {value.toLowerCase().includes("percent") && "%"}
-                </Text>
-              </Flex>
-            ))}
-          </Stack>
-        </Card>
-      ) : (
-        <CardSkeleton />
-      )}
-    </>
+    <Card title={title}>
+      <Stack spacing={4}>
+        {assets.map((asset, index) => (
+          <Flex key={index} fontWeight="bold" onClick={() => window.location.href = `/crypto/${asset.id}`} cursor="pointer">
+            <Text color="gray.500">{`${index + 1}.`}</Text>
+            <Text ml={2}>{asset.name}</Text>
+            <Text ml={2} color="gray.500">
+              {asset.symbol}
+            </Text>
+            <Spacer />
+            <Text ml={2} color={isColored ? (parseFloat(asset[value]) >= 0 ? "green.400" : "red.400") : "inherit"}>
+              {formatNumber(asset[value])}
+              {value.toLowerCase().includes("percent") && "%"}
+            </Text>
+          </Flex>
+        ))}
+      </Stack>
+    </Card>
   );
 };
 

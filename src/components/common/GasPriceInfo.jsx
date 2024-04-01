@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { Flex, Text, Icon, Tooltip, Box } from "@chakra-ui/react";
 import { MdLocalGasStation } from "react-icons/md";
 
 const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
   const [standardGasPrice, setStandardGasPrice] = useState(null);
   const [fastGasPrice, setFastGasPrice] = useState(null);
+  const [lastFetched, setLastFetched] = useState(0);
 
   const fetchGasPrices = useCallback(async () => {
     try {
@@ -32,16 +33,25 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
     }
   }, [fetchGasPrices]);
 
+  const memoizedGasPrices = useMemo(() => ({ standard: standardGasPrice, fast: fastGasPrice }), [standardGasPrice, fastGasPrice]);
+
   useEffect(() => {
-    // Initial fetch
-    updateGasPrices();
+    const shouldFetchGasPrices = !memoizedGasPrices.standard || !memoizedGasPrices.fast || Date.now() - lastFetched > refreshInterval;
 
-    // Set interval for fetching gas prices
-    const intervalId = setInterval(updateGasPrices, refreshInterval);
+    if (shouldFetchGasPrices) {
+      updateGasPrices();
+      setLastFetched(Date.now());
+    }
 
-    // Cleanup function to clear the interval
+    const intervalId = setInterval(() => {
+      if (Date.now() - lastFetched > refreshInterval) {
+        updateGasPrices();
+        setLastFetched(Date.now());
+      }
+    }, refreshInterval);
+
     return () => clearInterval(intervalId);
-  }, [refreshInterval, updateGasPrices]);
+  }, [refreshInterval, updateGasPrices, lastFetched, memoizedGasPrices]);
 
   const gasInfo = (
     <Flex alignItems="center" cursor="pointer" mr={4}>
@@ -56,14 +66,11 @@ const GasPriceInfo = ({ showTooltip = false, refreshInterval = 60000 }) => {
   return (
     <>
       {showTooltip ? (
-        <Tooltip
-          label={`Standard: ${standardGasPrice !== null ? standardGasPrice : "Loading..."} Gwei | Fast: ${fastGasPrice !== null ? fastGasPrice : "Loading..."} Gwei`}
-          aria-label="Gas Price Tooltip"
-        >
+        <Tooltip label={`Standard: ${standardGasPrice !== null ? standardGasPrice : "Loading..."} Gwei | Fast: ${fastGasPrice !== null ? fastGasPrice : "Loading..."} Gwei`} aria-label="Gas Price Tooltip">
           {gasInfo}
         </Tooltip>
       ) : (
-        {gasInfo}
+        { gasInfo }
       )}
     </>
   );

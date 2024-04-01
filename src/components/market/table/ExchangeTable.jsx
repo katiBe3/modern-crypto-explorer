@@ -32,15 +32,18 @@ const ExchangeTable = ({ cryptoId }) => {
         </Thead>
         <Tbody fontWeight="bold">
           {exchanges.map((exchange, index) => (
-            <Tr 
-              key={exchange.exchangeId} 
-              _hover={{ bg: "gray.50", cursor: "pointer" }} 
-              onClick={() => window.open(exchangeUrls[exchange.exchangeId].replace('{symbol}', cryptoId).replace('{target}', 'USD'), "_blank")}
+            <Tr
+              key={exchange.exchangeId}
+              _hover={{ bg: "gray.50", cursor: "pointer" }}
+              onClick={() => {
+                const exchangeUrl = exchangeUrls[exchange.exchangeId];
+                if (exchangeUrl) {
+                  window.open(exchangeUrl.replace("{symbol}", cryptoId).replace("{target}", "USD"), "_blank");
+                }
+              }}
             >
               <Td>{index + 1}</Td>
-              <Td>
-                {exchange.exchangeId}
-              </Td>
+              <Td>{exchange.exchangeId}</Td>
               <Td color="green.500">{parseFloat(exchange.volumePercent).toFixed(2)}%</Td>
               <Td>${parseFloat(exchange.volumeUsd24Hr).toLocaleString()}</Td>
             </Tr>

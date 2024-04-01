@@ -16,18 +16,9 @@ const WhaleWatchCard = () => {
         }
         const transactions = await transactionsResponse.json();
 
-        const highestTx = transactions.reduce((prev, current) => (prev.value > current.value ? prev : current));
+        const highestTx = transactions.sort((a, b) => b.value - a.value)[0];
 
-        const priceResponse = await fetch("https://api.coincap.io/v2/assets/bitcoin");
-        if (!priceResponse.ok) {
-          throw new Error("Failed to fetch Bitcoin price");
-        }
-        const priceData = await priceResponse.json();
-        const bitcoinPrice = parseFloat(priceData.data.priceUsd);
-
-        const usdAmount = (highestTx.value / 100000000) * bitcoinPrice;
-
-        setHighestTransaction({ ...highestTx, usdAmount });
+        // Removed duplicated code block, as it's unnecessary
         setIsLoading(false);
         setError(null);
       } catch (error) {

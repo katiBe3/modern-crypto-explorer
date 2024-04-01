@@ -4,7 +4,7 @@ import Bar from "../layout/Bar";
 import MarketArrow from "./MarketArrow";
 import NextHalvingInfo from "./NextHalvingInfo";
 
-const InfoBar = ({ formattedMarketData = {} }) => {
+const InfoBar = React.memo(({ formattedMarketData = {} }) => {
   const { btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = formattedMarketData;
   return (
     <Bar>
@@ -37,6 +37,6 @@ const InfoBar = ({ formattedMarketData = {} }) => {
       </Box>
     </Bar>
   );
-};
+});
 
 export default memo(InfoBar);

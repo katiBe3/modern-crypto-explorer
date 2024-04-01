@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Box } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Index from "./pages/Index.jsx";
@@ -15,7 +15,7 @@ function App() {
   const [bitcoinData, setBitcoinData] = useState([]);
   const [historicalDataLastFetched, setHistoricalDataLastFetched] = useState(null);
 
-  const fetchAssets = async () => {
+  const fetchAssets = React.useCallback(async () => {
     try {
       const response = await fetch("https://api.coincap.io/v2/assets");
       if (!response.ok) {
@@ -34,9 +34,9 @@ function App() {
         console.error("Error fetching assets:", error);
       }
     }
-  };
+  }, []);
 
-  const fetchHistoricalBtcData = async () => {
+  const fetchHistoricalBtcData = React.useCallback(async () => {
     const twentyFourHoursAgo = Date.now() - 24 * 60 * 60 * 1000;
 
     if (!historicalDataLastFetched || historicalDataLastFetched < twentyFourHoursAgo) {
@@ -47,16 +47,16 @@ function App() {
       setBitcoinData(data.data);
       setHistoricalDataLastFetched(Date.now());
     }
-  };
+  }, [historicalDataLastFetched]);
 
   useEffect(() => {
     fetchAssets();
     fetchHistoricalBtcData();
-    const assetsInterval = setInterval(fetchAssets, 5000); // Fetch asset data every 5 seconds.
+    const assetsInterval = setInterval(fetchAssets, 5000);
     return () => {
       clearInterval(assetsInterval);
     };
-  }, [assets]);
+  }, [fetchAssets, fetchHistoricalBtcData]);
 
   const calculateDominance = (assetSymbol) => {
     const totalMarketCap = assets.reduce((acc, asset) => acc + parseFloat(asset.marketCapUsd || 0), 0);
@@ -81,18 +81,23 @@ function App() {
     return "neutral";
   };
 
-  const btcDominance = useMemo(() => calculateDominance("BTC"), [assets]);
-  const ethDominance = useMemo(() => calculateDominance("ETH"), [assets]);
-  const totalVolume = useMemo(() => calculateTotalVolume(), [assets]);
-  const marketDirection = useMemo(() => calculateMarketDirection("BTC"), [assets]);
-  const totalMarketCap = useMemo(() => calculateTotalMarketCap(), [assets]);
+  const marketData = React.useMemo(
+    () => ({
+      btcDominance: calculateDominance("BTC"),
+      ethDominance: calculateDominance("ETH"),
+      totalVolume: calculateTotalVolume(),
+      marketDirection: calculateMarketDirection("BTC"),
+      totalMarketCap: calculateTotalMarketCap(),
+    }),
+    [assets],
+  );
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
-      <Header marketData={{ btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} assets={assets} />
+      <Header marketData={marketData} assets={assets} />
       <Router>
         <Routes>
-          <Route exact path="/" element={<Index assets={assets} marketData={{ bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />} />
+          <Route exact path="/" element={<Index assets={assets} marketData={{ bitcoinData, ...marketData }} />} />
           <Route path="/about" element={<About />} />
 
           <Route path="/favorites" element={<Favorites assets={assets} />} />

@@ -10,8 +10,7 @@ const ExchangeTable = ({ cryptoId }) => {
       try {
         const response = await fetch(`https://api.coincap.io/v2/assets/${cryptoId}/markets`);
         const data = await response.json();
-        const filteredExchanges = data.data.filter((exchange) => exchange.exchangeId === "Binance" || exchange.exchangeId === "Coinbase");
-        setExchanges(filteredExchanges);
+        setExchanges(data.data.slice(0, 3));
       } catch (error) {
         console.error("Error fetching exchanges:", error);
       }

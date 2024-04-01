@@ -96,7 +96,6 @@ function App() {
           <Route path="/learn" element={<Learn />} />
           <Route path="/favorites" element={<Favorites assets={assets} />} />
           <Route path="/crypto/:id" element={<CryptoDetails assets={assets} />} />
-          <Route path="/crypto/:id" element={<CryptoDetails assets={assets} />} />
         </Routes>
       </Router>
       <Footer />

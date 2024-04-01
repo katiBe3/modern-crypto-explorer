@@ -12,42 +12,13 @@ const NewsSection = () => {
         const response = await fetch("https://min-api.cryptocompare.com/data/v2/news/?lang=EN");
         const data = await response.json();
 
-        const articlesBySource = data.Data.reduce((acc, article) => {
-          if (!acc[article.source]) {
-            acc[article.source] = [];
+        const selectedArticles = data.Data.reduce((acc, article) => {
+          const sourceExists = acc.find((item) => item.source === article.source);
+          if (!sourceExists && acc.length < 3) {
+            acc.push(article);
           }
-          acc[article.source].push(article);
           return acc;
-        }, {});
-
-        const selectedArticles = [];
-        const sources = Object.keys(articlesBySource);
-        let sourceIndex = 0;
-
-        while (selectedArticles.length < 3 && sourceIndex < sources.length) {
-          const source = sources[sourceIndex];
-          const articles = articlesBySource[source];
-
-          if (articles.length > 0) {
-            selectedArticles.push(articles.shift());
-          }
-
-          if (articles.length === 0) {
-            sourceIndex++;
-          }
-        }
-
-        sourceIndex = 0;
-        while (selectedArticles.length < 3 && sourceIndex < sources.length) {
-          const source = sources[sourceIndex];
-          const articles = articlesBySource[source];
-
-          if (articles.length > 0) {
-            selectedArticles.push(articles.shift());
-          }
-
-          sourceIndex++;
-        }
+        }, []);
 
         setNewsData(selectedArticles);
       } catch (error) {

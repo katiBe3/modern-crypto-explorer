@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon, Hide } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
+import SkeletonRows from "./SkeletonRows";
 
 const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
+  const isLoading = !assets || assets.length === 0;
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });
   const [priceColors, setPriceColors] = useState({});
@@ -138,7 +140,9 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
           </Tr>
         </Thead>
         <Tbody>
-          {sortedData.map((crypto) => (
+          {isLoading ? (
+            <SkeletonRows />
+          ) : sortedData.map((crypto) => (
             <Tr
               key={crypto.id}
               _hover={{ bg: "gray.50", cursor: "pointer" }}

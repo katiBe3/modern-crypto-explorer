@@ -1,43 +1,44 @@
 import React, { useMemo } from "react";
-import { Line } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement } from "chart.js";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement);
-
-const CryptoChart = ({ color, data }) => {
+const CryptoChart = ({ data, color }) => {
   const chartData = useMemo(() => {
     if (!data) return null;
 
     return {
-      labels: data.map((_, index) => index + 1),
       datasets: [
         {
-          data: data.map((dataPoint) => parseFloat(dataPoint.priceUsd)),
+          label: "Price",
+          data: data.map((dataPoint) => ({
+            x: new Date(dataPoint.time),
+            y: parseFloat(dataPoint.priceUsd),
+          })),
           borderColor: color,
-          borderWidth: 2,
-          fill: false,
-          tension: 0.4,
+          backgroundColor: color,
           pointRadius: 0,
         },
       ],
     };
   }, [data, color]);
 
-  const chartOptions = {
-    scales: {
-      x: { display: false },
-      y: { display: false },
-    },
-    plugins: {
-      legend: { display: false },
-      tooltip: { enabled: false },
-    },
-    maintainAspectRatio: false,
-  };
+  if (!data) return null;
 
-  if (!chartData) return null;
-
-  return <Line data={chartData} options={chartOptions} />;
+  return (
+    <Box>
+      <Flex justify="space-between" mb={4}>
+        {data.map((dataPoint) => (
+          <Text key={dataPoint.time} fontSize="sm">
+            {new Date(dataPoint.time).toLocaleDateString()}
+          </Text>
+        ))}
+      </Flex>
+      <Flex h={200} align="flex-end">
+        {data.map((dataPoint) => (
+          <Box key={dataPoint.time} w={`${100 / data.length}%`} h={`${(parseFloat(dataPoint.priceUsd) / Math.max(...data.map((d) => parseFloat(d.priceUsd)))) * 100}%`} bg={color} title={`$${parseFloat(dataPoint.priceUsd).toFixed(2)}`} />
+        ))}
+      </Flex>
+    </Box>
+  );
 };
 
 export default CryptoChart;

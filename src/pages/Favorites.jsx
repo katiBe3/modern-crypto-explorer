@@ -21,15 +21,15 @@ const Favorites = ({ assets }) => {
     }
   }, [favorites]);
   return (
-    <Box flex="1" px={8} py={4} maxWidth="1200px" mx="auto" textAlign="center">
-      <Heading as="h1" size="xl" mt={10} mb={4}>
-        Your Favorite Cryptocurrencies
-      </Heading>
-      <Text fontSize="lg" mb={8}>
-        Keep your most loved cryptocurrencies close and never miss a beat in the market!
-      </Text>
-      <CryptoTable assets={assets} setFavorites={setFavorites} showFavoritesOnly={true} />
-    </Box>
+  <Box m={8} maxWidth="1200px" mx="auto">
+    <Heading as="h1" size="xl" mb={4} textAlign="center">
+    Your Favorite Cryptocurrencies
+    </Heading>
+    <Text fontSize="xl" mb={8} textAlign="center">
+    Keep your most loved cryptocurrencies close and never miss a beat in the market!
+    </Text>
+    <CryptoTable assets={assets} setFavorites={setFavorites} showFavoritesOnly={true} />
+  </Box>
   );
 };
 

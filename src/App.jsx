@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Index from "./pages/Index.jsx";
 import About from "./pages/About.jsx";
-import Learn from "./pages/Learn.jsx";
+
 import Favorites from "./pages/Favorites.jsx";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
@@ -94,7 +94,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Index assets={assets} marketData={{ bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />} />
           <Route path="/about" element={<About />} />
-          <Route path="/learn" element={<Learn />} />
+
           <Route path="/favorites" element={<Favorites assets={assets} />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/crypto/:id" element={<CryptoDetails assets={assets} />} />

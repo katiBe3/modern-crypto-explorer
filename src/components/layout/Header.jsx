@@ -28,7 +28,7 @@ const Header = ({ marketData = {}, assets }) => {
   const menuItems = [
     { label: "📈 Market", href: "/" },
     { label: "❤️ Favorites", href: "/favorites" },
-    { label: "🎓 Learn", href: "/learn" },
+
     { label: "📰 News", href: "/news" },
   ];
 

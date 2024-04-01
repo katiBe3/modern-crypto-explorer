@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import MarketTeaser from "../components/market/MarketTeaser";
 import FearGreedIndexCard from "../components/market/cards/FearGreedIndexCard";
 import WhaleWatchCard from "../components/market/cards/WhaleWatchCard";
+import NewsSection from "../components/news/NewsSection";
 
 const CryptoTable = React.lazy(() => import("../components/market/CryptoTable"));
 const TradingTips = React.lazy(() => import("../components/common/TradingTips"));
@@ -65,6 +66,7 @@ const Index = ({ assets, marketData }) => {
             </Suspense>
           </Suspense>
         </Suspense>
+        <NewsSection />
       </Box>
       <Suspense fallback={<div>Loading...</div>}>
         <TradingTips />

@@ -8,6 +8,7 @@ import Favorites from "./pages/Favorites.jsx";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import CryptoDetails from "./pages/CryptoDetails";
+import NewsPage from "./pages/NewsPage";
 
 function App() {
   const [assets, setAssets] = useState([]);
@@ -95,6 +96,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/learn" element={<Learn />} />
           <Route path="/favorites" element={<Favorites assets={assets} />} />
+          <Route path="/news" element={<NewsPage />} />
           <Route path="/crypto/:id" element={<CryptoDetails assets={assets} />} />
         </Routes>
       </Router>

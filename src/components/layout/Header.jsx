@@ -29,6 +29,7 @@ const Header = ({ marketData = {}, assets }) => {
     { label: "📈 Market", href: "/" },
     { label: "❤️ Favorites", href: "/favorites" },
     { label: "🎓 Learn", href: "/learn" },
+    { label: "📰 News", href: "/news" },
   ];
 
   const ctaButton = (

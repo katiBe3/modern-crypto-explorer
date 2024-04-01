@@ -3,26 +3,31 @@ import { Flex, Text, Skeleton } from "@chakra-ui/react";
 import Card from "../../layout/Card";
 
 const WhaleWatchCard = () => {
-  const [highestTrade, setHighestTrade] = useState(null);
+  const [highestTransaction, setHighestTransaction] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchWhaleActivity = async () => {
       try {
-        const response = await fetch("https://api.coincap.io/v2/trades?exchange=poloniex&limit=100");
-        if (!response.ok) {
-          throw new Error("Failed to fetch recent trades");
+        const transactionsResponse = await fetch("https://blockstream.info/api/mempool/recent");
+        if (!transactionsResponse.ok) {
+          throw new Error("Failed to fetch recent transactions");
         }
-        const data = await response.json();
+        const transactions = await transactionsResponse.json();
 
-        const btcUsdTrades = data.data.filter((trade) => trade.baseSymbol === "BTC" && trade.quoteSymbol === "USD");
+        const highestTx = transactions.reduce((prev, current) => (prev.value > current.value ? prev : current));
 
-        const sortedTrades = btcUsdTrades.sort((a, b) => b.volume - a.volume);
+        const priceResponse = await fetch("https://api.coincap.io/v2/assets/bitcoin");
+        if (!priceResponse.ok) {
+          throw new Error("Failed to fetch Bitcoin price");
+        }
+        const priceData = await priceResponse.json();
+        const bitcoinPrice = parseFloat(priceData.data.priceUsd);
 
-        const whaleTrade = sortedTrades[0];
+        const usdAmount = (highestTx.value / 100000000) * bitcoinPrice;
 
-        setHighestTrade(whaleTrade);
+        setHighestTransaction({ ...highestTx, usdAmount });
         setIsLoading(false);
         setError(null);
       } catch (error) {
@@ -41,15 +46,18 @@ const WhaleWatchCard = () => {
         <Skeleton isLoaded={!isLoading} height="24px">
           {error !== null ? (
             <Text>{error}</Text>
-          ) : highestTrade !== null ? (
+          ) : highestTransaction !== null ? (
             <>
-              <Text>BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Here's the latest trade:</Text>
+              <Text>BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Here's the latest big transaction:</Text>
               <Text fontWeight="bold" textAlign="center" color="green.500" fontSize="2xl" mt={2}>
-                ${parseFloat(highestTrade.price).toLocaleString()}
+                {(highestTransaction.value / 100000000).toFixed(2)} BTC
+              </Text>
+              <Text fontWeight="bold" textAlign="center" color="gray.500" fontSize="xl">
+                (${highestTransaction.usdAmount.toLocaleString()})
               </Text>
             </>
           ) : (
-            <Text>No significant whale activity detected within the last hour. Keep an eye on the market for updates. 👀</Text>
+            <Text>No significant whale activity detected. Keep an eye on the market for updates. 👀</Text>
           )}
         </Skeleton>
       </Flex>

@@ -10,33 +10,25 @@ const WhaleWatchCard = () => {
   useEffect(() => {
     const fetchWhaleActivity = async () => {
       try {
-        const symbol = "BTC-USD"; // Only BTC symbol
-
-        // Fetch the current cryptocurrency price
-        const response = await fetch(`https://api.blockchain.com/v3/exchange/tickers/${symbol}`);
+        const response = await fetch("https://api.coincap.io/v2/trades?exchange=poloniex&limit=100");
         if (!response.ok) {
-          throw new Error(`Failed to fetch price for ${symbol}`);
+          throw new Error("Failed to fetch recent trades");
         }
         const data = await response.json();
-        const priceBTC = parseFloat(data.last_trade_price);
 
-        // Fetch recent trades
-        const tradeResponse = await fetch(`https://api.blockchain.com/v3/exchange/l3/${symbol}`);
-        if (!tradeResponse.ok) {
-          throw new Error(`Failed to fetch whale activity for ${symbol}`);
-        }
-        const tradeData = await tradeResponse.json();
+        const btcUsdTrades = data.data.filter((trade) => trade.baseSymbol === "BTC" && trade.quoteSymbol === "USD");
 
-        // Find the highest trade
-        const highestTrade = tradeData.bids.length > 0 ? tradeData.bids[0] : null;
+        const sortedTrades = btcUsdTrades.sort((a, b) => b.volume - a.volume);
 
-        setHighestTrade(highestTrade);
-        setIsLoading(false); // Set isLoading to false once data is fetched
+        const whaleTrade = sortedTrades[0];
+
+        setHighestTrade(whaleTrade);
+        setIsLoading(false);
         setError(null);
       } catch (error) {
         console.error("Error fetching whale activity:", error.message);
         setError("Error fetching whale activity: " + error.message);
-        setIsLoading(false); // Set isLoading to false in case of error
+        setIsLoading(false);
       }
     };
 
@@ -51,11 +43,9 @@ const WhaleWatchCard = () => {
             <Text>{error}</Text>
           ) : highestTrade !== null ? (
             <>
-              <Text>
-                BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Here's the latest trade:
-              </Text>
+              <Text>BTC whales are making waves! 🌊 Their moves could signal a big splash in the market. Here's the latest trade:</Text>
               <Text fontWeight="bold" textAlign="center" color="green.500" fontSize="2xl" mt={2}>
-                ${parseFloat(highestTrade.px).toLocaleString()} 
+                ${parseFloat(highestTrade.price).toLocaleString()}
               </Text>
             </>
           ) : (

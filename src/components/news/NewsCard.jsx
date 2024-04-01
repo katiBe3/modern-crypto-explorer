@@ -20,7 +20,7 @@ const NewsCard = ({ newsItem }) => {
               {truncateText(newsItem.title, 50)}
             </Heading>
             <Text fontSize="sm" color="gray.500" mb={2}>
-              {newsItem.source}
+              {newsItem.source_info.name}
             </Text>
           </Box>
         </Flex>

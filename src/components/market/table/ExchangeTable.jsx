@@ -36,9 +36,10 @@ const ExchangeTable = ({ cryptoId }) => {
               key={exchange.exchangeId}
               _hover={{ bg: "gray.50", cursor: "pointer" }}
               onClick={() => {
-                const exchangeUrl = exchangeUrls[exchange.exchangeId];
+                const exchangeUrl = exchangeUrls[exchange.exchangeId.toLowerCase()];
                 if (exchangeUrl) {
-                  window.open(exchangeUrl.replace("{symbol}", cryptoId).replace("{target}", "USD"), "_blank");
+                  const url = exchangeUrl.replace("{symbol}", cryptoId.toUpperCase()).replace("{target}", "USD");
+                  window.open(url, "_blank");
                 }
               }}
             >

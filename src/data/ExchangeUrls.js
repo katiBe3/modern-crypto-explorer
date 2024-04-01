@@ -9,4 +9,7 @@ export const exchangeUrls = {
   okx: "https://www.okx.com/trade-spot/{symbol}-USDT",
   hitbtc: "https://hitbtc.com/{symbol}to{target}",
   poloniex: "https://poloniex.com/exchange#{symbol}_{target}",
+  bittrex: "https://global.bittrex.com/Market/Index?MarketName=USD-{symbol}",
+  gate: "https://www.gate.io/trade/{symbol}_USDT",
+  gemini: "https://www.gemini.com/prices/{symbol}-usd",
 };

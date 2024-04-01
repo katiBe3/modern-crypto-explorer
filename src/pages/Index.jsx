@@ -1,13 +1,13 @@
-import React, { Suspense } from "react";
+import React from "react";
 import MarketTeaser from "../components/market/MarketTeaser";
 import FearGreedIndexCard from "../components/market/cards/FearGreedIndexCard";
 import WhaleWatchCard from "../components/market/cards/WhaleWatchCard";
-const CryptoTable = React.lazy(() => import("../components/market/CryptoTable"));
-const TradingTips = React.lazy(() => import("../components/common/TradingTips"));
-const NewsSection = React.lazy(() => import("../components/news/NewsSection"));
+import CryptoTable from "../components/market/table/CryptoTable";
+import TradingTips from "../components/common/TradingTips";
 import { Grid, Box, Flex, Show, Hide } from "@chakra-ui/react";
 import CardSlider from "../components/layout/CardSlider";
 import CryptoTrendCard from "../components/market/cards/CryptoTrendCard";
+import NewsSection from "../components/news/NewsSection";
 
 const Index = ({ assets, marketData }) => {
   const { bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = marketData;
@@ -49,51 +49,17 @@ const Index = ({ assets, marketData }) => {
   );
 
   return (
-    <>
       <Box mx="auto" maxWidth="1200px">
         <MarketTeaser assets={assets} mb={4} />
         <Box my={2} minHeight="210px">
           <Show below="md">{mobileCards}</Show>
           <Hide below="md">{desktopCards}</Hide>
         </Box>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Suspense fallback={<div>Loading...</div>}>
-              <Suspense fallback={<div>Loading...</div>}>
-                <CryptoTable assets={assets} />
-              </Suspense>
-            </Suspense>
-          </Suspense>
-        </Suspense>
+        <CryptoTable assets={assets} />
         <NewsSection />
-      </Box>
-      <Suspense fallback={<div>Loading...</div>}>
         <TradingTips />
-      </Suspense>
-    </>
-  );
-  <>
-    <Box mx="auto" maxWidth="1200px">
-      <MarketTeaser assets={assets} mb={4} />
-      <Box my={2} minHeight="210px">
-        <Show below="md">{mobileCards}</Show>
-        <Hide below="md">{desktopCards}</Hide>
-      </Box>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Suspense fallback={<div>Loading...</div>}>
-              <CryptoTable assets={assets} />
-            </Suspense>
-          </Suspense>
-        </Suspense>
-      </Suspense>
-      <NewsSection />
     </Box>
-    <Suspense fallback={<div>Loading...</div>}>
-      <TradingTips />
-    </Suspense>
-  </>;
+  );
 };
 
 export default Index;

@@ -10,7 +10,8 @@ const TradingTips = () => {
     return tradingTips[randomIndex];
   }
 
-  function handleMoreClick() {
+  function handleMoreClick(event) {
+    event.preventDefault();
     setCurrentTip(getRandomTradingTip());
   }
 

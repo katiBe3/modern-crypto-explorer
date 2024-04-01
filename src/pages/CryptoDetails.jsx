@@ -12,7 +12,7 @@ const CryptoDetails = ({ assets }) => {
   }
 
   return (
-    <Box>
+    <Box mx="auto" maxWidth="1200px">
       <Text fontSize="2xl" fontWeight="bold">
         {crypto.name} ({crypto.symbol})
       </Text>

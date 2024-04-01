@@ -20,7 +20,9 @@ const CryptoNewsRow = ({ cryptoSymbol }) => {
   }, [cryptoSymbol]);
 
   return (
-    <Box mt={8}>
+    <>
+      {newsData.length > 0 && (
+        <Box mt={8}>
       <Text fontSize="xl" fontWeight="bold" mb={4}>
         Latest News about {cryptoSymbol}
       </Text>
@@ -30,6 +32,9 @@ const CryptoNewsRow = ({ cryptoSymbol }) => {
         ))}
       </Grid>
     </Box>
+      )}
+    </>
+    )}
   );
 };
 

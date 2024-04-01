@@ -32,7 +32,7 @@ const Favorites = ({ assets }) => {
         Keep your most loved cryptocurrencies close and never miss a beat in the market!
       </Text>
       <CryptoTable assets={assets} setFavorites={setFavorites} showFavoritesOnly={true} />
-      <NewsSection cryptos={favoriteCryptos} />
+      {favoriteCryptos.length > 0 && <NewsSection cryptos={favoriteCryptos} />}
     </Box>
   );
 };

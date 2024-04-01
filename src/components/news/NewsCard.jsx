@@ -13,14 +13,16 @@ const NewsCard = ({ newsItem }) => {
   return (
     <Card>
       <Box as="a" href={newsItem.url} target="_blank" _hover={{ textDecoration: "none" }}>
-        <Heading size="sm" mb={4} textAlign="center">
-          {newsItem.title}
-        </Heading>
         <Flex direction={{ base: "column", md: "row" }}>
-          <Image src={newsItem.imageurl} alt={newsItem.title} boxSize={{ base: "full", md: "100px" }} objectFit="cover" mr={4} borderRadius="8px"/>
-          <Text fontSize="sm" noOfLines={5} align="left">
-            {truncateText(`${newsItem.body}`, 150)}
-          </Text>
+          <Image src={newsItem.imageurl} alt={newsItem.title} boxSize={{ base: "full", md: "100px" }} objectFit="cover" mr={4} borderRadius="8px" />
+          <Box>
+            <Heading size="sm" mb={2}>
+              {truncateText(newsItem.title, 50)}
+            </Heading>
+            <Text fontSize="sm" color="gray.500" mb={2}>
+              {newsItem.source}
+            </Text>
+          </Box>
         </Flex>
       </Box>
     </Card>

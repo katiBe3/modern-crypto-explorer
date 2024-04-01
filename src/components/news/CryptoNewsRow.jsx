@@ -23,18 +23,17 @@ const CryptoNewsRow = ({ cryptoSymbol }) => {
     <>
       {newsData.length > 0 && (
         <Box mt={8}>
-      <Text fontSize="xl" fontWeight="bold" mb={4}>
-        Latest News about {cryptoSymbol}
-      </Text>
-      <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={8}>
-        {newsData.map((newsItem, index) => (
-          <NewsCard key={index} newsItem={newsItem} />
-        ))}
-      </Grid>
-    </Box>
+          <Text fontSize="xl" fontWeight="bold" mb={4}>
+            Latest News about {cryptoSymbol}
+          </Text>
+          <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={8}>
+            {newsData.map((newsItem, index) => (
+              <NewsCard key={index} newsItem={newsItem} />
+            ))}
+          </Grid>
+        </Box>
       )}
     </>
-    )}
   );
 };
 

@@ -107,7 +107,7 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
   };
 
   return (
-    <Box overflowX="auto" maxWidth="1200px" mt={8} mx="auto" pb={12}>
+    <Box overflowX="auto" maxWidth="1200px" mt={8} mx="auto">
       <Table variant="simple" size={{ base: "sm", md: "md" }}>
         <Thead>
           <Tr>

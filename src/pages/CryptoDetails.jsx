@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Box, Text } from "@chakra-ui/react";
-import CryptoNewsRow from "../components/news/CryptoNewsRow";
+import NewsSection from "../components/news/NewsSection";
 
 const CryptoDetails = ({ assets }) => {
   const { id } = useParams();
@@ -19,7 +19,7 @@ const CryptoDetails = ({ assets }) => {
       <Text>Price: ${parseFloat(crypto.priceUsd).toLocaleString()}</Text>
       <Text>Market Cap: ${parseInt(crypto.marketCapUsd).toLocaleString()}</Text>
       <Text>Volume (24h): ${parseInt(crypto.volumeUsd24Hr).toLocaleString()}</Text>
-      <CryptoNewsRow cryptoSymbol={crypto.symbol} />
+      <NewsSection cryptos={crypto.symbol} />
     </Box>
   );
 };

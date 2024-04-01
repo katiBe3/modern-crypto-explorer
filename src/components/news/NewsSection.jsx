@@ -3,13 +3,18 @@ import { Box, Grid, Flex, Show } from "@chakra-ui/react";
 import NewsCard from "./NewsCard";
 import CardSlider from "../layout/CardSlider";
 
-const NewsSection = () => {
+const NewsSection = ({ cryptos }) => {
   const [newsData, setNewsData] = useState([]);
 
   useEffect(() => {
     const fetchNews = async () => {
       try {
-        const response = await fetch("https://min-api.cryptocompare.com/data/v2/news/?lang=EN");
+        let url = "https://min-api.cryptocompare.com/data/v2/news/?lang=EN";
+        if (cryptos) {
+          const cryptoSymbols = Array.isArray(cryptos) ? cryptos.join(",") : cryptos;
+          url += `&categories=${cryptoSymbols}`;
+        }
+        const response = await fetch(url);
         const data = await response.json();
 
         const selectedArticles = data.Data.reduce((acc, article) => {
@@ -29,7 +34,7 @@ const NewsSection = () => {
     fetchNews();
     const interval = setInterval(fetchNews, 5 * 60 * 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [cryptos]);
 
   return (
     <Box my={8}>

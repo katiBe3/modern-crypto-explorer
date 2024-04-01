@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
-import CryptoTable from "../components/market/CryptoTable";
+import CryptoTable from "../components/market/table/CryptoTable";
 
 const Favorites = ({ assets }) => {
   const [favorites, setFavorites] = useState(() => {

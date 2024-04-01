@@ -2,10 +2,9 @@ import React, { Suspense } from "react";
 import MarketTeaser from "../components/market/MarketTeaser";
 import FearGreedIndexCard from "../components/market/cards/FearGreedIndexCard";
 import WhaleWatchCard from "../components/market/cards/WhaleWatchCard";
-import NewsSection from "../components/news/NewsSection";
-
 const CryptoTable = React.lazy(() => import("../components/market/CryptoTable"));
 const TradingTips = React.lazy(() => import("../components/common/TradingTips"));
+const NewsSection = React.lazy(() => import("../components/news/NewsSection"));
 import { Grid, Box, Flex, Show, Hide } from "@chakra-ui/react";
 import CardSlider from "../components/layout/CardSlider";
 import CryptoTrendCard from "../components/market/cards/CryptoTrendCard";

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Link } from "@chakra-ui/react";
+import { Box, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
 import { exchangeUrls } from "../../../data/ExchangeUrls";
 
 const ExchangeTable = ({ cryptoId }) => {
@@ -38,7 +38,7 @@ const ExchangeTable = ({ cryptoId }) => {
               onClick={() => {
                 const exchangeUrl = exchangeUrls[exchange.exchangeId.toLowerCase()];
                 if (exchangeUrl) {
-                  const url = exchangeUrl.replace("{symbol}", cryptoId.toUpperCase()).replace("{target}", "USD");
+                  const url = exchangeUrl.replace("{baseSymbol}", exchange.baseSymbol).replace("{quoteSymbol}", exchange.quoteSymbol);
                   window.open(url, "_blank");
                 }
               }}

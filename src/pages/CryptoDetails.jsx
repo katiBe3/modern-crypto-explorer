@@ -18,7 +18,13 @@ const CryptoDetails = ({ assets }) => {
 
       const response = await fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=${interval}&start=${startDate}&end=${endDate}`);
       const data = await response.json();
-      setHistoricalData(data.data);
+
+      const formattedData = data.data.map((item) => ({
+        time: item.time,
+        value: parseFloat(item.priceUsd),
+      }));
+
+      setHistoricalData(formattedData);
     };
 
     fetchHistoricalData();

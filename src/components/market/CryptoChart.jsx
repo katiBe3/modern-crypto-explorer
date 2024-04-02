@@ -5,29 +5,32 @@ const CryptoChart = ({ data }) => {
   const chartContainerRef = useRef();
 
   useEffect(() => {
-    const chart = useRef(null);
+    const chart = createChart(chartContainerRef.current, {
+      width: chartContainerRef.current.clientWidth,
+      height: 300,
+      layout: {
+        textColor: "black",
+        background: {
+          type: "solid",
+          color: "white",
+        },
+      },
+    });
 
-    useEffect(() => {
-      if (data && data.length > 0) {
-        chart.current = createChart(chartContainerRef.current, { width: chartContainerRef.current.clientWidth, height: 300 });
-        const lineSeries = chart.current.addLineSeries();
-        lineSeries.setData(data);
-      }
+    const areaSeries = chart.addAreaSeries({
+      lineColor: "#2962FF",
+      topColor: "#2962FF",
+      bottomColor: "rgba(41, 98, 255, 0.28)",
+    });
 
-      return () => {
-        if (chart.current) {
-          chart.current.remove();
-          chart.current = null;
-        }
-      };
-    }, [data]);
+    areaSeries.setData(data);
+
+    return () => {
+      chart.remove();
+    };
   }, [data]);
 
-  return (
-    <div ref={chartContainerRef} style={{ position: "relative", width: "100%", height: "300px" }}>
-      {!data && <div>Loading...</div>}
-    </div>
-  );
+  return <div ref={chartContainerRef} style={{ width: "100%", height: "300px" }}></div>;
 };
 
 export default CryptoChart;

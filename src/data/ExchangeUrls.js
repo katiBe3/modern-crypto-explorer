@@ -3,13 +3,7 @@ export const exchangeUrls = {
   coinbase: "https://pro.coinbase.com/trade/{baseSymbol}-{quoteSymbol}",
   kraken: "https://www.kraken.com/en-us/prices/{baseSymbol}-{quoteSymbol}",
   kucoin: "https://www.kucoin.com/trade/{baseSymbol}-{quoteSymbol}",
-  bitfinex: "https://trading.bitfinex.com/t/{baseSymbol}:{quoteSymbol}",
   huobi: "https://www.huobi.com/en-us/exchange/{baseSymbol}_{quoteSymbol}",
-  bitstamp: "https://www.bitstamp.net/markets/{baseSymbol}/{quoteSymbol}/",
-  okx: "https://www.okx.com/trade-spot/{baseSymbol}-{quoteSymbol}",
-  hitbtc: "https://hitbtc.com/{baseSymbol}to{target}",
-  poloniex: "https://poloniex.com/exchange#{baseSymbol}_{quoteSymbol}",
-  bittrex: "https://global.bittrex.com/Market/Index?MarketName={quoteSymbol}-{baseSymbol}",
   gate: "https://www.gate.io/trade/{baseSymbol}_{quoteSymbol}",
   gemini: "https://www.gemini.com/prices/{baseSymbol}-{quoteSymbol}",
 };

@@ -8,7 +8,7 @@ const NewsCard = ({ newsItem }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 900); // Timeout set to just below 1 second.
+    }, 500); // Timeout set to half a second.
 
     return () => clearTimeout(timer); // Clear the timer on component unmount
   }, []);

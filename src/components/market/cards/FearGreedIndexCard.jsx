@@ -49,7 +49,7 @@ const FearGreedIndex = ({ bitcoinData }) => {
 
       const avgPriceChange = priceChanges.reduce((sum, change) => sum + change, 0) / priceChanges.length;
       // Adjust these values to get a more balanced index
-      const scaledIndex = (avgPriceChange + 5.5) * 13; // Fine-tuning the scale and baseline
+      const scaledIndex = (avgPriceChange + 5.35) * 12.6; // Fine-tuning the scale and baseline
       const index = Math.round(Math.min(100, Math.max(0, scaledIndex))); // Ensure index is between 0 and 100
 
       let sentiment = "";

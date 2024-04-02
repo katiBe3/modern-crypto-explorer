@@ -14,16 +14,16 @@ const CryptoDetails = ({ assets }) => {
   useEffect(() => {
     const fetchHistoricalData = async () => {
       const endDate = new Date().getTime();
-      const startDate = endDate - 24 * 60 * 60 * 1000;
-      const interval = "m5";
+      const startDate = endDate - 3 * 30 * 24 * 60 * 60 * 1000; // We fetch 3 months of data
+      const interval = "d1";
 
       const response = await fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=${interval}&start=${startDate}&end=${endDate}`);
       const data = await response.json();
 
       const formattedData = data.data.map((item) => ({
-        time: item.time,
+        time: new Date(item.time).toISOString().split('T')[0], // Convert UNIX timestamp to date string in 'YYYY-MM-DD' format
         value: parseFloat(item.priceUsd),
-      }));
+      }));      
 
       setHistoricalData(formattedData);
     };

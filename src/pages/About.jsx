@@ -4,12 +4,12 @@ import katrinImage from "../assets/images/katrin.jpg";
 
 const About = () => {
   return (
-    <Box px={8} py={4} maxWidth="1200px" mx="auto" textAlign="center">
-      <Heading as="h1" size="xl" mt={10} mb={4}>
+    <Box m={8} maxWidth="1200px" mx="auto">
+      <Heading as="h1" size="xl" mb={4} textAlign="center">
         About Us
       </Heading>
-      <Text fontSize="lg" mb={4}>
-        Created with lots of love, passion and coffee! ☕
+      <Text fontSize="xl" mb={8} textAlign="center">
+      Created with lots of love, passion and coffee! ☕
       </Text>
       <Center my={6}>
         <AvatarGroup size="lg" max={2}>

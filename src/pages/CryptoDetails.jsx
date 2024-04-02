@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Box, Text, Heading } from "@chakra-ui/react";
+import { Box, Text, Heading, useTheme } from "@chakra-ui/react";
 import NewsSection from "../components/news/NewsSection";
 import ExchangeTable from "../components/market/table/ExchangeTable";
 import CryptoChart from "../components/market/CryptoChart";
 
 const CryptoDetails = ({ assets }) => {
   const { id } = useParams();
+  const theme = useTheme(); // Use useTheme hook to access the theme object
   const crypto = assets.find((asset) => asset.id === id);
   const [historicalData, setHistoricalData] = useState(null);
 
@@ -42,8 +43,8 @@ const CryptoDetails = ({ assets }) => {
           {parseFloat(crypto.priceUsd) >= 100 ? `$${parseInt(crypto.priceUsd).toLocaleString()}` : parseFloat(crypto.priceUsd) >= 1 ? `$${parseFloat(crypto.priceUsd).toLocaleString()}` : `$${parseFloat(crypto.priceUsd).toFixed(8)}`}
         </Text>
       </Heading>
-      <Box my={8}>
-        <CryptoChart data={historicalData} color="blue" />
+      <Box my={8} align="center">
+        <CryptoChart data={historicalData} brandColor={theme.colors.brand.main} />
       </Box>
       <ExchangeTable cryptoId={crypto.id} />
       <NewsSection cryptos={crypto.symbol} />

@@ -23,7 +23,7 @@ const CryptoTrendCard = ({ title, assets, value, isColored = true }) => {
     <Card title={title}>
       <Stack spacing={4}>
         {assets.map((asset, index) => (
-          <Flex key={index} fontWeight="bold" onClick={() => window.location.href = `/crypto/${asset.id}`} cursor="pointer">
+          <Flex key={index} fontWeight="bold">
             <Text color="gray.500">{`${index + 1}.`}</Text>
             <Text ml={2}>{asset.name}</Text>
             <Text ml={2} color="gray.500">

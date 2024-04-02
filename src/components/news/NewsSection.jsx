@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Grid, Flex, Show } from "@chakra-ui/react";
 import NewsCard from "./NewsCard";
-import CardSlider from "../layout/CardSlider";
 
 const NewsSection = ({ cryptos }) => {
   const [newsData, setNewsData] = useState([]);
@@ -43,15 +42,6 @@ const NewsSection = ({ cryptos }) => {
           <NewsCard key={index} newsItem={newsItem} />
         ))}
       </Grid>
-      <Show below="md">
-        <Flex justifyContent="center">
-          <CardSlider
-            cards={newsData.map((newsItem, index) => (
-              <NewsCard key={index} newsItem={newsItem} />
-            ))}
-          />
-        </Flex>
-      </Show>
     </Box>
   );
 };

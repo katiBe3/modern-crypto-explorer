@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import { Box, Table, Thead, Tbody, Tr, Th, Td, Hide } from "@chakra-ui/react";
 import { exchangeUrls } from "../../../data/ExchangeUrls";
 
 const ExchangeTable = ({ cryptoId }) => {
@@ -26,10 +26,12 @@ const ExchangeTable = ({ cryptoId }) => {
       <Table variant="simple" width="100%">
         <Thead>
           <Tr>
-            <Th>Rank</Th>
-            <Th>Exchange</Th>
-            <Th>% Total Volume</Th>
-            <Th>24h Volume (USD)</Th>
+            <Th px={{ base: 1, md: 4 }}>Rank</Th>
+            <Th px={{ base: 1, md: 4 }}>Exchange</Th>
+            <Th px={{ base: 1, md: 4 }}>% Total Volume</Th>
+            <Hide below="md">
+              <Th px={{ base: 1, md: 4 }}>24h Volume (USD)</Th>
+            </Hide>
           </Tr>
         </Thead>
         <Tbody fontWeight="bold">
@@ -45,10 +47,12 @@ const ExchangeTable = ({ cryptoId }) => {
                 }
               }}
             >
-              <Td>{index + 1}</Td>
-              <Td>{exchange.exchangeId}</Td>
-              <Td color="green.500">{parseFloat(exchange.volumePercent).toFixed(2)}%</Td>
-              <Td>${parseFloat(exchange.volumeUsd24Hr).toLocaleString()}</Td>
+              <Td px={{ base: 1, md: 4 }}>{index + 1}</Td>
+              <Td px={{ base: 1, md: 4 }}>{exchange.exchangeId}</Td>
+              <Td color="green.500" px={{ base: 1, md: 4 }}>{parseFloat(exchange.volumePercent).toFixed(2)}%</Td>
+              <Hide below="md">
+                <Td px={{ base: 1, md: 4 }}>${parseFloat(exchange.volumeUsd24Hr).toLocaleString()}</Td>
+              </Hide>
             </Tr>
           ))}
         </Tbody>

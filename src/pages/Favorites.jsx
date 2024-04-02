@@ -21,7 +21,8 @@ const Favorites = ({ assets }) => {
       console.error("Error saving favorites to localStorage:", error);
     }
   }, [favorites]);
-  const favoriteCryptos = Object.keys(favorites).filter((id) => favorites[id]);
+
+  const favoriteCryptos = assets.filter((asset) => favorites[asset.symbol]);
 
   return (
     <Box m={8} maxWidth="1200px" mx="auto">
@@ -31,8 +32,8 @@ const Favorites = ({ assets }) => {
       <Text fontSize="xl" mb={8} textAlign="center">
         Keep your most loved cryptocurrencies close and never miss a beat in the market!
       </Text>
-      {favoriteCryptos.length > 0 && <CryptoTable assets={assets} setFavorites={setFavorites} showFavoritesOnly={true} />}
-      {favoriteCryptos.length > 0 && <NewsSection cryptos={favoriteCryptos} />}
+      {favoriteCryptos.length > 0 && <CryptoTable assets={favoriteCryptos} setFavorites={setFavorites} showFavoritesOnly={true} />}
+      {favoriteCryptos.length > 0 && <NewsSection cryptos={favoriteCryptos.map((crypto) => crypto.symbol)} />}
     </Box>
   );
 };

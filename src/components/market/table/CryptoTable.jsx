@@ -30,10 +30,10 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
     }
   }, [favorites]);
 
-  const toggleFavorite = (id) => {
+  const toggleFavorite = (symbol) => {
     setFavorites((prevFavorites) => ({
       ...prevFavorites,
-      [id]: !prevFavorites[id],
+      [symbol]: !prevFavorites[symbol], 
     }));
   };
 
@@ -66,7 +66,7 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
   useEffect(() => {
     if (assets) {
       const mergedData = assets.map((asset) => {
-        const isFavorite = favorites[asset.id] === true;
+        const isFavorite = favorites[asset.symbol] === true; 
         return {
           ...asset,
           isFavorite,
@@ -75,10 +75,11 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
       setTableData(mergedData);
     }
   }, [assets, favorites]);
+  
 
   const filteredData = React.useMemo(() => {
     if (showFavoritesOnly) {
-      return tableData.filter((asset) => favorites[asset.id]);
+      return tableData.filter((asset) => favorites[asset.symbol]);
     }
     return tableData;
   }, [tableData, favorites, showFavoritesOnly]);
@@ -153,7 +154,7 @@ const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
                 </Td>
               </Hide>
               <Td px={{ base: 1, md: 4 }} fontWeight="bold">
-                <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.id)} _hover={{ color: "red.400", cursor: "pointer" }} />
+                <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.symbol)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>
               <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
               <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold">

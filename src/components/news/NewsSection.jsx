@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Grid, Flex, Show } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 import NewsCard from "./NewsCard";
 
 const NewsSection = ({ cryptos }) => {
@@ -12,6 +12,7 @@ const NewsSection = ({ cryptos }) => {
         if (cryptos) {
           const cryptoSymbols = Array.isArray(cryptos) ? cryptos.join(",") : cryptos;
           url += `&categories=${cryptoSymbols}`;
+          console.log(url);
         }
         const response = await fetch(url);
         const data = await response.json();

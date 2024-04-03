@@ -1,6 +1,6 @@
 # modern-crypto-explorer
 
-This is the best crypto website ever! 😉
+This is the best top 100 crypto website ever! 😉
 It picks up data from free and open APIs. Right now, it doesn't have a memory (database) integrated. So if the website forgets about stuff you did, it's nothing personal. It just can't remember. 
 
 ## Collaborate with GPT Engineer

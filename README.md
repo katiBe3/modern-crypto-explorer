@@ -6,11 +6,10 @@ It picks up data from free and open APIs to track the top 100 cryptos.
 ## Features
 * Allows user to explore and filter the top 100 cryptos.
 * Fetches current market data every 5 seconds.
-* The user can store favorite cryptos in a cookie.
-* The favorite page shows matching news based on the favorite cryptos.
+* The favorite page shows matching news based on the users favorite cryptos.❤️
 * Has it's own fear & greed index (based on historical & current bitcoin data)
 * Shows BTC & ETH dominance, 24h volume and current ETH gas prices.
-* Has a crypto search integrated.
+* Has a crypto name & symbol search integrated.
 * Whale watch feature constantly looks for high buys on the blockchain.
 * Crypto detail page shows and links to top 3 trading websites (by volume).
 * Uses Skeletons on load for better user experience.

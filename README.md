@@ -13,6 +13,7 @@ It picks up data from free and open APIs to track the top 100 cryptos.
 * Has a crypto search integrated.
 * Whale watch feature constantly looks for high buys on the blockchain.
 * Crypto detail page shows and links to top 3 trading websites (by volume).
+* Uses Skeletons on load for better user experience.
 
 ## Collaborate with GPT Engineer
 
@@ -25,7 +26,7 @@ If you clone this repo and push changes, you will have them reflected in the GPT
 ## Setup
 
 ```sh
-git clone https://github.com/GPT-Engineer-App/modern-crypto-explorer.git
+git clone https://github.com/katiBe3/modern-crypto-explorer.git
 cd modern-crypto-explorer
 npm i
 ```

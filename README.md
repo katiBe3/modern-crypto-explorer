@@ -1,7 +1,18 @@
 # modern-crypto-explorer
 
-This is the best top 100 crypto website ever! 😉
-It picks up data from free and open APIs. Right now, it doesn't have a memory (database) integrated. So if the website forgets about stuff you did, it's nothing personal. It just can't remember. 
+This is the bestcrypto website ever! 😉
+It picks up data from free and open APIs to track the top 100 cryptos. It doesn't have a memory (database) integrated. So if the website forgets about stuff you did, it's nothing personal. It just can't remember. 
+
+## Features
+* Allows user to explore and filter the top 100 cryptos.
+* Fetches current market data every 5 seconds.
+* The user can store favorite cryptos in a cookie.
+* The favorite page shows matching news based on the favorite cryptos.
+* Has it's own fear & greed index (based on historical & current bitcoin data)
+* Shows BTC & ETH dominance, 24h volume and current ETH gas prices.
+* Has a crypto search integrated.
+* Whale watch feature constantly looks for high buys on the blockchain.
+* Crypto detail page shows and links to top 3 trading websites (by volume).
 
 ## Collaborate with GPT Engineer
 

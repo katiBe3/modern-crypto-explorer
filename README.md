@@ -1,6 +1,6 @@
 # modern-crypto-explorer
 
-This is the bestcrypto website ever! 😉
+This is the best crypto website ever! 😉
 It picks up data from free and open APIs to track the top 100 cryptos. 
 
 ## Features

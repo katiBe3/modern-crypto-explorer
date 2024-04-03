@@ -1,7 +1,7 @@
 # modern-crypto-explorer
 
 This is the bestcrypto website ever! 😉
-It picks up data from free and open APIs to track the top 100 cryptos. It doesn't have a memory (database) integrated. So if the website forgets about stuff you did, it's nothing personal. It just can't remember. 
+It picks up data from free and open APIs to track the top 100 cryptos. 
 
 ## Features
 * Allows user to explore and filter the top 100 cryptos.

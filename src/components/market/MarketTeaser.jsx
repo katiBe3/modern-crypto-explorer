@@ -37,7 +37,7 @@ const MarketTeaser = () => {
           ${totalMarketCap} Trillion
         </Text>
         , a{" "}
-        <Text as="span" fontWeight="bold" color={overallPercentChange.startsWith('+') ? "green.400" : "red.400"}>
+        <Text as="span" fontWeight="bold" color={overallPercentChange > 0 ? "green.400" : "red.400"}>
           {changeSign}{overallPercentChange}%
         </Text>{" "}
         change in the last 24 hours.

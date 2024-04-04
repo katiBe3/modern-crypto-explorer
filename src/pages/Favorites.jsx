@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Box, Heading, Text } from "@chakra-ui/react";
 import CryptoTable from "../components/market/table/CryptoTable";
 import NewsSection from "../components/news/NewsSection";
+import useAssetStore from "../stores/useAssetStore";
 
-const Favorites = ({ assets }) => {
+const Favorites = ({ }) => {
+  const assets = useAssetStore((state) => state.assets);
   const [favorites, setFavorites] = useState(() => {
     try {
       const localData = localStorage.getItem("favorites");

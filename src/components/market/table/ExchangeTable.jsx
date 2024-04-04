@@ -1,25 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Hide } from "@chakra-ui/react";
+import useExchangeStore from "../../../stores/useExchangeStore";
 import { exchangeUrls } from "../../../data/ExchangeUrls";
 
 const ExchangeTable = ({ cryptoId }) => {
-  const [exchanges, setExchanges] = useState([]);
+  const { exchanges, fetchExchanges } = useExchangeStore(state => ({
+    exchanges: state.exchanges,
+    fetchExchanges: state.fetchExchanges,
+  }));
 
   useEffect(() => {
-    const fetchExchanges = async () => {
-      try {
-        const response = await fetch(`https://api.coincap.io/v2/assets/${cryptoId}/markets`);
-        const data = await response.json();
-        // Filter exchanges to only include those in the supported list
-        const filteredExchanges = data.data.filter(exchange => exchange.exchangeId.toLowerCase() in exchangeUrls).slice(0, 3);
-        setExchanges(filteredExchanges);
-      } catch (error) {
-        console.error("Error fetching exchanges:", error);
-      }
-    };
-
-    fetchExchanges();
-  }, [cryptoId]);
+    fetchExchanges(cryptoId);
+  }, [cryptoId, fetchExchanges]);
 
   return (
     <Box overflowX="auto" maxWidth="100%" mt={8}>
@@ -37,7 +29,7 @@ const ExchangeTable = ({ cryptoId }) => {
         <Tbody fontWeight="bold">
           {exchanges.map((exchange, index) => (
             <Tr
-              key={exchange.exchangeId}
+              key={index}
               _hover={{ bg: "gray.50", cursor: "pointer" }}
               onClick={() => {
                 const exchangeUrl = exchangeUrls[exchange.exchangeId.toLowerCase()];
@@ -48,7 +40,7 @@ const ExchangeTable = ({ cryptoId }) => {
               }}
             >
               <Td px={{ base: 1, md: 4 }}>{index + 1}</Td>
-              <Td px={{ base: 1, md: 4 }}>{exchange.exchangeId}</Td>
+              <Td px={{ base: 1, md: 4 }}>{exchange.exchangeId} ({exchange.baseSymbol} | {exchange.quoteSymbol})</Td>
               <Td color="green.500" px={{ base: 1, md: 4 }}>{parseFloat(exchange.volumePercent).toFixed(2)}%</Td>
               <Hide below="md">
                 <Td px={{ base: 1, md: 4 }}>${parseFloat(exchange.volumeUsd24Hr).toLocaleString()}</Td>

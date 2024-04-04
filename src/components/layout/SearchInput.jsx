@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import { InputGroup, InputLeftElement, Icon, Input, List, ListItem } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
+import useAssetStore from "../../stores/useAssetStore";
 
-const SearchInput = ({ assets }) => {
+const SearchInput = () => {
+  const assets = useAssetStore((state) => state.assets);
   const [searchQuery, setSearchQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
@@ -11,20 +13,17 @@ const SearchInput = ({ assets }) => {
   const handleInputChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-
-    if (query.trim().length >= 2) {
+  
+    if (query.trim().length >= 2 && assets) {
       const lowerCaseQuery = query.toLowerCase();
-      const filteredAssets = assets.filter((asset) => asset.name.toLowerCase().includes(lowerCaseQuery) || asset.symbol.toLowerCase().includes(lowerCaseQuery));
+      const filteredAssets = assets.filter((asset) =>
+        asset.name.toLowerCase().includes(lowerCaseQuery) ||
+        asset.symbol.toLowerCase().includes(lowerCaseQuery)
+      );
       setSuggestions(filteredAssets);
     } else {
       setSuggestions([]);
     }
-  };
-
-  const handleSuggestionClick = (assetId) => {
-    // Perform navigation here if needed
-    setSearchQuery("");
-    setSuggestions([]);
   };
 
   const handleKeyPress = (e) => {
@@ -42,7 +41,7 @@ const SearchInput = ({ assets }) => {
       } else {
         setIsFocused(true);
       }
-    };    
+    };
 
     document.body.addEventListener("click", handleClickOutside);
 

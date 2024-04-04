@@ -5,6 +5,10 @@ const CryptoChart = ({ data, brandColor }) => {
   const chartContainerRef = useRef();
 
   useEffect(() => {
+    if (!data || data.length === 0) {
+      return;
+    }
+
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth,
       height: 300,
@@ -19,18 +23,11 @@ const CryptoChart = ({ data, brandColor }) => {
 
     // Function to convert hexadecimal color to RGB format
     function hexToRgb(hex) {
-      // Remove the leading '#', if present
       hex = hex.replace(/^#/, '');
-
-      // Parse the hexadecimal color value
       const bigint = parseInt(hex, 16);
-
-      // Extract the RGB components
       const r = (bigint >> 16) & 255;
       const g = (bigint >> 8) & 255;
       const b = bigint & 255;
-
-      // Return the RGB components as a string
       return `${r}, ${g}, ${b}`;
     }
 
@@ -46,6 +43,11 @@ const CryptoChart = ({ data, brandColor }) => {
       chart.remove();
     };
   }, [data, brandColor]);
+
+  // Return an empty fragment if there is no data
+  if (!data || data.length === 0) {
+    return <></>;
+  }
 
   return <div ref={chartContainerRef} style={{ width: "100%", height: "300px" }}></div>;
 };

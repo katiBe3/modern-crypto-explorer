@@ -6,29 +6,15 @@ import InfoTicker from "../common/InfoTicker";
 import GasPriceInfo from "../common/GasPriceInfo";
 import SearchInput from "./SearchInput";
 
-const Header = ({ marketData = {}, assets }) => {
+const Header = ({ }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
-  const formattedMarketData = useMemo(() => {
-    const { btcDominance = 0, ethDominance = 0, totalVolume = 0, marketDirection = "neutral", totalMarketCap = 0 } = marketData;
-    const formattedTotalMarketCap = typeof totalMarketCap === "number" && !isNaN(totalMarketCap) ? `$${parseFloat(totalMarketCap).toFixed(2)} Trillion` : "N/A";
-
-    return {
-      btcDominance: `${btcDominance}%`,
-      ethDominance: `${ethDominance}%`,
-      totalVolume: `$${totalVolume} Billion`,
-      marketDirection,
-      totalMarketCap: formattedTotalMarketCap,
-    };
-  }, [marketData]);
-
   const menuItems = [
     { label: "📈 Market", href: "/" },
     { label: "❤️ Favorites", href: "/favorites" },
-
     { label: "📰 News", href: "/news" },
   ];
 
@@ -38,7 +24,7 @@ const Header = ({ marketData = {}, assets }) => {
     </Button>
   );
 
-  const infoComponent = isMobile ? <InfoTicker formattedMarketData={formattedMarketData} /> : <InfoBar formattedMarketData={formattedMarketData} />;
+  const infoComponent = isMobile ? <InfoTicker /> : <InfoBar />;
 
   const desktopMenu = !isMobile && !isMenuOpen && (
     <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="2px" borderColor="gray.50">
@@ -51,7 +37,7 @@ const Header = ({ marketData = {}, assets }) => {
       </Flex>
       <Flex alignItems="center" gap={3} justifyContent="flex-end">
         <GasPriceInfo showTooltip={true} />
-        <SearchInput assets={assets} />
+        <SearchInput />
         <Button onClick={toggleColorMode} variant="outline" borderColor="gray.200" ml="auto">
           {colorMode === "light" ? <FaMoon /> : <FaSun />}
         </Button>

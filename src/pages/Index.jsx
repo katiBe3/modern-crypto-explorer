@@ -8,9 +8,10 @@ import { Grid, Box, Flex, Show, Hide } from "@chakra-ui/react";
 import CardSlider from "../components/layout/CardSlider";
 import CryptoTrendCard from "../components/market/cards/CryptoTrendCard";
 import NewsSection from "../components/news/NewsSection";
+import useAssetStore from "../stores/useAssetStore";
 
-const Index = ({ assets, marketData }) => {
-  const { bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap } = marketData;
+const Index = ({  }) => {
+  const assets = useAssetStore(state => state.assets);
 
   const getTopAssets = (property, count, isAscending = false) =>
     assets
@@ -35,7 +36,7 @@ const Index = ({ assets, marketData }) => {
   const mobileCards = (
     <Flex justifyContent="center" height="210px">
       <Box width="100%" maxWidth="400px" mx={4}>
-        <CardSlider hasAutoSlide="true" cards={[<FearGreedIndexCard bitcoinData={bitcoinData} btcDominance={btcDominance} ethDominance={ethDominance} totalVolume={totalVolume} marketDirection={marketDirection} totalMarketCap={totalMarketCap} />, <WhaleWatchCard />, ...cryptoTrendCards]} />
+        <CardSlider hasAutoSlide="true" cards={[<FearGreedIndexCard />, <WhaleWatchCard />, ...cryptoTrendCards]} />
       </Box>
     </Flex>
   );
@@ -43,7 +44,7 @@ const Index = ({ assets, marketData }) => {
   const desktopCards = (
     <Grid templateColumns={{ base: "1fr", md: "repeat(3, 1fr)" }} gap={8} my={2} alignItems="center">
       <CardSlider cards={cryptoTrendCards} hasAutoSlide="true" hasPoints="true" slideInterval={5000} />
-      <FearGreedIndexCard {...{ bitcoinData, btcDominance, ethDominance, totalVolume, marketDirection, totalMarketCap }} />
+      <FearGreedIndexCard />
       <WhaleWatchCard />
     </Grid>
   );
@@ -51,12 +52,12 @@ const Index = ({ assets, marketData }) => {
   return (
     <>
       <Box mx="auto" maxWidth="1200px">
-        <MarketTeaser assets={assets} mb={4} />
+        <MarketTeaser mb={4} />
         <Box my={2} minHeight="210px">
           <Show below="md">{mobileCards}</Show>
           <Hide below="md">{desktopCards}</Hide>
         </Box>
-        <CryptoTable assets={assets} />
+        <CryptoTable />
         <NewsSection />
       </Box>
         <TradingTips />

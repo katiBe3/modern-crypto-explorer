@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Box, Grid, Heading, Text } from "@chakra-ui/react";
 import NewsCard from "../components/news/NewsCard";
+import useNewsStore from "../stores/useNewsStore"; 
 
 const NewsPage = () => {
-  const [newsData, setNewsData] = useState([]);
+  const { newsData, fetchNews } = useNewsStore((state) => ({
+    newsData: state.generalNewsData,
+    fetchNews: state.fetchGeneralNews,
+  }));
 
   useEffect(() => {
-    const fetchNews = async () => {
-      try {
-        const response = await fetch("https://min-api.cryptocompare.com/data/v2/news/?lang=EN");
-        const data = await response.json();
-        setNewsData(data.Data);
-      } catch (error) {
-        console.error("Error fetching news data:", error);
-      }
-    };
-
     fetchNews();
-  }, []);
+  }, [fetchNews]);
 
   return (
     <Box m={8} maxWidth="1200px" mx="auto">

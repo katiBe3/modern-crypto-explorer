@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon, Hide } from "@chakra-ui/react";
 import { FaHeart } from "react-icons/fa";
 import SkeletonRows from "./SkeletonRows";
+import useAssetStore from "../../../stores/useAssetStore";
 
-const CryptoTable = React.memo(({ assets, showFavoritesOnly = false }) => {
+const CryptoTable = React.memo(({ showFavoritesOnly = false }) => {
+  const assets = useAssetStore(state => state.assets);
   const isLoading = !assets || assets.length === 0;
   const [tableData, setTableData] = useState([]);
   const [sortConfig, setSortConfig] = useState({ key: "marketCapUsd", direction: "desc" });

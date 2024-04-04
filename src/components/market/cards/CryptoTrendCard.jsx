@@ -3,6 +3,7 @@ import { Flex, Spacer, Stack, Text } from "@chakra-ui/react";
 import Card from "../../layout/Card";
 
 const CryptoTrendCard = ({ title, assets, value, isColored = true }) => {
+
   const formatNumber = (number) => {
     // Check if the value contains "usd" (case insensitive)
     if (value.toLowerCase().includes("usd")) {

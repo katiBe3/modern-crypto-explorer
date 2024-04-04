@@ -1,13 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text, Icon, useColorModeValue, Skeleton, Flex } from "@chakra-ui/react";
-import { FaBitcoin } from "react-icons/fa";
+import { Text, useColorModeValue, Skeleton } from "@chakra-ui/react";
 import Card from "../../layout/Card";
+import useHistoricalBTCDataStore from "../../../stores/useHistoricalBTCDataStore"; 
+import useAssetStore from "../../../stores/useAssetStore";
 
-const FearGreedIndex = ({ bitcoinData }) => {
+const FearGreedIndex = () => {
   const [fearGreedIndex, setFearGreedIndex] = useState(0);
   const [indexSentiment, setIndexSentiment] = useState("");
   const [lastUpdated, setLastUpdated] = useState(0);
 
+  // Access historical and current from the store
+  const historicalBitcoinData = useHistoricalBTCDataStore(state => state.bitcoinData);
+  const assets = useAssetStore(state => state.assets);
+  const currentBitcoinData = assets.find(asset => asset.symbol === "BTC");
+  
   const formatDate = (timestamp) => {
     const options = { month: "long", day: "numeric" };
     const formattedDate = new Date(timestamp).toLocaleDateString("en-US", options);
@@ -35,23 +41,29 @@ const FearGreedIndex = ({ bitcoinData }) => {
 
   useEffect(() => {
     const calculateFearGreedIndex = () => {
-      if (!Array.isArray(bitcoinData) || bitcoinData.length < 2) return;
-
+      if (!Array.isArray(historicalBitcoinData) || historicalBitcoinData.length < 2 || !currentBitcoinData) return;
+    
       setLastUpdated(Date.now());
-
+    
       let priceChanges = [];
-      for (let i = 1; i < bitcoinData.length; i++) {
-        const previousPrice = parseFloat(bitcoinData[i - 1].priceUsd);
-        const currentPrice = parseFloat(bitcoinData[i].priceUsd);
+      for (let i = 1; i < historicalBitcoinData.length; i++) {
+        const previousPrice = parseFloat(historicalBitcoinData[i - 1].priceUsd);
+        const currentPrice = parseFloat(historicalBitcoinData[i].priceUsd);
         const priceChangePercent = ((currentPrice - previousPrice) / previousPrice) * 100;
         priceChanges.push(priceChangePercent);
       }
-
+    
+      // Incorporate the latest 24hr change percentage into the calculation
+      const currentChangePercent = parseFloat(currentBitcoinData.changePercent24Hr);
+      if (!isNaN(currentChangePercent)) {
+        priceChanges.push(currentChangePercent);
+      }
+    
       const avgPriceChange = priceChanges.reduce((sum, change) => sum + change, 0) / priceChanges.length;
       // Adjust these values to get a more balanced index
-      const scaledIndex = (avgPriceChange + 5.35) * 12.6; // Fine-tuning the scale and baseline
+      const scaledIndex = (avgPriceChange + 5.2) * 12.3;  // Fine-tuning the scale and baseline
       const index = Math.round(Math.min(100, Math.max(0, scaledIndex))); // Ensure index is between 0 and 100
-
+    
       let sentiment = "";
       if (index >= 80) {
         sentiment = "Extreme Greed 🤑";
@@ -64,7 +76,7 @@ const FearGreedIndex = ({ bitcoinData }) => {
       } else {
         sentiment = "Extreme Fear 😱";
       }
-
+    
       setFearGreedIndex(index);
       setIndexSentiment(sentiment);
     };
@@ -74,7 +86,7 @@ const FearGreedIndex = ({ bitcoinData }) => {
     const interval = setInterval(calculateFearGreedIndex, 60 * 60 * 1000);
 
     return () => clearInterval(interval);
-  }, [bitcoinData]);
+  }, [historicalBitcoinData ]);
 
   return (
     <Card title="Fear & Greed Index">

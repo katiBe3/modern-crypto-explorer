@@ -13,6 +13,7 @@ It picks up data from free and open APIs to track the top 100 cryptos.
 * Whale watch feature constantly looks for high buys on the blockchain.
 * Crypto detail page shows and links to top 3 trading websites (by volume).
 * Uses Skeletons on load for better user experience.
+* Leverages Zustand for easy state management across the application.
 
 ## Collaborate with GPT Engineer
 

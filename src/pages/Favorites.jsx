@@ -3,8 +3,9 @@ import { Box, Heading, Text } from "@chakra-ui/react";
 import CryptoTable from "../components/market/table/CryptoTable";
 import NewsSection from "../components/news/NewsSection";
 import useAssetStore from "../stores/useAssetStore";
+import useNewsStore from "../stores/useNewsStore";
 
-const Favorites = ({ }) => {
+const Favorites = () => {
   const assets = useAssetStore((state) => state.assets);
   const [favorites, setFavorites] = useState(() => {
     try {
@@ -21,6 +22,15 @@ const Favorites = ({ }) => {
       localStorage.setItem("favorites", JSON.stringify(favorites));
     } catch (error) {
       console.error("Error saving favorites to localStorage:", error);
+    }
+  }, [favorites]);
+
+  // Fetch multiCryptoNews when favorites change
+  useEffect(() => {
+    const favoriteCryptosSymbols = Object.keys(favorites);
+    if (favoriteCryptosSymbols.length > 0) {
+      // Access fetchMultiCryptoNews from useNewsStore
+      useNewsStore.getState().fetchMultiCryptoNews(favoriteCryptosSymbols);
     }
   }, [favorites]);
 

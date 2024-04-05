@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { Flex, Text, Button, useColorMode, Icon, useMediaQuery, Box } from "@chakra-ui/react";
 import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
 import InfoBar from "../common/InfoBar";
 import InfoTicker from "../common/InfoTicker";
 import GasPriceInfo from "../common/GasPriceInfo";
 import SearchInput from "./SearchInput";
+import { Link as RouterLink } from 'react-router-dom';
 
 const Header = ({ }) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -13,13 +14,13 @@ const Header = ({ }) => {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   const menuItems = [
-    { label: "📈 Market", href: "/" },
-    { label: "❤️ Favorites", href: "/favorites" },
-    { label: "📰 News", href: "/news" },
+    { label: "📈 Market", to: "/" },
+    { label: "❤️ Favorites", to: "/favorites" }, 
+    { label: "📰 News", to: "/news" },
   ];
 
   const ctaButton = (
-    <Button bg="brand.main" color="white" fontWeight="bold" textShadow="0 0 8px rgba(255, 255, 255, 0.4)" _hover={{ bg: "brand.darker" }} _active={{ bg: "brand.main" }} onClick={() => (window.location.href = "/about")}>
+    <Button bg="brand.main" color="white" fontWeight="bold" textShadow="0 0 8px rgba(255, 255, 255, 0.4)" _hover={{ bg: "brand.darker" }} _active={{ bg: "brand.main" }} as={RouterLink} to="/about">
       About Us
     </Button>
   );
@@ -30,7 +31,7 @@ const Header = ({ }) => {
     <Flex px={4} py={2} alignItems="center" justifyContent="space-between" borderBottom="2px" borderColor="gray.50">
       <Flex maxWidth="1200" fontWeight="bold" mr={8}>
         {menuItems.map((item, index) => (
-          <Text key={index} as="a" href={item.href} mr={8}>
+          <Text as={RouterLink} to={item.to} mr={8} key={index}>
             {item.label}
           </Text>
         ))}
@@ -59,7 +60,7 @@ const Header = ({ }) => {
   const mobileMenuOpen = isMobile && isMenuOpen && (
     <Flex flexDirection="column" bg="gray.100" py={4} px={2} borderBottom="2px" borderColor="gray.50" fontWeight="bold" width="100%">
       {menuItems.map((item, index) => (
-        <Text key={index} as="a" href={item.href} mb={2}>
+        <Text as={RouterLink} to={item.to} mb={2} key={index}>
           {item.label}
         </Text>
       ))}

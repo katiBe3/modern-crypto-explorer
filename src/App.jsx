@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Index from "./pages/Index.jsx";
 import About from "./pages/About.jsx";
-
 import Favorites from "./pages/Favorites.jsx";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import CryptoDetails from "./pages/CryptoDetails";
 import NewsPage from "./pages/NewsPage";
-import useAssetStore from './stores/useAssetStore'; // Adjust the import path as necessary
-import useHistoricalBTCDataStore from './stores/useHistoricalBTCDataStore'; // Import the historical BTC data store
+import useAssetStore from './stores/useAssetStore'; 
+import useHistoricalBTCDataStore from './stores/useHistoricalBTCDataStore'; 
 
 function App() {
   const assets = useAssetStore(state => state.assets);
@@ -66,17 +65,17 @@ function App() {
 
   return (
     <Box display="flex" flexDirection="column" minHeight="100vh">
-      <Header marketData={marketData} assets={assets} />
       <Router>
-        <Routes>
-        <Route exact path="/" element={<Index assets={assets} marketData={marketData} />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/favorites" element={<Favorites assets={assets} />} />
-          <Route path="/news" element={<NewsPage />} />
-          <Route path="/crypto/:id" element={<CryptoDetails assets={assets} />} />
-        </Routes>
+        <Header/>
+          <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/news" element={<NewsPage />} />
+              <Route path="/crypto/:id" element={<CryptoDetails />} />
+          </Routes>
+        <Footer />
       </Router>
-      <Footer />
     </Box>
   );
 }

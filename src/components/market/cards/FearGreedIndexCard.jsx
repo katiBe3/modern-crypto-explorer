@@ -8,6 +8,7 @@ const FearGreedIndex = () => {
   const [fearGreedIndex, setFearGreedIndex] = useState(null);
   const [indexSentiment, setIndexSentiment] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   // Access historical and current from the store
   const historicalBitcoinData = useHistoricalBTCDataStore(state => state.bitcoinData);
   const assets = useAssetStore(state => state.assets);
@@ -74,9 +75,9 @@ const FearGreedIndex = () => {
       } else {
         sentiment = "Extreme Fear 😱";
       }
-    
       setFearGreedIndex(index);
       setIndexSentiment(sentiment);
+      setIsLoading(false);
     };
 
     calculateFearGreedIndex();
@@ -88,17 +89,17 @@ const FearGreedIndex = () => {
 
   return (
     <Card title="Fear & Greed Index">
-      <Skeleton isLoaded={fearGreedIndex !== null} height="60px">
+      <Skeleton isLoaded={!isLoading} height="60px">
         <Text fontSize="6xl" lineHeight="100%" fontWeight="black" color={indexColor} >
           {fearGreedIndex}
         </Text>
       </Skeleton>
-      <Skeleton isLoaded={indexSentiment !== null} height="24px">
+      <Skeleton isLoaded={!isLoading} height="24px">
         <Text fontWeight="bold" textAlign="center">
           {indexSentiment}
         </Text>
       </Skeleton>
-      <Skeleton isLoaded={lastUpdated !== null} height="20px" mt={2}>
+      <Skeleton isLoaded={!isLoading} height="20px" mt={2}>
         <Text fontSize="sm" fontWeight="normal" textAlign="center" color="gray.500">
           Last updated: {formatDate(lastUpdated)}
         </Text>

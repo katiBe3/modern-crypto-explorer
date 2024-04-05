@@ -20,13 +20,22 @@ const useWhaleWatchStore = create((set) => ({
       const priceData = await priceResponse.json();
       const bitcoinPrice = parseFloat(priceData.data.priceUsd);
 
-      const usdAmount = (highestTx.value / 100000000) * bitcoinPrice;
+      const usdAmount = (highestTx.value / 1000000000) * bitcoinPrice;
 
-      set({
-        highestTransaction: { ...highestTx, usdAmount },
-        error: null,
-        isLoading: false,
-      });
+      // Update the state only if the transaction is over $10 million
+      if (usdAmount > 10000000) {
+        set({
+          highestTransaction: { ...highestTx, usdAmount },
+          error: null,
+          isLoading: false,
+        });
+      } else {
+        set({
+          highestTransaction: null, // No whale transaction found
+          error: null,
+          isLoading: false,
+        });
+      }
     } catch (error) {
       console.error("Error fetching whale activity:", error.message);
       set({

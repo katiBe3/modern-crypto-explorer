@@ -49,7 +49,7 @@ const CryptoChart = ({ data, brandColor }) => {
     return <></>;
   }
 
-  return <div ref={chartContainerRef} style={{ width: "100%", height: "300px" }}></div>;
+  return <div ref={chartContainerRef} style={{ maxWidth: "600px", height: "300px" }}></div>;
 };
 
 export default CryptoChart;

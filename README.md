@@ -3,6 +3,8 @@
 This is a crypto tracking starter app! 😊
 It picks up data from free and open APIs to track the top 100 cryptos. 
 
+<img width="1768" alt="Video" src="https://github.com/katiBe3/modern-crypto-explorer/blob/main/src/assets/Video.gif?raw=true">
+
 ## Features
 * Allows user to explore and filter the top 100 cryptos.
 * Fetches current market data every 5 seconds.

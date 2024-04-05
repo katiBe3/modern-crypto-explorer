@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory for React Router v6+
+import { useNavigate } from "react-router-dom";
 import { InputGroup, InputLeftElement, Icon, Input, List, ListItem } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import useAssetStore from "../../stores/useAssetStore";
@@ -10,12 +10,12 @@ const SearchInput = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
   const resultListRef = useRef(null);
-  const navigate = useNavigate(); // useNavigate hook for navigation
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
-  
+
     if (query.trim().length >= 2 && assets) {
       const lowerCaseQuery = query.toLowerCase();
       const filteredAssets = assets.filter((asset) =>
@@ -30,8 +30,18 @@ const SearchInput = () => {
 
   const handleKeyPress = (e) => {
     if (e.key === "Enter" && suggestions.length > 0) {
-      navigate(`/crypto/${suggestions[0].id}`); 
+      navigate(`/crypto/${suggestions[0].id}`);
+      setSearchQuery('');
+      setSuggestions([]);
+      setIsFocused(false);
     }
+  };
+
+  const handleListItemClick = (assetId) => {
+    navigate(`/crypto/${assetId}`);
+    setSearchQuery('');
+    setSuggestions([]);
+    setIsFocused(false);
   };
 
   useEffect(() => {
@@ -88,7 +98,7 @@ const SearchInput = () => {
               px={4}
               py={2}
               _hover={{ bg: "gray.50", fontWeight: "bold", cursor: "pointer" }}
-              onClick={() => navigate(`/crypto/${asset.id}`)} // Navigate using useNavigate
+              onClick={() => handleListItemClick(asset.id)}
             >
               {asset.name}
             </ListItem>

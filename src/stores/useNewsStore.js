@@ -1,54 +1,50 @@
 import { create } from 'zustand';
 
+// Utility function to fetch and filter news by unique sources
+const fetchAndFilterNews = async (url, maxArticles = 3) => {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data.Data.reduce((acc, article) => {
+      if (!acc.find(item => item.source === article.source) && acc.length < maxArticles) {
+        acc.push(article);
+      }
+      return acc;
+    }, []);
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    return [];
+  }
+};
+
 const useNewsStore = create((set) => ({
   generalNewsData: [],
-  cryptoNewsData: {},  // Stores news by crypto symbol
-  multiCryptoNewsData: [],  // Stores news for multiple cryptos
+  cryptoNewsData: {},
+  multiCryptoNewsData: [],
+  
   fetchGeneralNews: async () => {
-    try {
-      const response = await fetch("https://min-api.cryptocompare.com/data/v2/news/?lang=EN");
-      const data = await response.json();
-      set({ generalNewsData: data.Data });
-    } catch (error) {
-      console.error("Error fetching general news data:", error);
-    }
+    const uniqueSourceNews = await fetchAndFilterNews("https://min-api.cryptocompare.com/data/v2/news/?lang=EN", 18);
+    set({ generalNewsData: uniqueSourceNews });
   },
+
   fetchCryptoNews: async (cryptoSymbol) => {
-    try {
-      const response = await fetch(`https://min-api.cryptocompare.com/data/v2/news/?lang=EN&categories=${cryptoSymbol}`);
-      const data = await response.json();
-      set((state) => ({
-        cryptoNewsData: {
-          ...state.cryptoNewsData,
-          [cryptoSymbol]: data.Data.slice(0, 3),
-        },
-      }));
-    } catch (error) {
-      console.error(`Error fetching news data for ${cryptoSymbol}:`, error);
-    }
+    const uniqueSourceNews = await fetchAndFilterNews(`https://min-api.cryptocompare.com/data/v2/news/?lang=EN&categories=${cryptoSymbol}`, 3);
+    set((state) => ({
+      cryptoNewsData: {
+        ...state.cryptoNewsData,
+        [cryptoSymbol]: uniqueSourceNews,
+      },
+    }));
   },
+
   fetchMultiCryptoNews: async (cryptos) => {
-    try {
-      let url = "https://min-api.cryptocompare.com/data/v2/news/?lang=EN";
-      if (cryptos && cryptos.length > 0) {
-        const cryptoSymbols = Array.isArray(cryptos) ? cryptos.join(",") : cryptos;
-        url += `&categories=${cryptoSymbols}`;
-      }
-      const response = await fetch(url);
-      const data = await response.json();
-
-      const selectedArticles = data.Data.reduce((acc, article) => {
-        const sourceExists = acc.find((item) => item.source === article.source);
-        if (!sourceExists && acc.length < 3) {
-          acc.push(article);
-        }
-        return acc;
-      }, []);
-
-      set({ multiCryptoNewsData: selectedArticles });
-    } catch (error) {
-      console.error("Error fetching multi-crypto news data:", error);
+    let url = "https://min-api.cryptocompare.com/data/v2/news/?lang=EN";
+    if (cryptos && cryptos.length > 0) {
+      const cryptoSymbols = Array.isArray(cryptos) ? cryptos.join(",") : cryptos;
+      url += `&categories=${cryptoSymbols}`;
     }
+    const selectedArticles = await fetchAndFilterNews(url, 3);
+    set({ multiCryptoNewsData: selectedArticles });
   },
 }));
 

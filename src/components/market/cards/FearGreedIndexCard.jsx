@@ -5,15 +5,14 @@ import useHistoricalBTCDataStore from "../../../stores/useHistoricalBTCDataStore
 import useAssetStore from "../../../stores/useAssetStore";
 
 const FearGreedIndex = () => {
-  const [fearGreedIndex, setFearGreedIndex] = useState(0);
-  const [indexSentiment, setIndexSentiment] = useState("");
-  const [lastUpdated, setLastUpdated] = useState(0);
-
+  const [fearGreedIndex, setFearGreedIndex] = useState(null);
+  const [indexSentiment, setIndexSentiment] = useState(null);
+  const [lastUpdated, setLastUpdated] = useState(null);
   // Access historical and current from the store
   const historicalBitcoinData = useHistoricalBTCDataStore(state => state.bitcoinData);
   const assets = useAssetStore(state => state.assets);
   const currentBitcoinData = assets.find(asset => asset.symbol === "BTC");
-  
+
   const formatDate = (timestamp) => {
     const options = { month: "long", day: "numeric" };
     const formattedDate = new Date(timestamp).toLocaleDateString("en-US", options);
@@ -37,11 +36,12 @@ const FearGreedIndex = () => {
         return "th";
     }
   };
-  const indexColor = useColorModeValue(indexSentiment.includes("Greed") ? "green.500" : "red.500", indexSentiment.includes("Greed") ? "green.200" : "red.200");
+
+  const indexColor = useColorModeValue(indexSentiment?.includes("Greed") ? "green.500" : "red.500", indexSentiment?.includes("Greed") ? "green.200" : "red.200");
 
   useEffect(() => {
     const calculateFearGreedIndex = () => {
-      if (!Array.isArray(historicalBitcoinData) || historicalBitcoinData.length < 2 || !currentBitcoinData) return;
+      if (!Array.isArray(historicalBitcoinData) || !currentBitcoinData) return;
     
       setLastUpdated(Date.now());
     
@@ -52,17 +52,15 @@ const FearGreedIndex = () => {
         const priceChangePercent = ((currentPrice - previousPrice) / previousPrice) * 100;
         priceChanges.push(priceChangePercent);
       }
-    
-      // Incorporate the latest 24hr change percentage into the calculation
+      // Incorporate the latest 24hr change percentage into the calculation    
       const currentChangePercent = parseFloat(currentBitcoinData.changePercent24Hr);
       if (!isNaN(currentChangePercent)) {
         priceChanges.push(currentChangePercent);
       }
-    
       const avgPriceChange = priceChanges.reduce((sum, change) => sum + change, 0) / priceChanges.length;
       // Adjust these values to get a more balanced index
-      const scaledIndex = (avgPriceChange + 5.2) * 12.3;  // Fine-tuning the scale and baseline
-      const index = Math.round(Math.min(100, Math.max(0, scaledIndex))); // Ensure index is between 0 and 100
+      const scaledIndex = (avgPriceChange + 5.2) * 12.3;
+      const index = Math.round(Math.min(100, Math.max(0, scaledIndex)));
     
       let sentiment = "";
       if (index >= 80) {
@@ -82,25 +80,25 @@ const FearGreedIndex = () => {
     };
 
     calculateFearGreedIndex();
-
+    // Adjust these values to get a more balanced index
     const interval = setInterval(calculateFearGreedIndex, 60 * 60 * 1000);
 
     return () => clearInterval(interval);
-  }, [historicalBitcoinData ]);
+  }, [historicalBitcoinData]);
 
   return (
     <Card title="Fear & Greed Index">
-      <Skeleton isLoaded={fearGreedIndex !== 0} height="60px">
+      <Skeleton isLoaded={fearGreedIndex !== null} height="60px">
         <Text fontSize="6xl" lineHeight="100%" fontWeight="black" color={indexColor} >
           {fearGreedIndex}
         </Text>
       </Skeleton>
-      <Skeleton isLoaded={indexSentiment !== 0} height="24px">
+      <Skeleton isLoaded={indexSentiment !== null} height="24px">
         <Text fontWeight="bold" textAlign="center">
           {indexSentiment}
         </Text>
       </Skeleton>
-      <Skeleton isLoaded={lastUpdated !== 0} height="20px" mt={2}>
+      <Skeleton isLoaded={lastUpdated !== null} height="20px" mt={2}>
         <Text fontSize="sm" fontWeight="normal" textAlign="center" color="gray.500">
           Last updated: {formatDate(lastUpdated)}
         </Text>
@@ -109,4 +107,4 @@ const FearGreedIndex = () => {
   );
 };
 
-export default FearGreedIndex;
+export default React.memo(FearGreedIndex);

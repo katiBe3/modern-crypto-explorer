@@ -10,7 +10,7 @@ It picks up data from free and open APIs to track the top 100 cryptos.
 * Has it's own fear & greed index (based on historical & current bitcoin data).
 * Shows BTC & ETH dominance, 24h volume and current ETH gas prices.
 * Has a crypto name & symbol search integrated.
-* Whale watch feature constantly looks for high buys on the blockchain.
+* Whale watch feature is constantly looking for high buys on the blockchain.
 * Crypto detail page shows [tradingview](https://github.com/tradingview/lightweight-charts) charts and links to top 3 trading websites (by volume).
 * Uses Skeletons on load for better user experience.
 * Leverages [Zustand](https://github.com/pmndrs/zustand) for easy state management across the application.

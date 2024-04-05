@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 
-const useAssetStore = create((set, get) => ({
-  totalMarketCap: localStorage.getItem('totalMarketCap') || null,
-  overallPercentChange: localStorage.getItem('overallPercentChange') || null,
-  assets: JSON.parse(localStorage.getItem('assets')) || [],
-  btcDominance: localStorage.getItem('btcDominance') || null,
-  ethDominance: localStorage.getItem('ethDominance') || null,
-  totalVolume: localStorage.getItem('totalVolume') || null,
-  marketDirection: localStorage.getItem('marketDirection') || "neutral",
+const useAssetStore = create((set) => ({
+  totalMarketCap: null,
+  overallPercentChange: null,
+  assets: [],
+  btcDominance: null,
+  ethDominance: null,
+  totalVolume: null,
+  marketDirection: "neutral",
   
   setAssets: (assets) => {
     const marketData = calculateMarketData(assets);
@@ -15,12 +15,6 @@ const useAssetStore = create((set, get) => ({
       ...marketData,
       assets,
     }));
-
-    // Save to local storage
-    Object.entries(marketData).forEach(([key, value]) => {
-      localStorage.setItem(key, value);
-    });
-    localStorage.setItem('assets', JSON.stringify(assets));
   },
 
   fetchAssets: async () => {
@@ -35,17 +29,10 @@ const useAssetStore = create((set, get) => ({
         rank: index + 1,
       }));
 
-      const marketData = calculateMarketData(assetsWithRank);
       set(() => ({
-        ...marketData,
+        ...calculateMarketData(assetsWithRank),
         assets: assetsWithRank,
       }));
-
-      // Save to local storage
-      Object.entries(marketData).forEach(([key, value]) => {
-        localStorage.setItem(key, value);
-      });
-      localStorage.setItem('assets', JSON.stringify(assetsWithRank));
     } catch (error) {
       console.error("Error fetching assets:", error);
     }

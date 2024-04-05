@@ -1,19 +1,16 @@
 import { create } from 'zustand';
 
-const useGasPriceStore = create((set, get) => ({
-  standardGasPrice: localStorage.getItem('standardGasPrice') || null,
-  fastGasPrice: localStorage.getItem('fastGasPrice') || null,
-  lastFetched: localStorage.getItem('lastFetchedGasTime') || 0,
+const useGasPriceStore = create((set) => ({
+  standardGasPrice: null,
+  fastGasPrice: null,
+  lastFetched: 0,
   setStandardGasPrice: (price) => {
-    localStorage.setItem('standardGasPrice', price);
     set(() => ({ standardGasPrice: price }));
   },
   setFastGasPrice: (price) => {
-    localStorage.setItem('fastGasPrice', price);
     set(() => ({ fastGasPrice: price }));
   },
   setLastFetched: (time) => {
-    localStorage.setItem('lastFetchedGasTime', time);
     set(() => ({ lastFetched: time }));
   },
   fetchGasPrices: async () => {
@@ -25,9 +22,11 @@ const useGasPriceStore = create((set, get) => ({
 
       if (gasPrices) {
         const { ProposeGasPrice, FastGasPrice } = gasPrices;
-        get().setStandardGasPrice(ProposeGasPrice);
-        get().setFastGasPrice(FastGasPrice);
-        get().setLastFetched(Date.now());
+        set(() => ({
+          standardGasPrice: ProposeGasPrice,
+          fastGasPrice: FastGasPrice,
+          lastFetched: Date.now(),
+        }));
       }
     } catch (error) {
       console.error("Error fetching gas prices:", error.message);

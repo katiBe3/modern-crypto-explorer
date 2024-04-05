@@ -1,9 +1,9 @@
 import { create } from 'zustand';
 
 const useNextHalvingInfoStore = create((set) => ({
-  daysUntilHalving: localStorage.getItem('daysUntilHalving') ? parseInt(localStorage.getItem('daysUntilHalving'), 10) : null,
-  remainingBlocks: localStorage.getItem('remainingBlocks') ? parseInt(localStorage.getItem('remainingBlocks'), 10) : null,
-  blockTimeInSeconds: localStorage.getItem('blockTimeInSeconds') ? parseInt(localStorage.getItem('blockTimeInSeconds'), 10) : null,
+  daysUntilHalving: null,
+  remainingBlocks: null,
+  blockTimeInSeconds: null,
   fetchNextHalvingInfo: async () => {
     try {
       const blockCountResponse = await fetch("https://blockchain.info/q/getblockcount");
@@ -25,11 +25,6 @@ const useNextHalvingInfoStore = create((set) => ({
         daysUntilHalving: daysUntilHalving,
         blockTimeInSeconds: blockTimeInSeconds,
       });
-
-      // Save to local storage
-      localStorage.setItem('remainingBlocks', blocksUntilHalving);
-      localStorage.setItem('daysUntilHalving', daysUntilHalving);
-      localStorage.setItem('blockTimeInSeconds', blockTimeInSeconds);
     } catch (error) {
       console.error("Error fetching next halving info:", error);
       set({

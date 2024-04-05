@@ -3,8 +3,10 @@ import { Box, Table, Thead, Tbody, Tr, Th, Td, Text, Icon, Hide } from "@chakra-
 import { FaHeart } from "react-icons/fa";
 import SkeletonRows from "./SkeletonRows";
 import useAssetStore from "../../../stores/useAssetStore";
+import { useNavigate } from "react-router-dom";
 
 const CryptoTable = React.memo(({ showFavoritesOnly = false }) => {
+  const navigate = useNavigate();
   const assets = useAssetStore(state => state.assets);
   const isLoading = !assets || assets.length === 0;
   const [tableData, setTableData] = useState([]);
@@ -139,7 +141,7 @@ const CryptoTable = React.memo(({ showFavoritesOnly = false }) => {
               <Th px={{ base: 1, md: 4 }} onClick={() => handleSort("supply")}>
                 Circulating Supply {sortConfig.key === "supply" ? (sortConfig.direction === "asc" ? "▲" : "▼") : ""}
               </Th>
-          </Hide>
+            </Hide>
           </Tr>
         </Thead>
         <Tbody>
@@ -158,32 +160,32 @@ const CryptoTable = React.memo(({ showFavoritesOnly = false }) => {
               <Td px={{ base: 1, md: 4 }} fontWeight="bold">
                 <Icon as={FaHeart} color={crypto.isFavorite ? "red.500" : "gray.200"} onClick={() => toggleFavorite(crypto.symbol)} _hover={{ color: "red.400", cursor: "pointer" }} />
               </Td>
-              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
-              <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold">
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => navigate(`/crypto/${crypto.id}`)}>
+                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold">
                   {crypto.name}
                 </Text>
                 <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color="gray.500">
                   {crypto.symbol}
                 </Text>
               </Td>
-              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => navigate(`/crypto/${crypto.id}`)}>
                 <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={priceColors[crypto.id]}>
                   {parseFloat(crypto.priceUsd) >= 100 ? `$${parseInt(crypto.priceUsd).toLocaleString()}` : parseFloat(crypto.priceUsd) >= 1 ? `$${parseFloat(crypto.priceUsd).toLocaleString()}` : `$${parseFloat(crypto.priceUsd).toFixed(8)}`}
                 </Text>
               </Td>
-              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
-              <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>
+              <Td px={{ base: 1, md: 4 }} fontWeight="bold" onClick={() => navigate(`/crypto/${crypto.id}`)}>
+                <Text fontSize={{ base: "xs", md: "sm" }} fontWeight="bold" color={parseFloat(crypto.changePercent24Hr) >= 0 ? "green.400" : "red.400"}>
                   {parseFloat(crypto.changePercent24Hr).toFixed(2)}%
                 </Text>
               </Td>
               <Hide below="md">
-                <Td px={4} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
+                <Td px={4} fontWeight="bold" onClick={() => navigate(`/crypto/${crypto.id}`)}>
                   ${parseInt(crypto.marketCapUsd).toLocaleString()}
                 </Td>
-                <Td px={4} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
+                <Td px={4} fontWeight="bold" onClick={() => navigate(`/crypto/${crypto.id}`)}>
                   ${parseInt(crypto.volumeUsd24Hr).toLocaleString()}
                 </Td>
-                <Td px={4} fontWeight="bold" onClick={() => window.location.href = `/crypto/${crypto.id}`}>
+                <Td px={4} fontWeight="bold" onClick={() => navigate(`/crypto/${crypto.id}`)}>
                   {parseInt(crypto.supply).toLocaleString()}
                 </Td>
               </Hide>

@@ -22,18 +22,27 @@ const useWhaleWatchStore = create((set) => ({
 
       const usdAmount = (highestTx.value / 1000000000) * bitcoinPrice;
 
-      // Update the state only if the transaction is over $10 million
-      if (usdAmount > 10000000) {
+      // Update the state only if the transaction is over 490 million for whales, or below 500 million for small fish
+      if (usdAmount > 490000000) {
         set({
           highestTransaction: { ...highestTx, usdAmount },
           error: null,
           isLoading: false,
+          message: "BTC whales are making waves! 🌊 Here's the latest transaction:"
+        });
+      } else if (usdAmount > 0) {
+        set({
+          highestTransaction: { ...highestTx, usdAmount },
+          error: null,
+          isLoading: false,
+          message: "There are small fish in the sea!🐟 Keep watching for the big ones.",
         });
       } else {
         set({
-          highestTransaction: null, // No whale transaction found
+          highestTransaction: null, // No transaction found
           error: null,
           isLoading: false,
+          message: "No recent transactions found. Keep an eye out for whale activity!👀",
         });
       }
     } catch (error) {

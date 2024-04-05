@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { Flex, Text, Skeleton } from "@chakra-ui/react";
 import Card from "../../layout/Card";
-import useWhaleWatchStore from "../../../stores/useWhaleWatchStore"; 
+import useWhaleWatchStore from "../../../stores/useWhaleWatchStore";
 
 const WhaleWatchCard = () => {
-  const { highestTransaction, error, isLoading, fetchWhaleActivity } = useWhaleWatchStore(state => ({
+  const { highestTransaction, error, isLoading, message, fetchWhaleActivity } = useWhaleWatchStore(state => ({
     highestTransaction: state.highestTransaction,
     error: state.error,
     isLoading: state.isLoading,
+    message: state.message, // Add message to state properties
     fetchWhaleActivity: state.fetchWhaleActivity,
   }));
 
@@ -25,7 +26,7 @@ const WhaleWatchCard = () => {
             <Text>{error}</Text>
           ) : highestTransaction ? (
             <>
-              <Text>BTC whales are making waves! 🌊 Here's the latest transaction:</Text>
+              <Text>{message}</Text>
               <Text fontWeight="bold" textAlign="center" color="green.500" fontSize="2xl" mt={2}>
                 ${parseInt(highestTransaction.usdAmount).toLocaleString()} 
               </Text>

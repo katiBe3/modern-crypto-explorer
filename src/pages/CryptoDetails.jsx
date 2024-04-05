@@ -4,32 +4,45 @@ import { Box, Text, Heading, useTheme } from "@chakra-ui/react";
 import NewsSection from "../components/news/NewsSection";
 import ExchangeTable from "../components/market/table/ExchangeTable";
 import CryptoChart from "../components/market/CryptoChart";
+import useAssetStore from '../stores/useAssetStore'; // Import the store
 
-const CryptoDetails = ({ assets }) => {
+const CryptoDetails = () => {
   const { id } = useParams();
-  const theme = useTheme(); // Use useTheme hook to access the theme object
+  const theme = useTheme();
+  const { assets, fetchAssets } = useAssetStore((state) => ({
+    assets: state.assets,
+    fetchAssets: state.fetchAssets,
+  }));
   const crypto = assets.find((asset) => asset.id === id);
   const [historicalData, setHistoricalData] = useState(null);
 
   useEffect(() => {
+    if (assets.length === 0) {
+      fetchAssets(); // Fetch assets if not already loaded
+    }
+  }, [assets, fetchAssets]);
+
+  useEffect(() => {
     const fetchHistoricalData = async () => {
+      if (!crypto) return;
+
       const endDate = new Date().getTime();
-      const startDate = endDate - 3 * 30 * 24 * 60 * 60 * 1000; // We fetch 3 months of data
+      const startDate = endDate - 3 * 30 * 24 * 60 * 60 * 1000; // Fetching 3 months of data
       const interval = "d1";
 
-      const response = await fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=${interval}&start=${startDate}&end=${endDate}`);
+      const response = await fetch(`https://api.coincap.io/v2/assets/${crypto.id}/history?interval=${interval}&start=${startDate}&end=${endDate}`);
       const data = await response.json();
 
       const formattedData = data.data.map((item) => ({
-        time: new Date(item.time).toISOString().split('T')[0], // Convert UNIX timestamp to date string in 'YYYY-MM-DD' format
+        time: new Date(item.time).toISOString().split('T')[0], // Convert UNIX timestamp to date string
         value: parseFloat(item.priceUsd),
-      }));      
+      }));
 
       setHistoricalData(formattedData);
     };
 
     fetchHistoricalData();
-  }, [id]);
+  }, [crypto]);
 
   if (!crypto) {
     return <Text>Cryptocurrency not found.</Text>;

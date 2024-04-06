@@ -10,60 +10,44 @@ const FearGreedIndex = () => {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   // Access historical and current from the store
-  const historicalBitcoinData = useHistoricalBTCDataStore(state => state.bitcoinData);
-  const assets = useAssetStore(state => state.assets);
+  const historicalBitcoinData = useHistoricalBTCDataStore((state) => state.bitcoinData);
+  const fetchHistoricalBTCData = useHistoricalBTCDataStore((state) => state.fetchHistoricalBtcData);
+  const assets = useAssetStore((state) => state.assets);
+  const fetchAssets = useAssetStore((state) => state.fetchAssets);
   const currentBitcoinData = assets.find(asset => asset.symbol === "BTC");
 
-  const formatDate = (timestamp) => {
-    const options = { month: "long", day: "numeric" };
-    const formattedDate = new Date(timestamp).toLocaleDateString("en-US", options);
-    const day = formattedDate.split(" ")[1];
-    const daySuffix = getDaySuffix(day);
-    return formattedDate.replace(day, day + daySuffix);
-  };
-
-  const getDaySuffix = (day) => {
-    if (day >= 11 && day <= 13) {
-      return "th";
-    }
-    switch (day % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
-
-  const indexColor = useColorModeValue(indexSentiment?.includes("Greed") ? "green.500" : "red.500", indexSentiment?.includes("Greed") ? "green.200" : "red.200");
+  useEffect(() => {
+    fetchHistoricalBTCData();
+    fetchAssets();
+  }, [fetchHistoricalBTCData, fetchAssets]);
 
   useEffect(() => {
+    if (!Array.isArray(historicalBitcoinData) || !currentBitcoinData) {
+      setIsLoading(true);
+      return;
+    }
+
     const calculateFearGreedIndex = () => {
-      if (!Array.isArray(historicalBitcoinData) || !currentBitcoinData) return;
-    
       setLastUpdated(Date.now());
     
-      let priceChanges = [];
-      for (let i = 1; i < historicalBitcoinData.length; i++) {
-        const previousPrice = parseFloat(historicalBitcoinData[i - 1].priceUsd);
-        const currentPrice = parseFloat(historicalBitcoinData[i].priceUsd);
-        const priceChangePercent = ((currentPrice - previousPrice) / previousPrice) * 100;
-        priceChanges.push(priceChangePercent);
-      }
+      let priceChanges = historicalBitcoinData.map((data, i, arr) => {
+        if (i === 0) return 0;
+        const previousPrice = parseFloat(arr[i - 1].priceUsd);
+        const currentPrice = parseFloat(data.priceUsd);
+        return ((currentPrice - previousPrice) / previousPrice) * 100;
+      }).filter(Boolean);
       // Incorporate the latest 24hr change percentage into the calculation    
       const currentChangePercent = parseFloat(currentBitcoinData.changePercent24Hr);
       if (!isNaN(currentChangePercent)) {
         priceChanges.push(currentChangePercent);
       }
+
       const avgPriceChange = priceChanges.reduce((sum, change) => sum + change, 0) / priceChanges.length;
       // Adjust these values to get a more balanced index
       const scaledIndex = (avgPriceChange + 5.2) * 12.3;
       const index = Math.round(Math.min(100, Math.max(0, scaledIndex)));
     
-      let sentiment = "";
+      let sentiment;
       if (index >= 80) {
         sentiment = "Extreme Greed 🤑";
       } else if (index >= 60) {
@@ -75,22 +59,38 @@ const FearGreedIndex = () => {
       } else {
         sentiment = "Extreme Fear 😱";
       }
+
       setFearGreedIndex(index);
       setIndexSentiment(sentiment);
       setIsLoading(false);
     };
 
     calculateFearGreedIndex();
-    // Adjust these values to get a more balanced index
-    const interval = setInterval(calculateFearGreedIndex, 60 * 60 * 1000);
+  }, [historicalBitcoinData, currentBitcoinData]);
 
-    return () => clearInterval(interval);
-  }, [historicalBitcoinData]);
+  const formatDate = (timestamp) => {
+    const options = { month: "long", day: "numeric" };
+    const formattedDate = new Date(timestamp).toLocaleDateString("en-US", options);
+    const day = formattedDate.split(" ")[1];
+    const daySuffix = getDaySuffix(day);
+    return formattedDate.replace(day, day + daySuffix);
+  };
+
+  const getDaySuffix = (day) => {
+    switch (day % 10) {
+      case 1: return day === 11 ? "th" : "st";
+      case 2: return day === 12 ? "th" : "nd";
+      case 3: return day === 13 ? "th" : "rd";
+      default: return "th";
+    }
+  };
+
+  const indexColor = useColorModeValue(indexSentiment?.includes("Greed") ? "green.500" : "red.500", indexSentiment?.includes("Greed") ? "green.200" : "red.200");
 
   return (
     <Card title="Fear & Greed Index">
       <Skeleton isLoaded={!isLoading} height="60px">
-        <Text fontSize="6xl" lineHeight="100%" fontWeight="black" color={indexColor} >
+        <Text fontSize="6xl" lineHeight="100%" fontWeight="black" color={indexColor}>
           {fearGreedIndex}
         </Text>
       </Skeleton>

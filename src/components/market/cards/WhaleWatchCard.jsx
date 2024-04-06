@@ -31,7 +31,7 @@ const WhaleWatchCard = () => {
                 ${parseInt(highestTransaction.usdAmount).toLocaleString()} 
               </Text>
               <Text fontWeight="bold" textAlign="center" color="gray.500" fontSize="md">
-                {(highestTransaction.value / 100000000).toFixed(2)} BTC
+                {(highestTransaction.out.reduce((prev, current) => Math.max(prev, current.value), 0) / 100000000).toFixed(2)} BTC
               </Text>
             </>
           ) : (
